@@ -69,5 +69,6 @@
   ],
   "jest": {
     "preset": "@vue/cli-plugin-unit-jest"
-  }
+  },
+  "packageManager": "yarn@3.2.0"
 }
