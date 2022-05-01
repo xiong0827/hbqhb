@@ -6,6 +6,8 @@ Vue.config.productionTip = false
 //按需引入vant
 import '@/plugins/vant'
 import * as api  from '@/api'
+import  Tabbar  from '@/components/Tabbar'
+Vue.component(Tabbar.name,Tabbar)
 new Vue({
   router,
   store,
