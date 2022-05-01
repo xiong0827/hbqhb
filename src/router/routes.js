@@ -1,57 +1,57 @@
-export default [{
-    path: "/register",
-    name: "register",
-    component: () => import("@/views/Register"),
-    // meta: {
-    //     footerIsShow: true
-    // }
-},
-{
-    path: "/Groom",
-    name: "Groom",
-    component: () => import("@/views/Groom"),
-}
+
+export default [
+    {
+        path: "/login",
+        name: "login",
+        component: () => import("@/views/Login"),
+    },
+
+    {
+        path: "/home",
+        name: "home",
+        component: () => import("@/views/Home"),
+    },
+    {
+        path: "/welcome",
+        name: 'welcome',
+        component: () => import("@/views/Welcome"),
+    },
+    {
+        path: "/classify",
+        name: 'classify',
+        component: () => import("@/views/Classify"),
+    },
+    {
+        path: "/register",
+        name: "register",
+        component: () => import("@/views/Register"),
+        // meta: {
+        //     footerIsShow: true
+        // }
+    },
+    {
+        path: "/groom",
+        name: "groom",
+        component: () => import("@/views/Groom"),
+    }, {
+        path: "/add",
+        name: "add",
+        component: () => import("@/views/Add"),
+    },
+    {
+        path: "/msg",
+        name: "msg",
+        component: () => import("@/views/Msg"),
+    },
+    {
+        path: "/main",
+        name: "main",
+        component: () => import("@/views/main"),
+    },
+    {
+        path: "",
+        redirect: '/welcome',
+        component: () => import("@/views/Welcome"),
+    },
 ]
 
-
-
-// export default[    {
-//     path: "/list",
-//     name: "list",
-//     component: () => import("@/views/List"),
-//     meta:{
-//         footerIsShow:true
-//     }
-// },
-// {
-//     path: "/home",
-//     name: "home",
-//     component: () => import("@/views/Home"),
-//     meta:{
-//         footerIsShow:true
-//     }
-// },
-// {
-//     path: "/cart",
-//     name: "cart",
-//     component: () => import("@/views/Cart"),
-//     meta:{
-//         footerIsShow:true
-//     }
-// },
-// {
-//     path: "/my",
-//     name: "my",
-//     component: () => import("@/views/My"),
-//     meta:{
-//         footerIsShow:true
-//     }
-// },
-// {
-//     path: "*",
-//     redirect: '/home',
-//     meta: {
-//         footerIsShow: true
-//     }
-// },
-// ]

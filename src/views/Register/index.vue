@@ -1,8 +1,8 @@
 <template>
   <div class="register">
     <div class="top">
-      <span class="topspan1"><<返回</span>
-      <span class="topspan2">登录>></span>
+      <router-link class="topspan1"><<返回</router-link>>
+      <router-link class="topspan2">登录>></router-link>
     </div>
     <div class="center">
       <h1>Register</h1>
@@ -53,7 +53,7 @@ export default {
     justify-content: space-between;
     width: 100%;
     height: 6%;
-    span {
+    a {
       width: 15%;
       height: 100%;
       text-align: center;

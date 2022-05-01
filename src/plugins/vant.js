@@ -1,19 +1,26 @@
-import { Button, Tabbar, TabbarItem, Col, Row  } from 'vant';
+import { Button, Tabbar, TabbarItem, Col, Row,Grid, GridItem,Search,Tab, Tabs,Icon, PasswordInput, NumberKeyboard,Cell, CellGroup } from 'vant';
 import Vue from 'vue'
 Vue.use(Button);
 Vue.use(TabbarItem) 
 Vue.use(Tabbar) 
-Vue.use(Col);import { Icon } from 'vant';
-
+Vue.use(Col);
 Vue.use(Icon);
-import { Search } from 'vant';
-import { Tab, Tabs } from 'vant';
 Vue.use(Tab);
 Vue.use(Tabs);
 Vue.use(Search);
 Vue.use(Row);
-import { Grid, GridItem } from 'vant';
-
 Vue.use(Grid);
 Vue.use(GridItem);
+Vue.use(PasswordInput);
+Vue.use(NumberKeyboard);
+Vue.use(Cell)
+Vue.use(CellGroup)
+import { Loading } from 'vant';
+import { Form } from 'vant';
+import { Field } from 'vant';
+
+Vue.use(Form);
+Vue.use(Field);
+
+Vue.use(Loading);
 export default Vue

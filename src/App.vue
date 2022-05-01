@@ -9,10 +9,9 @@ body {
   display: flex;
   justify-content: flex-start;
   #app {
-    width: 100%;
     height: 100vh;
+    width: 100%;
     max-width: 412px;
-    // background: pink;
     display: flex;
   }
 }
