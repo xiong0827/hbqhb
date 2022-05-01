@@ -1,6 +1,6 @@
 <template>
    <div class="searchdiv" :style="{'margin-top':toppx+'px' }" >
-      <div class="searchicon"><van-icon name="arrow-left" size="24" /></div>
+      <div @click="back" class="searchicon"><van-icon name="arrow-left" size="24"/></div>
       <van-field
         class="searchinput"
         v-model="searchcode"
@@ -19,6 +19,12 @@ data() {
         searchcode:''
     }
 },
+methods:{
+    back()
+    {
+        this.$router.go(-1)
+    }
+}
 }
 </script>
 

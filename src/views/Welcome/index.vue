@@ -3,7 +3,7 @@
     <div class="Ellipse"></div>
      <div class="Ellipse2"></div>
     <span class="tiaoguo">
-      <a href="#">跳过>></a>
+     <router-link to="/home">跳过>></router-link>
     </span>
     <span class="welcometitle"><p>welcome</p></span>
     <div class="svg"></div>

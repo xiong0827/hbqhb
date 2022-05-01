@@ -1,6 +1,6 @@
 <template>
   <div class="classifycontainer">
-   <Searchinput  placeholdervalue='搜索更多关键词' toppx='35'/>
+    <Searchinput placeholdervalue="搜索更多关键词" toppx="35" />
     <div class="classifylist">
       <li>
         <a href="">
@@ -8,56 +8,56 @@
           <p>家具</p>
         </a>
       </li>
-     <li>
+      <li>
         <a href="">
           <img src="./images/bed 1.png" alt="" />
           <p>家具</p>
         </a>
       </li>
-         <li>
+      <li>
         <a href="">
           <img src="./images/bed 1.png" alt="" />
           <p>家具</p>
         </a>
       </li>
-         <li>
+      <li>
         <a href="">
           <img src="./images/bed 1.png" alt="" />
           <p>家具</p>
         </a>
       </li>
-         <li>
+      <li>
         <a href="">
           <img src="./images/bed 1.png" alt="" />
           <p>家具</p>
         </a>
       </li>
-         <li>
+      <li>
         <a href="">
           <img src="./images/bed 1.png" alt="" />
           <p>家具</p>
         </a>
       </li>
-         <li>
+      <li>
         <a href="">
           <img src="./images/bed 1.png" alt="" />
           <p>家具</p>
         </a>
       </li>
-         <li>
+      <li>
         <a href="">
           <img src="./images/bed 1.png" alt="" />
           <p>家具</p>
         </a>
       </li>
-         <li>
+      <li>
         <a href="">
           <img src="./images/bed 1.png" alt="" />
           <p>家具</p>
         </a>
       </li>
 
-         <li>
+      <li>
         <a href="">
           <img src="./images/bed 1.png" alt="" />
           <p>家具</p>
@@ -65,18 +65,26 @@
       </li>
     </div>
     <div class="classinfo">
-        <li>
-            <a href=""></a>
-        </li>
-         <li>
-            <a href=""></a>
-        </li>
-         <li>
-            <a href=""></a>
-        </li>
-          <li>
-            <a href=""></a>
-        </li>
+      <li>
+        <img src="./images/灯.png" alt="" />
+        <a href="">华为手机</a>
+        <i>$ 12</i>
+      </li>
+      <li>
+        <img src="./images/灯.png" alt="" />
+        <a href="">华为手机</a>
+        <i>$ 12</i>
+      </li>
+      <li>
+        <img src="./images/灯.png" alt="" />
+        <a href="">华为手机</a>
+        <i>$ 12</i>
+      </li>
+      <li>
+         <img src="./images/灯.png" alt="" />
+        <a href="">华为手机</a>
+        <i>$ 12</i>
+      </li>
     </div>
   </div>
 </template>
@@ -96,9 +104,9 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
- 
+
   .classifylist {
-      margin-top: 19px;
+    margin-top: 19px;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -113,10 +121,10 @@ export default {
       align-items: center;
       margin: 3% 0;
       a {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         img {
           width: 100%;
           height: 44px;
@@ -135,6 +143,41 @@ export default {
         }
       }
     }
+  }
+  .classinfo{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      width:100%;
+      height:34% ;
+   li{
+       width: 45%;
+       height: 100%;
+       display: flex;
+       flex-direction: column;
+       justify-content:space-evenly;
+   
+       margin-bottom: 5%;
+a{
+    font-family: NunitoSans-Regular;
+font-size: 14px;
+font-weight: normal;
+letter-spacing: 0px;
+color: #5F5F5F;
+}
+       img{
+           width: 100%;
+    
+       }
+       i{
+           font-family: NunitoSans-Bold;
+font-size: 14px;
+font-weight: bold;
+letter-spacing: 0px;
+color: #303030;
+       }
+
+   }
   }
 }
 </style>
