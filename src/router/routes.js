@@ -15,6 +15,11 @@ export default [
         name: 'welcome',
         component: () => import("@/views/Welcome"),
     },
+    {
+        path: "/classify",
+        name: 'classify',
+        component: () => import("@/views/Classify"),
+    },
     // {
     //     path:'/register',
     //     name: 'register',

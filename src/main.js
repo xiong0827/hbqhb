@@ -7,6 +7,9 @@ Vue.config.productionTip = false
 import '@/plugins/vant'
 import * as api  from '@/api'
 import  Tabbar  from '@/components/Tabbar'
+//注册search组件为全局zuj
+import Searchinput from '@/components/Searchinput'
+Vue.component('Searchinput',Searchinput)
 Vue.component(Tabbar.name,Tabbar)
 new Vue({
   router,
