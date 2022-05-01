@@ -35,6 +35,7 @@ methods:{
     flex-direction: row;
     justify-content: center;
     align-items: center;
+
     .searchinput {
       border-radius: 8px;
       border: 1px solid #bfbfbf;

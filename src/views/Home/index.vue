@@ -6,9 +6,9 @@
         <span><p>还不起花呗</p></span>
       </div>
       <div class="search">
-          <Searchinput placeholdervalue="搜索更多关键词" toppx="5" />
+        <Searchinput placeholdervalue="搜索更多关键词" toppx="5" />
         <div class="more">
-        <router-link to="/classify">更多>></router-link>
+          <router-link to="/classify">更多>></router-link>
         </div>
       </div>
       <div class="classify">
@@ -106,7 +106,7 @@
             <div class="wantbuy">我想要</div>
           </a>
         </li>
-             <li>
+        <li>
           <a href="">
             <img src="./images/2.png" alt="" />
             <div>
@@ -120,7 +120,7 @@
             <div class="wantbuy">我想要</div>
           </a>
         </li>
-             <li>
+        <li>
           <a href="">
             <img src="./images/2.png" alt="" />
             <div>
@@ -166,7 +166,7 @@ export default {
       flex: 1;
       align-items: center;
       justify-content: flex-start;
-      margin-top:4%;
+      margin-top: 4%;
       img {
         padding-left: 3%;
       }
@@ -184,12 +184,14 @@ export default {
     .search {
       flex: 1;
       flex-direction: column;
+
       .more {
-        flex:1;
+        flex: 1;
         display: flex;
         justify-content: flex-end;
         align-items: center;
         margin-bottom: 10px;
+
         a {
           padding-right: 5%;
           font-family: SourceHanSansCN-Regular;
@@ -211,6 +213,7 @@ export default {
         justify-content: space-evenly;
         align-items: center;
         text-align: center;
+        margin-bottom: 5px;
         img {
           height: 68.3%;
           width: 100%;
@@ -227,6 +230,7 @@ export default {
     }
     .goodslist {
       margin-top: 2%;
+      // overflow: scroll;
       flex: 7;
       flex-wrap: wrap;
       justify-content: space-evenly;
@@ -250,7 +254,7 @@ export default {
           position: relative;
           img {
             width: 100%;
-            height:56%;
+            height: 56%;
           }
           .wantbuy {
             position: absolute;

@@ -5,7 +5,7 @@ export default [
         name: "login",
         component: () => import("@/views/Login"),
     },
- 
+     
     {
         path: "/home",
         name: "home",
@@ -21,14 +21,11 @@ export default [
         name: 'classify',
         component: () => import("@/views/Classify"),
     },
-    // {
-    //     path:'/register',
-    //     name: 'register',
-    // },
+    //他人主页
     {
-        path: "",
-        redirect: '/welcome',
-        component: () => import("@/views/Welcome"),
+        path: "/personal",
+        name: 'personal',
+        component: () => import("@/views/Personal"),
     },
     {
         path: "/register",
@@ -37,12 +34,71 @@ export default [
         // meta: {
         //     footerIsShow: true
         // }
-    }
-    ,
-// {
-//     path: "/Groom",
-//     name: "Groom",
-//     component: () => import("@/views/Groom"),
-// }
+    },
+    {
+        path: "/groom",
+        name: "groom",
+        component: () => import("@/views/Groom"),
+    }, 
+    {
+        path: "/add",
+        name: "add",
+        component: () => import("@/views/Add"),
+    },
+    {
+        path: "/msg",
+        name: "msg",
+        component: () => import("@/views/Msg"),
+    },
+    {
+        path:'/search',
+        name:'search',
+        component: () => import("@/views/Search"),
+    },
+    {
+        path: "/main",
+        name: "main",
+        component: () => import("@/views/Main"),
+    },
+    //关于我d
+    {
+    path:'/aboutmain',
+    name:'aboutmain',
+    component:()=>import("@/views/Aboutmain"),
+    children:[
+        {
+            path:'publish',
+            name:'publish',
+            component:()=>import("@/views/Aboutmain/Publish"),
+            meta:{
+                titletext:'我的发布'
+            }
+        },
+        {
+            path:'buyout',
+            name:'buyout',
+            component:()=>import("@/views/Aboutmain/Buyout"),
+            meta:{
+                titletext:'我的购买'
+            }
+        },
+        {
+            path:'sell',
+            name:'sell',
+            component:()=>import("@/views/Aboutmain/Sell"),
+            meta:{
+                titletext:'我的收藏'
+            }
+        },
+    ]
+    
+    
+    },
+    {
+        path: "",
+        redirect: '/welcome',
+        component: () => import("@/views/Welcome"),
+    },
+
 ]
 

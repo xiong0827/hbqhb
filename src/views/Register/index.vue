@@ -1,8 +1,10 @@
 <template>
   <div class="register">
     <div class="top">
+
       <router-link class="topspan1" to='/welcome'><<返回</router-link>
       <router-link class="topspan2" to='/login'>登录>></router-link>
+
     </div>
     <div class="center">
       <h1>Register</h1>

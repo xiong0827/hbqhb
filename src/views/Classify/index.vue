@@ -1,6 +1,6 @@
 <template>
   <div class="classifycontainer">
-    <Searchinput placeholdervalue="搜索更多关键词" toppx="35" />
+    <Searchinput placeholdervalue="搜索更多关键词" toppx="40" />
     <div class="classifylist">
       <li>
         <a href="">
@@ -66,6 +66,7 @@
     </div>
     <div class="classinfo">
       <li>
+
         <img src="./images/灯.png" alt="" />
         <a href="">华为手机</a>
         <i>$ 12</i>
@@ -112,6 +113,7 @@
         <span>
           <van-icon name="bag-o" size="40" color="#ffffd" />
         </span>
+
       </li>
     </div>
   </div>
