@@ -69,21 +69,49 @@
         <img src="./images/灯.png" alt="" />
         <a href="">华为手机</a>
         <i>$ 12</i>
+        <span>
+          <van-icon name="bag-o" size="40" color="#ffffd" />
+        </span>
       </li>
       <li>
         <img src="./images/灯.png" alt="" />
         <a href="">华为手机</a>
         <i>$ 12</i>
+        <span>
+          <van-icon name="bag-o" size="40" color="#ffffd" />
+        </span>
       </li>
       <li>
         <img src="./images/灯.png" alt="" />
         <a href="">华为手机</a>
         <i>$ 12</i>
+        <span>
+          <van-icon name="bag-o" size="40" color="#ffffd" />
+        </span>
       </li>
       <li>
          <img src="./images/灯.png" alt="" />
         <a href="">华为手机</a>
         <i>$ 12</i>
+        <span>
+          <van-icon name="bag-o" size="40" color="#ffffd" />
+        </span>
+      </li>
+       <li>
+         <img src="./images/灯.png" alt="" />
+        <a href="">华为手机</a>
+        <i>$ 12</i>
+        <span>
+          <van-icon name="bag-o" size="40" color="#ffffd" />
+        </span>
+      </li>
+       <li>
+         <img src="./images/灯.png" alt="" />
+        <a href="">华为手机</a>
+        <i>$ 12</i>
+        <span>
+          <van-icon name="bag-o" size="40" color="#ffffd" />
+        </span>
       </li>
     </div>
   </div>
@@ -156,7 +184,7 @@ export default {
        display: flex;
        flex-direction: column;
        justify-content:space-evenly;
-   
+      position: relative;
        margin-bottom: 5%;
 a{
     font-family: NunitoSans-Regular;
@@ -165,9 +193,14 @@ font-weight: normal;
 letter-spacing: 0px;
 color: #5F5F5F;
 }
+span{
+    position: absolute;
+    right: 15px;
+    bottom: 69px;
+}
        img{
            width: 100%;
-    
+ 
        }
        i{
            font-family: NunitoSans-Bold;

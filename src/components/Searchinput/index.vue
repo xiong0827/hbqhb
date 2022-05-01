@@ -30,7 +30,7 @@ methods:{
 
 <style lang="less" scoped>
  .searchdiv {
-    
+    margin-bottom: 6px;
     display: flex;
     flex-direction: row;
     justify-content: center;

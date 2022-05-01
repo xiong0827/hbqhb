@@ -8,7 +8,7 @@
     <span class="welcometitle"><p>welcome</p></span>
     <div class="svg"></div>
      <span class="button" ><router-link to="/login">登录</router-link></span>
-    <span class="button"><a href="">注册</a></span>
+    <span class="button"><router-link to="/register">注册</router-link></span>
   </div>
 </template>
 

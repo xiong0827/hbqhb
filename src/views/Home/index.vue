@@ -6,17 +6,9 @@
         <span><p>还不起花呗</p></span>
       </div>
       <div class="search">
-        <div class="searchtop">
-          <van-field
-            class="searchinput"
-            v-model="searchcode"
-            clearable
-            right-icon="search"
-            placeholder="输入关键字"
-          />
-        </div>
+          <Searchinput placeholdervalue="搜索更多关键词" toppx="5" />
         <div class="more">
-          <a href="">更多>></a>
+        <router-link to="/classify">更多>></router-link>
         </div>
       </div>
       <div class="classify">
@@ -192,23 +184,12 @@ export default {
     .search {
       flex: 1;
       flex-direction: column;
-       margin:3% 0;
-      .searchtop {
-        flex: 5;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        .searchinput {
-          width: 90%;
-          height: 90%;
-          border: 1px gray solid;
-        }
-      }
       .more {
-        flex: 3;
+        flex:1;
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        margin-bottom: 10px;
         a {
           padding-right: 5%;
           font-family: SourceHanSansCN-Regular;
