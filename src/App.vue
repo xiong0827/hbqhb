@@ -5,6 +5,7 @@
 </template>
 
 <style lang="less">
+
 body{
 display: flex;
 justify-content: flex-start;

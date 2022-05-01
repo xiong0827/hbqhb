@@ -1,3 +1,4 @@
+
 export default [
     {
         path: "/login",
@@ -29,4 +30,19 @@ export default [
         redirect: '/welcome',
         component: () => import("@/views/Welcome"),
     },
+    {
+        path: "/register",
+        name: "register",
+        component: () => import("@/views/Register"),
+        // meta: {
+        //     footerIsShow: true
+        // }
+    }
+    ,
+// {
+//     path: "/Groom",
+//     name: "Groom",
+//     component: () => import("@/views/Groom"),
+// }
 ]
+
