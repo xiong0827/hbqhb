@@ -1,10 +1,15 @@
 export default [{
-    path: "/home",
-    name: "home",
-    component: () => import("@/views/Home"),
+    path: "/register",
+    name: "register",
+    component: () => import("@/views/Register"),
     // meta: {
     //     footerIsShow: true
     // }
+},
+{
+    path: "/Groom",
+    name: "Groom",
+    component: () => import("@/views/Groom"),
 }
 ]
 

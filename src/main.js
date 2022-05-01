@@ -5,13 +5,13 @@ import store from '@/store'
 Vue.config.productionTip = false
 //按需引入vant
 import '@/plugins/vant'
-import * as api  from '@/api'
+import * as api from '@/api'
 new Vue({
   router,
   store,
   render: h => h(App),
   beforeCreate() {
     Vue.prototype.$bus = this
-    Vue.prototype.$api=api
+    Vue.prototype.$api = api
   }
 }).$mount('#app')
