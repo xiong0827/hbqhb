@@ -9,11 +9,14 @@ import '@/plugins/vant'
 
 import * as api from '@/api'
 import Tabbar from '@/components/Tabbar'
+import UpLoader from '@/components/UpLoader'
+import Selectsite from '@/components/Selectsite'
 //注册search组件为全局zuj
 import Searchinput from '@/components/Searchinput'
 Vue.component('Searchinput', Searchinput)
 Vue.component(Tabbar.name, Tabbar)
-
+Vue.component(UpLoader.name, UpLoader)
+Vue.component(Selectsite.name, Selectsite)
 new Vue({
   router,
   store,
