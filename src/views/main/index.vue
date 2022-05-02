@@ -13,7 +13,6 @@
         <img src="./images/我的发布.png" alt="" />
       </div>
       <div class="name">还不起花呗</div>
-      <div class="line"></div>
       <div class="rectangle">
         <li>关注</li>
         <li>粉丝</li>
@@ -165,17 +164,7 @@ export default {
       margin: 10px auto;
     }
     // 线
-    .line {
-      width: 100%;
-      height: 47px;
-      background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.3) 0%,
-        rgba(255, 255, 255, 0.3) 0%,
-        rgba(215, 215, 215, 0) 100%,
-        rgba(215, 215, 215, 0) 100%
-      );
-    }
+
     // 矩形框
     .rectangle {
       display: flex;
@@ -185,6 +174,7 @@ export default {
       margin: 30px auto;
       border-radius: 10px;
       overflow: hidden;
+       box-shadow: 3px 2px 8px 0px rgba(108, 0, 0, 0.1);
       background: linear-gradient(
         103deg,
         rgba(255, 255, 255, 0.85) 1%,
@@ -192,7 +182,7 @@ export default {
         rgba(255, 255, 255, 0.7) 99%,
         rgba(255, 255, 255, 0.7) 99%
       );
-      box-shadow: 0px 2px 8px 0px rgba(108, 0, 0, 0.1);
+
       li {
         list-style: none;
         flex: 1;

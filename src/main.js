@@ -16,6 +16,9 @@ Vue.component(Tabbar.name,Tabbar)
 //注册backtop
 import Backtop from '@/components/Backtop'
 Vue.component('Backtop',Backtop)
+//注册表backleft
+import Backleft from '@/components/Backleft'
+Vue.component('Backleft',Backleft)
 new Vue({
   router,
   store,

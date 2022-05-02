@@ -35,16 +35,21 @@ export default [
         //     footerIsShow: true
         // }
     },
+    //广场推荐
     {
         path: "/groom",
         name: "groom",
         component: () => import("@/views/Groom"),
+        meta:{
+            titletext:'广场'
+        }
     }, 
     {
         path: "/add",
         name: "add",
         component: () => import("@/views/Add"),
     },
+
     {
         path: "/msg",
         name: "msg",

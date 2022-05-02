@@ -54,7 +54,7 @@ export default {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    height: 6%;
+    height: 8%;
     a {
       width: 15%;
       height: 100%;
@@ -69,7 +69,9 @@ export default {
     .topspan1 {
       margin-left: 10px;
       display: flex;
+      width: 20%;
       justify-content: center;
+      align-items: center;
       position: relative;
       z-index: 2;
       &:after {
@@ -95,6 +97,7 @@ export default {
       display: flex;
       justify-content: center;
       margin-right: 10px;
+         width: 20%;
     }
   }
   .center {
