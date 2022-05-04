@@ -13,17 +13,22 @@
       </div>
       <div class="phone">
         <van-icon class="icon" name="manager" color="#700BEF" size="30" /><input
+        v-model="phonenum"
           type="text"
           placeholder="手机号"
         />
+        
       </div>
       <div class="code">
         <van-icon class="icon" name="comment" color="#700BEF" size="30" /><input
+        v-model="inputcode"
           type="text"
           name=""
           id=""
           placeholder="验证码"
         />
+        <van-button  type="info" class="getcode" v-if="timer==0" @click="getcode">获取验证码</van-button>
+        <van-button disabled class="getcode" v-else>{{timer}}秒后重发</van-button>
       </div>
       <div class="password">
         <van-icon class="icon" name="lock" color="#700BEF" size="30" /><input
@@ -43,6 +48,29 @@
 <script>
 export default {
   name: "Register",
+  data() {
+    return {
+      phonenum:'',
+      code:'',
+      inputcode:'',
+      timer:0
+    }
+  },
+  methods:{
+    getcode()
+    {
+      if (!this.phonenum) {
+        
+      }
+    this.timer=5
+    setInterval(()=>{
+  this.timer--;
+  if (timer==0) {
+    return
+  }
+    },1000)
+    }
+  }
 };
 </script>
 
@@ -142,12 +170,20 @@ export default {
     }
     .code {
       position: relative;
+      input{
+        text-align:center;
+      }
       .icon {
         position: absolute;
         left: 25.77px;
         top: 8.25px;
         width: 26px;
         height: 30.88px;
+      }
+      .getcode{
+        position: absolute;
+        top: 5%;
+        right: 4%;
       }
     }
     .password {
