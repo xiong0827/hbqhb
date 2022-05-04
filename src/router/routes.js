@@ -5,7 +5,7 @@ export default [
         name: "login",
         component: () => import("@/views/Login"),
     },
-     
+
     {
         path: "/home",
         name: "home",
@@ -40,10 +40,10 @@ export default [
         path: "/groom",
         name: "groom",
         component: () => import("@/views/Groom"),
-        meta:{
-            titletext:'广场'
+        meta: {
+            titletext: '广场'
         }
-    }, 
+    },
     {
         path: "/add",
         name: "add",
@@ -56,8 +56,8 @@ export default [
         component: () => import("@/views/Msg"),
     },
     {
-        path:'/search',
-        name:'search',
+        path: '/search',
+        name: 'search',
         component: () => import("@/views/Search"),
     },
     {
@@ -67,37 +67,48 @@ export default [
     },
     //关于我d
     {
-    path:'/aboutmain',
-    name:'aboutmain',
-    component:()=>import("@/views/Aboutmain"),
-    children:[
-        {
-            path:'publish',
-            name:'publish',
-            component:()=>import("@/views/Aboutmain/Publish"),
-            meta:{
-                titletext:'我的发布'
-            }
-        },
-        {
-            path:'buyout',
-            name:'buyout',
-            component:()=>import("@/views/Aboutmain/Buyout"),
-            meta:{
-                titletext:'我的购买'
-            }
-        },
-        {
-            path:'sell',
-            name:'sell',
-            component:()=>import("@/views/Aboutmain/Sell"),
-            meta:{
-                titletext:'我的收藏'
-            }
-        },
-    ]
-    
-    
+        path: '/aboutmain',
+        name: 'aboutmain',
+        component: () => import("@/views/Aboutmain"),
+        children: [
+            {
+                path: 'publish',
+                name: 'publish',
+                component: () => import("@/views/Aboutmain/Publish"),
+                meta: {
+                    titletext: '我的发布'
+                }
+            },
+            {
+                path: 'buyout',
+                name: 'buyout',
+                component: () => import("@/views/Aboutmain/Buyout"),
+                meta: {
+                    titletext: '我的购买'
+                }
+            },
+            {
+                path: 'sell',
+                name: 'sell',
+                component: () => import("@/views/Aboutmain/Sell"),
+                meta: {
+                    titletext: '我的收藏'
+                }
+            },
+        ]
+
+
+    },
+    // 聊天
+    {
+        path: "/chat",
+        name: "chat",
+        component: () => import("@/views/Chat"),
+    },
+    {
+        path: "/fans",
+        name: "fans",
+        component: () => import("@/views/Fans"),
     },
     {
         path: "",
