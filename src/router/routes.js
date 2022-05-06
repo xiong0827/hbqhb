@@ -1,6 +1,4 @@
-
-export default [
-    {
+export default [{
         // 登录
         path: "/login",
         name: "login",
@@ -82,8 +80,7 @@ export default [
         path: '/aboutmain',
         name: 'aboutmain',
         component: () => import("@/views/Aboutmain"),
-        children: [
-            {
+        children: [{
                 path: 'publish',
                 name: 'publish',
                 component: () => import("@/views/Aboutmain/Publish"),
@@ -108,8 +105,6 @@ export default [
                 }
             },
         ]
-
-
     },
 
     {
@@ -174,10 +169,15 @@ export default [
         component: () => import("@/views/GoodsInfo"),
     },
     {
+        // 订单详情
+        path: "/orderinfo",
+        name: "orderinfo",
+        component: () => import("@/views/OrderInfo"),
+    },
+    {
         path: "",
         redirect: '/welcome',
         component: () => import("@/views/Welcome"),
     },
 
 ]
-

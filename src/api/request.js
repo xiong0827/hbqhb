@@ -9,7 +9,11 @@ import store from '@/store';
 const requests = axios.create({
     //在给发请求的自动带上api
     //代表超时事件
-
+    baseUR:'/api',
+    responseType:'json',
+    headers:{
+        'content-type':'application/x-www-form-urlencoded'   //转换为key=value的格式必须增加content-type
+      },
     timeout: 5000,
     // proxy: {
     //     protocol: 'http',
