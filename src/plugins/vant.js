@@ -1,8 +1,9 @@
-import { Button, Tabbar, TabbarItem, Col, Row,Grid, GridItem,Search,Tab, Tabs,Icon, PasswordInput, NumberKeyboard,Cell,Toast, CellGroup, Uploader, NavBar } from 'vant';
+import { Button, Tabbar, TabbarItem, Col, Row, Grid, GridItem, Search, Tab, Tabs, Icon, PasswordInput, NumberKeyboard, Cell, Toast, CellGroup, Uploader, NavBar, Calendar, Popup, Cascader, Stepper, Dialog, AddressEdit, ShareSheet } from 'vant';
+
 import Vue from 'vue'
 Vue.use(Button);
-Vue.use(TabbarItem) 
-Vue.use(Tabbar) 
+Vue.use(TabbarItem)
+Vue.use(Tabbar)
 Vue.use(Col);
 Vue.use(Icon);
 Vue.use(Tab);
@@ -13,10 +14,19 @@ Vue.use(Grid);
 Vue.use(GridItem);
 Vue.use(PasswordInput);
 Vue.use(NumberKeyboard);
-Vue.use(Cell)
-Vue.use(CellGroup)
+Vue.use(Cell);
+Vue.use(CellGroup);
 Vue.use(Toast)
-Vue.use(NavBar)
+Vue.use(Uploader);
+Vue.use(NavBar);
+
+Vue.use(Calendar);
+Vue.use(Popup);
+Vue.use(Cascader);
+Vue.use(Stepper);
+Vue.use(Dialog);
+Vue.use(AddressEdit);
+Vue.use(ShareSheet)
 import { Loading } from 'vant';
 import { Form } from 'vant';
 import { Field } from 'vant';
@@ -38,6 +48,5 @@ Vue.use(Tag);
 Vue.use(Card);
 Vue.use(Form);
 Vue.use(Field);
-Vue.use(Uploader)
 Vue.use(Loading);
 export default Vue

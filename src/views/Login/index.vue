@@ -7,23 +7,19 @@
     </span>
     <span class="logintitle"><p>Login</p></span>
     <div class="phone">
-             
       <van-icon class="icon" name="manager" color="#700BEF" size="30" /><input
         type="text"
         placeholder="手机号"
       />
-           
     </div>
 
     <div class="password">
-             
       <van-icon class="icon" name="lock" color="#700BEF" size="30" /><input
         type="password"
         name=""
         id=""
         placeholder="密码"
       />
-           
     </div>
 
     <span class="button"><router-link to="home">登录</router-link></span>
@@ -75,7 +71,7 @@ export default {
       height: 30.88px;
     }
   }
-    .password {
+  .password {
     position: relative;
     .icon {
       position: absolute;
@@ -85,7 +81,7 @@ export default {
       height: 30.88px;
     }
   }
-    
+
   .button {
     width: 90%;
     height: 8%;

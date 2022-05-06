@@ -3,11 +3,7 @@
     <!-- 顶部 -->
     <div class="top">
       <div>消息</div>
-      <a href="#" class="a">
-        <li></li>
-        <li></li>
-        <li></li>
-      </a>
+      <Share />
     </div>
     <!-- 搜索框 -->
     <div class="search">
@@ -93,7 +89,7 @@
         </span>
       </li>
     </div>
-    <Tabbar/>
+    <Tabbar />
   </div>
 </template>
 
@@ -105,12 +101,16 @@ export default {};
 .msg {
   flex: 1;
   background: #ff6e53;
+  color: black;
   // 顶部
   .top {
     display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 80px;
     position: relative;
-    flex: 30%;
-    padding-top: 20%;
+    // flex: 30%;
+    // padding-top: 20%;
     // 消息
     div {
       width: 44px;
@@ -121,28 +121,19 @@ export default {};
       line-height: 28px;
       letter-spacing: 1.43px;
       color: #ffffff;
-      position: absolute;
-      left: 50%;
-      margin-left: -22px;
-      margin-top: 30px;
-      top: 35%;
+      // position: absolute;
+      // left: 50%;
+      // margin-left: -22px;
+      margin-top: 50px;
+      // top: 35%;
     }
     // 圆点
-    .a {
+    .share {
       width: 30px;
       position: absolute;
-      display: inline-block;
-      right: 5%;
-      top: 25%;
-      li {
-        margin-top: 30px;
-        display: inline-block;
-        height: 4px;
-        width: 4px;
-        background: #fff;
-        border-radius: 50%;
-        margin-left: 3px;
-      }
+      top: -50%;
+      margin-left: 87%;
+      color: #2f2f4a;
     }
   }
   .bottom {

@@ -1,53 +1,41 @@
 <template>
-  <div class="register">
+  <div class="resetPassword">
     <div class="top">
-      <router-link class="topspan1" to="/welcome"><<返回</router-link>
-      <router-link class="topspan2" to="/login">登录>></router-link>
+      <router-link class="topspan1" to="/main"><<返回</router-link>
     </div>
     <div class="center">
-      <h1>Register</h1>
+      <h1>ResetRegister</h1>
       <div class="registersvg">
         <img src="./images/svg2.svg" alt="" />
       </div>
-      <div class="phone">
-        <van-icon class="icon" name="manager" color="#700BEF" size="30" /><input
-          v-model.number="phone_id"
-          type="number"
-          placeholder="手机号"
-        />
-      </div>
-      <div class="code">
-        <van-icon class="icon" name="comment" color="#700BEF" size="30" /><input
-          v-model.number="code"
-          type="number"
-          name=""
-          id=""
-          placeholder="验证码"
-        />
-        <van-button
-          type="info"
-          class="getcode"
-          v-if="timer == 0"
-          @click="getcode"
-          >获取验证码</van-button
-        >
-        <van-button disabled class="getcode" v-else
-          >{{ timer }}秒后重发</van-button
-        >
-      </div>
-      <div class="password">
+      <div class="password old">
         <van-icon class="icon" name="lock" color="#700BEF" size="30" /><input
           type="password"
-          v-model="password"
           name=""
           id=""
-          placeholder="密码"
+          placeholder="原密码"
+        />
+      </div>
+      <div class="password new">
+        <van-icon class="icon" name="lock" color="#700BEF" size="30" /><input
+          type="password"
+          name=""
+          id=""
+          placeholder="新密码"
+        />
+      </div>
+      <div class="password repeat">
+        <van-icon class="icon" name="lock" color="#700BEF" size="30" /><input
+          type="password"
+          name=""
+          id=""
+          placeholder="再次密码"
         />
       </div>
     </div>
-    <div class="bottom" @click="userRegister">
+    <div class="bottom">
       <van-button round type="info" class="button1" @click="Dialog"
-        >注册</van-button
+        >确定</van-button
       >
     </div>
   </div>
@@ -55,14 +43,14 @@
 
 <script>
 export default {
-  name: "Register",
+  name: "ResetPassword",
   data() {
     return {
       phone_id: "",
       code: "",
-      password: "",
       timer: 0,
-      tipsMsg: "123",
+      //弹出信息
+      tipsMsg: "修改成功",
     };
   },
   methods: {
@@ -77,18 +65,6 @@ export default {
         }
       }, 1000);
     },
-    async userRegister() {
-      try {
-        const { phone_id, code, password } = this;
-        await this.$store.dispatch("user/reqRegister", {
-          phone_id,
-          password,
-        });
-        // this.$router.push("/login");
-      } catch (error) {
-        alert(error.message);
-      }
-    },
     Dialog() {
       this.$dialog
         .alert({
@@ -96,7 +72,7 @@ export default {
           message: this.tipsMsg,
         })
         .then(() => {
-          console.log("点击了确认");
+          this.$router.push("main");
         });
     },
   },
@@ -104,7 +80,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.register {
+.resetPassword {
   flex: 1;
   overflow: hidden;
   .top {
@@ -165,7 +141,7 @@ export default {
     justify-content: space-around;
     align-items: center;
     h1 {
-      width: 183px;
+      width: 75%;
       height: 67px;
       font-family: RobotoRoman-Medium;
       font-size: 48px;

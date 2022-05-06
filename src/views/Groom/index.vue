@@ -1,10 +1,9 @@
 <template>
   <div class="groom">
-    <Backleft backsize='30' margin='20'/>
+    <Backleft backsize="30" margin="20" />
     <Tabbar />
     <!-- 上部分 -->
     <div class="title">
-      
       <p>宝藏圈子</p>
     </div>
     <div class="production">
@@ -23,7 +22,7 @@
             <p class="time">3分钟前</p>
           </li>
           <li class="c">
-            <van-icon name="ellipsis" size="30" color="black" />
+            <Share />
           </li>
         </span>
         <!-- 留言 -->
@@ -63,7 +62,7 @@
             <p class="time">5小时前</p>
           </li>
           <li class="c">
-            <van-icon name="ellipsis" size="30" color="black" />
+            <Share />
           </li>
         </span>
         <!-- 留言 -->
@@ -103,7 +102,7 @@
             <p class="time">3分钟前()广告</p>
           </li>
           <li class="c">
-            <van-icon name="ellipsis" size="30" color="black" />
+            <Share />
           </li>
         </span>
         <!-- 留言 -->

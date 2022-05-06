@@ -11,7 +11,7 @@
         </span>
       </div>
 
-      <div class="sent">
+      <div class="sent" @click="skip('releasegoods')">
         <span
           ><van-icon name="paid" class="left" color="#1c2d2e" size="60"
         /></span>
@@ -21,15 +21,26 @@
         </span>
       </div>
 
-      <div  class="up">
-        <a @click="$router.go(-1)"><van-icon name="cross" class="flase" size="60" /></a>
+      <div class="up">
+        <a @click="$router.go(-1)"
+          ><van-icon name="cross" class="flase" size="60"
+        /></a>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  name: "Add",
+  methods: {
+    skip(rou) {
+      if (rou == "releasegoods") {
+        this.$router.push(rou);
+      }
+    },
+  },
+};
 </script>
 
 <style lang="less" scoped>
