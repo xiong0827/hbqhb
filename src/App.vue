@@ -9,7 +9,7 @@ body {
   display: flex;
   justify-content: flex-start;
   #app {
-    height: 100vh;
+    height: 92vh;
     width: 100%;
     max-width: 412px;
     display: flex;

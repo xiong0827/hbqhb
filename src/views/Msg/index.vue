@@ -13,7 +13,7 @@
     <div class="bottom">
       <li>
         <span class="pic">
-          <img src="./images/我收藏的.png" alt="" />
+          <img src="./images/1.png" alt="" />
         </span>
         <span class="language">
           <li class="name">
@@ -26,7 +26,7 @@
 
       <li>
         <span class="pic">
-          <img src="./images/我收藏的.png" alt="" />
+          <img src="./images/2.png" alt="" />
         </span>
         <span class="language">
           <li class="name">
@@ -39,7 +39,7 @@
 
       <li>
         <span class="pic">
-          <img src="./images/我收藏的.png" alt="" />
+          <img src="./images/3.png" alt="" />
         </span>
         <span class="language">
           <li class="name">
@@ -52,7 +52,7 @@
 
       <li>
         <span class="pic">
-          <img src="./images/我收藏的.png" alt="" />
+          <img src="./images/4.png" alt="" />
         </span>
         <span class="language">
           <li class="name">
@@ -65,7 +65,7 @@
 
       <li>
         <span class="pic">
-          <img src="./images/我收藏的.png" alt="" />
+          <img src="./images/5.png" alt="" />
         </span>
         <span class="language">
           <li class="name">
@@ -78,7 +78,7 @@
 
       <li>
         <span class="pic">
-          <img src="./images/我收藏的.png" alt="" />
+          <img src="./images/6.png" alt="" />
         </span>
         <span class="language">
           <li class="name">

@@ -9,31 +9,92 @@
     <div class="phone">
       <van-icon class="icon" name="manager" color="#700BEF" size="30" /><input
         type="text"
+        :class="{ outline: check.checkPhone() == false }"
+        v-model="phone_id"
         placeholder="手机号"
       />
     </div>
 
     <div class="password">
-      <van-icon class="icon" name="lock" color="#700BEF" size="30" /><input
+      <van-icon
+        class="icon"
+        name="lock"
+        color="#700BEF"
+        size="30"
+        @click="showpassword"
+      /><input
         type="password"
+        ref="password"
+        :class="{ outline: check.checkPassword() == false }"
+        v-model="password"
         name=""
-        id=""
         placeholder="密码"
       />
     </div>
-
-    <span class="button"><router-link to="home">登录</router-link></span>
+    <span class="button" v-if="loginshow" @click="login"><a>登录</a></span>
+    <span class="button" :style="{ opacity: 0.5 }" v-else><a>登录</a></span>
   </div>
 </template>
 
 <script>
+import checkObj from "@/units/check";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
-      showKeyboard: false,
-      value1: "1",
-      value2: "2",
+      phone_id: "",
+      password: "",
     };
+  },
+  computed: {
+    loginshow() {
+      if (this.check.checkPhone() && this.check.checkPassword()) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    check() {
+      return new checkObj({
+        phone: this.phone_id,
+        password: this.password,
+      });
+    },
+    ...mapState("user", ["token"]),
+  },
+  methods: {
+    async login() {
+      try {
+        await this.$store.dispatch("user/userLogin", {
+          phone_id: this.phone_id,
+          password: this.password,
+        });
+        this.$dialog
+          .alert({
+            message: "登录成功",
+          })
+          .then(() => {
+            this.$router.push({
+              name: "home",
+            });
+          });
+      } catch (error) {
+        this.$dialog
+          .alert({
+            message: error.message,
+          })
+          .then(() => {
+            this.password = "";
+          });
+      }
+    },
+    showpassword(e) {
+      if (this.$refs.password.type == "text") {
+        this.$refs.password.type = "password";
+      } else {
+        this.$refs.password.type = "text";
+      }
+    },
   },
 };
 </script>
@@ -42,6 +103,7 @@ export default {
 .login {
   overflow: hidden;
   position: relative;
+
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -60,6 +122,9 @@ export default {
     letter-spacing: 0px;
     color: rgba(111, 11, 239, 0.5);
     text-align: center;
+  }
+  .outline {
+    border: 2px solid red;
   }
   .phone {
     position: relative;

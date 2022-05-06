@@ -31,6 +31,9 @@ requests.interceptors.request.use((config) => {
     // if (store.state.user.token) {
     //     config.headers.token = store.state.user.token
     // }
+    if (localStorage.localStorage.getItem('token')) {
+        config.headers.Authorization = localStorage.getItem('token')
+    }
     nprogress.start()
     return config
 

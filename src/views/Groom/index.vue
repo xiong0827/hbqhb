@@ -15,7 +15,7 @@
         <!-- 头像 -->
         <span class="top">
           <li class="a">
-            <img src="./images/Oval Copy 2.png" alt="" />
+            <img src="./images/3.png" alt="" />
           </li>
           <li class="b">
             <p class="name">王二</p>
@@ -55,7 +55,7 @@
         <!-- 头像 -->
         <span class="top">
           <li class="a">
-            <img src="./images/Oval Copy 2.png" alt="" />
+            <img src="./images/2.png" alt="" />
           </li>
           <li class="b">
             <p class="name">张三</p>
@@ -95,7 +95,7 @@
         <!-- 头像 -->
         <span class="top">
           <li class="a">
-            <img src="./images/Oval Copy 3.png" alt="" />
+            <img src="./images/5.png" alt="" />
           </li>
           <li class="b">
             <p class="name">李四</p>
@@ -135,7 +135,7 @@
         <!-- 头像 -->
         <span class="top">
           <li class="a">
-            <img src="./images/Oval Copy 3.png" alt="" />
+            <img src="./images/6.png" alt="" />
           </li>
           <li class="b">
             <p class="name">李四</p>
@@ -259,6 +259,7 @@ export default {
         }
       }
       .b {
+        margin-left: 10px;
         height: 100%;
         width: 200px;
         display: flex;

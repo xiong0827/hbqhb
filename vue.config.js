@@ -1,4 +1,6 @@
-const { defineConfig } = require('@vue/cli-service')
+const {
+  defineConfig
+} = require('@vue/cli-service')
 module.exports = defineConfig({
   transpileDependencies: true,
   //关闭es效验
@@ -13,6 +15,21 @@ module.exports = defineConfig({
         //   '^/api': '',
         // }
       },
+      '/commodity': {
+        target: 'http://127.0.0.1:3000',
+        ws: true,
+        changeOrigin: true,
+      },
+      '/user': {
+        target: 'http://127.0.0.1:3000',
+        ws: true,
+        changeOrigin: true,
+      },
+      '/order': {
+        target: 'http://127.0.0.1:3000',
+        ws: true,
+        changeOrigin: true,
+      }
       // '/foo': {
       //   target: '<other_url>'
       // }

@@ -11,8 +11,9 @@
       </div>
       <div class="phone">
         <van-icon class="icon" name="manager" color="#700BEF" size="30" /><input
+          :class="{ outline: check.checkPhone() == false }"
           v-model.number="phone_id"
-          type="number"
+          type="tel"
           placeholder="手机号"
         />
       </div>
@@ -20,14 +21,23 @@
         <van-icon class="icon" name="comment" color="#700BEF" size="30" /><input
           v-model.number="code"
           type="number"
+          :class="{ outline: code.length < 6 }"
           name=""
-          id=""
           placeholder="验证码"
+          max="6"
         />
         <van-button
           type="info"
           class="getcode"
-          v-if="timer == 0"
+          v-if="timer == 0 && check.checkPhone()"
+          @click="getcode"
+          >获取验证码</van-button
+        >
+        <van-button
+          type="info"
+          disabled
+          class="getcode"
+          v-else-if="timer == 0 && !check.checkPhone()"
           @click="getcode"
           >获取验证码</van-button
         >
@@ -38,15 +48,38 @@
       <div class="password">
         <van-icon class="icon" name="lock" color="#700BEF" size="30" /><input
           type="password"
+          :class="{ outline: check.checkPassword() == false }"
           v-model="password"
           name=""
-          id=""
           placeholder="密码"
         />
       </div>
+      <div class="password">
+        <van-icon class="icon" name="lock" color="#700BEF" size="30" /><input
+          type="password"
+          :class="{ outline: check.chekRePassword() == false }"
+          v-model="repassword"
+          name=""
+          placeholder="再次输入"
+        />
+      </div>
     </div>
-    <div class="bottom" @click="userRegister">
-      <van-button round type="info" class="button1" @click="Dialog"
+    <div class="bottom">
+      <van-button
+        round
+        v-show="registerShow"
+        type="info"
+        class="button1"
+        @click="userRegister"
+        >注册</van-button
+      >
+      <van-button
+        round
+        disabled
+        v-show="!registerShow"
+        color="#6f0bef"
+        class="button1"
+        @click="userRegister"
         >注册</van-button
       >
     </div>
@@ -54,6 +87,8 @@
 </template>
 
 <script>
+import checkObj from "@/units/check";
+import { mapState } from "vuex";
 export default {
   name: "Register",
   data() {
@@ -61,44 +96,95 @@ export default {
       phone_id: "",
       code: "",
       password: "",
+      repassword: "",
       timer: 0,
-      tipsMsg: "123",
+      tipsMsg: "",
     };
   },
   methods: {
-    getcode() {
-      if (!this.phonenum) {
-      }
-      this.timer = 5;
-      var timer = setInterval(() => {
-        this.timer--;
-        if (this.timer == 0) {
-          clearInterval(timer);
-        }
-      }, 1000);
-    },
-    async userRegister() {
+    async getcode() {
       try {
-        const { phone_id, code, password } = this;
-        await this.$store.dispatch("user/reqRegister", {
-          phone_id,
-          password,
-        });
-        // this.$router.push("/login");
-      } catch (error) {
-        alert(error.message);
+        await this.$store.dispatch("user/getCode", { phone_id: this.phone_id });
+        this.timer = 60;
+        var timer = setInterval(() => {
+          this.timer--;
+          if (this.timer == 0) {
+            clearInterval(timer);
+          }
+        }, 1000);
+      } catch (err) {
+        this.$dialog
+          .alert({
+            message: err,
+          })
+          .then(() => {
+            this.tipsMsg = "";
+          });
       }
     },
-    Dialog() {
-      this.$dialog
-        .alert({
-          // title:'标题呀',
-          message: this.tipsMsg,
-        })
-        .then(() => {
-          console.log("点击了确认");
-        });
+    //注册
+    async userRegister() {
+      if (this.check.checkCode(this.phonecode)) {
+        try {
+          const { phone_id, password } = this;
+          let result = await this.$store.dispatch("user/Register", {
+            phone_id,
+            password,
+          });
+          this.tipsMsg = result;
+        } catch (error) {
+          this.tipsMsg = error;
+          this.code=''
+        }
+        this.$dialog
+          .alert({
+            message: this.tipsMsg,
+          })
+          .then(() => {
+            this.tipsMsg = "";
+          });
+      } else if (!this.check.checkCode(this.phonecode)) {
+        this.$dialog
+          .alert({
+            message: "验证码错误",
+          })
+          .then(() => {
+            this.code=''
+          });
+      } else {
+        this.$dialog
+          .alert({
+            message: "请先获取验证码",
+          })
+          .then(() => {
+            this.code='';
+          });
+      }
     },
+  },
+  computed: {
+    check() {
+      return new checkObj({
+        phone: this.phone_id,
+        code: this.code,
+        password: this.password,
+        repassword: this.repassword,
+      });
+    },
+    //注册按钮状态
+    registerShow() {
+      if (
+        this.code != "" &&
+        this.check.checkPhone() &&
+        this.check.checkPassword() &&
+        this.check.chekRePassword()
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    ...mapState("user", ["phonecode"]),
   },
 };
 </script>
@@ -187,6 +273,9 @@ export default {
       color: rgba(111, 11, 239, 0.5);
       text-align: center;
     }
+    .outline {
+      border: 2px solid red;
+    }
     .phone {
       position: relative;
       .icon {
@@ -235,7 +324,6 @@ export default {
       width: 325px;
       height: 50px;
       border-radius: 30px;
-      background: #6f0bef;
       font-size: 23px;
       font-weight: normal;
       line-height: 32px;
