@@ -8,9 +8,10 @@
 body {
   display: flex;
   justify-content: flex-start;
+  width: 100%;
+  height: 100vh;
   #app {
-    height: 92vh;
-    width: 100%;
+   flex: 1;
     max-width: 412px;
     display: flex;
   }

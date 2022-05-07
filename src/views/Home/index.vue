@@ -49,35 +49,40 @@
           </a>
         </li>
       </div>
+      <van-pull-refresh v-model="isLoading"  success-text="刷新成功" @refresh="onRefresh">
       <div class="goodslist">
         <li v-for="goods in goodsInfoList" :key="goods.goods_id">
           <a href="">
-            <img v-if="goods.goodsphoto" :src="goods.goodsphoto[0]" alt="" />
+            <img v-if="goods.goodsphoto" v-lazy="goods.goodsphoto[0]" alt="" />
             <div>
-              <p>{{goods.title}}</p>
+              <p>{{ goods.title }}</p>
             </div>
-            <b>{{goods.gprice}}$</b>
+            <b>{{ goods.gprice }}$</b>
             <div class="want">
-              <i v-if="goods.wantlist">{{goods.wantlist.length}}</i>
+              <i v-if="goods.wantlist">{{ goods.wantlist.length }}</i>
               <p>想要</p>
             </div>
             <div class="wantbuy">我想要</div>
           </a>
         </li>
       </div>
+      </van-pull-refresh>
     </div>
     <Tabbar name="home" />
+    
   </div>
 </template>
 
 <script>
+import { Toast } from 'vant';
 import { mapState } from "vuex";
 export default {
   data() {
     return {
       searchcode: "",
       pagenum: 6,
-      atpage: 1,
+      atpage: 2,
+      isLoading:false
     };
   },
   mounted() {
@@ -92,14 +97,23 @@ export default {
       await this.$store.dispatch("goods/getGoodsList", {
         pagenum: this.pagenum,
         atpage: this.atpage,
-      });
+      })
+
+    },
+   async onRefresh() {
+      let max=Math.ceil(this.goodsCount / this.pagenum)
+      console.log(max);
+      let ratpage=Math.floor(Math.random() * (max - 1 + 1)) + 1;
+      this.atpage=ratpage
+      await this.getGoodsList()
+      this.isLoading=false
     },
   },
   computed: {
     goodsCount() {
       return this.goodsInfoList.goodsCount;
     },
-    ...mapState("goods", ["goodsInfoList"]),
+    ...mapState("goods", ["goodsInfoList",'goodsCount']),
     //商品图片
     // goodsphoto(goods)
     // {
@@ -107,12 +121,10 @@ export default {
     //   return goods.goodsphoto[0]
     // }
   },
-  watch:{
+  watch: {
     // pagenum:{
-     
-      
     // }
-  }
+  },
 };
 </script>
 
@@ -150,14 +162,12 @@ export default {
     .search {
       flex: 1;
       flex-direction: column;
-
       .more {
         flex: 1;
         display: flex;
         justify-content: flex-end;
         align-items: center;
         margin-bottom: 10px;
-
         a {
           padding-right: 5%;
           font-family: SourceHanSansCN-Regular;
@@ -196,7 +206,7 @@ export default {
     }
     .goodslist {
       margin-top: 2%;
-      // overflow: scroll;
+    //   overflow: scroll;
       flex: 7;
       flex-wrap: wrap;
       justify-content: space-evenly;
@@ -207,13 +217,11 @@ export default {
         border-radius: 3px;
         display: flex;
         flex-direction: column;
-
         border-bottom: 1px solid darkgray;
         background: #ffffff;
         list-style-type: none;
         box-shadow: 2px 5px 3px gainsboro;
         margin-bottom: 5%;
-
         a {
           width: 100%;
           height: 100%;
@@ -241,7 +249,6 @@ export default {
             width: 60%;
             height: 35px;
             display: flex;
-
             align-items: center;
             margin-left: 5%;
             i {
@@ -260,7 +267,6 @@ export default {
               color: #3d3d3d;
             }
           }
-
           b {
             display: block;
             width: 100%;
@@ -274,11 +280,11 @@ export default {
           }
           div {
             width: 100%;
-            height: 54px;
-
+            height: 50px;
+            overflow: hidden;
             p {
               font-family: Roboto-Regular;
-              font-size: 16px;
+              font-size: 18px;
               font-weight: normal;
               line-height: 22px;
               letter-spacing: 0px;

@@ -20,6 +20,7 @@ Vue.component('Searchinput', Searchinput)
 Vue.component(Tabbar.name, Tabbar)
 //注册backtop
 import Backtop from '@/components/Backtop'
+import VueLazyload from 'vue-lazyload'
 Vue.component('Backtop', Backtop)
 //注册表backleft
 import Backleft from '@/components/Backleft'
@@ -28,7 +29,18 @@ Vue.component(UpLoader.name, UpLoader)
 Vue.component(Selectsite.name, Selectsite)
 Vue.component(AddressEdit.name, AddressEdit)
 Vue.component(Share.name, Share)
-
+//懒加载
+// Vue.use(Lazyload, {
+//   lazyComponent: true,
+// });
+const errorimage=require('./assets/images/err.png')
+const loadimage=require('./assets/images/2.png')
+Vue.use(VueLazyload, {
+  preLoad: 1.3,
+  error: errorimage,
+  loading: loadimage,
+  attempt: 1
+})
 new Vue({
   router,
   store,

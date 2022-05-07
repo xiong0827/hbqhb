@@ -76,12 +76,11 @@ export default {
         }, params) {
             console.log(params);
             let result = await reqGetGoodsList(params)
-            console.log(result);
             if (result.status == 200) {
                 commit('GETGOODSLIST', {
                     ...result.goodsList,
-                    goodscount: result.goodscount
                 })
+                commit('GETGOODSCOUNT',result.goodscount)
             }
         }
     },
@@ -94,12 +93,17 @@ export default {
         },
         GETGOODSLIST(state, goodsInfoList) {
             state.goodsInfoList = goodsInfoList
+        },
+        GETGOODSCOUNT(state,goodsCount)
+        {
+            state.goodsCount=goodsCount
         }
     },
     state: {
         goodsinfo: {},
         classList: [],
-        goodsInfoList: []
+        goodsInfoList: [],
+        goodsCount:0,
     },
     getters: {
 

@@ -110,8 +110,8 @@ export default {
         this.gclassone
       ) {
         let data = new FormData();
-        data.append("details", this.details);
-        data.append("title", this.title);
+        data.append("details", this.details.trim());
+        data.append("title", this.title.trim());
         data.append("gclassone", this.gclassone);
         data.append("gprice", this.gprice);
         this.gphoto.forEach((element) => {
