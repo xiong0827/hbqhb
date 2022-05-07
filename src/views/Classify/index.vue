@@ -2,67 +2,13 @@
   <div class="classifycontainer">
     <Searchinput placeholdervalue="搜索更多关键词" toppx="40" />
     <div class="classifylist">
-      <li>
+      <li v-for="gclass,index in classList" :key="index">
         <a href="">
-          <img src="./images/bed 1.png" alt="" />
-          <p>家具</p>
-        </a>
-      </li>
-      <li>
-        <a href="">
-          <img src="./images/bed 1.png" alt="" />
-          <p>家具</p>
-        </a>
-      </li>
-      <li>
-        <a href="">
-          <img src="./images/bed 1.png" alt="" />
-          <p>家具</p>
-        </a>
-      </li>
-      <li>
-        <a href="">
-          <img src="./images/bed 1.png" alt="" />
-          <p>家具</p>
-        </a>
-      </li>
-      <li>
-        <a href="">
-          <img src="./images/bed 1.png" alt="" />
-          <p>家具</p>
-        </a>
-      </li>
-      <li>
-        <a href="">
-          <img src="./images/bed 1.png" alt="" />
-          <p>家具</p>
-        </a>
-      </li>
-      <li>
-        <a href="">
-          <img src="./images/bed 1.png" alt="" />
-          <p>家具</p>
-        </a>
-      </li>
-      <li>
-        <a href="">
-          <img src="./images/bed 1.png" alt="" />
-          <p>家具</p>
-        </a>
-      </li>
-      <li>
-        <a href="">
-          <img src="./images/bed 1.png" alt="" />
-          <p>家具</p>
+          <img :src="gclass.classurl" alt="" />
+          <p>{{gclass.classname}}</p>
         </a>
       </li>
 
-      <li>
-        <a href="">
-          <img src="./images/bed 1.png" alt="" />
-          <p>家具</p>
-        </a>
-      </li>
     </div>
     <div class="classinfo">
       <li>
@@ -120,12 +66,34 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
   data() {
     return {
       searchcode: "",
+      gclassone:'',
+
     };
   },
+  mounted()
+  {
+   
+     try {
+        this.$store.dispatch('goods/getClass')
+     } catch (error) {
+       alert('获取商品分类失败')
+     }
+
+  },
+  methods:{
+  
+  }
+  ,
+  computed:{
+    //商品列表
+    ...mapState('goods',['classList'])
+  }
+  
 };
 </script>
 <style lang="less" scoped>

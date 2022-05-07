@@ -169,10 +169,16 @@ export default [{
         component: () => import("@/views/GoodsInfo"),
     },
     {
-        // 订单详情
+        // 提价订单详情
         path: "/orderinfo",
         name: "orderinfo",
         component: () => import("@/views/OrderInfo"),
+    },
+    {
+        // 订单详情
+        path: "/order",
+        name: "order",
+        component: () => import("@/views/Order"),
     },
     {
         path: "",

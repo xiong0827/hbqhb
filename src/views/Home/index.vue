@@ -50,85 +50,15 @@
         </li>
       </div>
       <div class="goodslist">
-        <li>
+        <li v-for="goods in goodsInfoList" :key="goods.goods_id">
           <a href="">
-            <img src="./images/2.png" alt="" />
+            <img v-if="goods.goodsphoto" :src="goods.goodsphoto[0]" alt="" />
             <div>
-              <p>华为mate40pro 麒麟990 你值得拥有</p>
+              <p>{{goods.title}}</p>
             </div>
-            <b>19.99$</b>
+            <b>{{goods.gprice}}$</b>
             <div class="want">
-              <i>12345</i>
-              <p>想要</p>
-            </div>
-            <div class="wantbuy">我想要</div>
-          </a>
-        </li>
-        <li>
-          <a href="">
-            <img src="./images/2.png" alt="" />
-            <div>
-              <p>华为mate40pro 麒麟990 你值得拥有</p>
-            </div>
-            <b>19.99$</b>
-            <div class="want">
-              <i>12345</i>
-              <p>想要</p>
-            </div>
-            <div class="wantbuy">我想要</div>
-          </a>
-        </li>
-        <li>
-          <a href="">
-            <img src="./images/2.png" alt="" />
-            <div>
-              <p>华为mate40pro 麒麟990 你值得拥有</p>
-            </div>
-            <b>19.99$</b>
-            <div class="want">
-              <i>12345</i>
-              <p>想要</p>
-            </div>
-            <div class="wantbuy">我想要</div>
-          </a>
-        </li>
-        <li>
-          <a href="">
-            <img src="./images/2.png" alt="" />
-            <div>
-              <p>华为mate40pro 麒麟990 你值得拥有</p>
-            </div>
-            <b>19.99$</b>
-            <div class="want">
-              <i>12345</i>
-              <p>想要</p>
-            </div>
-            <div class="wantbuy">我想要</div>
-          </a>
-        </li>
-        <li>
-          <a href="">
-            <img src="./images/2.png" alt="" />
-            <div>
-              <p>华为mate40pro 麒麟990 你值得拥有</p>
-            </div>
-            <b>19.99$</b>
-            <div class="want">
-              <i>12345</i>
-              <p>想要</p>
-            </div>
-            <div class="wantbuy">我想要</div>
-          </a>
-        </li>
-        <li>
-          <a href="">
-            <img src="./images/2.png" alt="" />
-            <div>
-              <p>华为mate40pro 麒麟990 你值得拥有</p>
-            </div>
-            <b>19.99$</b>
-            <div class="want">
-              <i>12345</i>
+              <i v-if="goods.wantlist">{{goods.wantlist.length}}</i>
               <p>想要</p>
             </div>
             <div class="wantbuy">我想要</div>
@@ -141,12 +71,48 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
       searchcode: "",
+      pagenum: 6,
+      atpage: 1,
     };
   },
+  mounted() {
+    this.getGoodsList();
+  },
+  methods: {
+    async getGoodsList() {
+      // let params=new FormData()
+      // params.append('pagenum',this.pagenum)
+      // params.append('atpage',this.atpage)
+      // console.log();
+      await this.$store.dispatch("goods/getGoodsList", {
+        pagenum: this.pagenum,
+        atpage: this.atpage,
+      });
+    },
+  },
+  computed: {
+    goodsCount() {
+      return this.goodsInfoList.goodsCount;
+    },
+    ...mapState("goods", ["goodsInfoList"]),
+    //商品图片
+    // goodsphoto(goods)
+    // {
+    //   console.log(goods);
+    //   return goods.goodsphoto[0]
+    // }
+  },
+  watch:{
+    // pagenum:{
+     
+      
+    // }
+  }
 };
 </script>
 

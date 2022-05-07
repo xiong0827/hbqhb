@@ -1,7 +1,7 @@
 <template>
   <div class="register">
     <div class="top">
-      <router-link class="topspan1" to="/welcome"><<返回</router-link>
+      <router-link class="topspan1" to="/welcome"> <<返回 </router-link>
       <router-link class="topspan2" to="/login">登录>></router-link>
     </div>
     <div class="center">
@@ -11,77 +11,30 @@
       </div>
       <div class="phone">
         <van-icon class="icon" name="manager" color="#700BEF" size="30" /><input
-          :class="{ outline: check.checkPhone() == false }"
-          v-model.number="phone_id"
-          type="tel"
-          placeholder="手机号"
-        />
+          :class="{ outline: check.checkPhone() == false }" v-model.number="phone_id" type="tel" placeholder="手机号" />
       </div>
       <div class="code">
-        <van-icon class="icon" name="comment" color="#700BEF" size="30" /><input
-          v-model.number="code"
-          type="number"
-          :class="{ outline: code.length < 6 }"
-          name=""
-          placeholder="验证码"
-          max="6"
-        />
-        <van-button
-          type="info"
-          class="getcode"
-          v-if="timer == 0 && check.checkPhone()"
-          @click="getcode"
-          >获取验证码</van-button
-        >
-        <van-button
-          type="info"
-          disabled
-          class="getcode"
-          v-else-if="timer == 0 && !check.checkPhone()"
-          @click="getcode"
-          >获取验证码</van-button
-        >
-        <van-button disabled class="getcode" v-else
-          >{{ timer }}秒后重发</van-button
-        >
+        <van-icon class="icon" name="comment" color="#700BEF" size="30" /><input v-model.number="code" type="number"
+          :class="{ outline: code.length < 6 }" name="" placeholder="验证码" max="6" />
+        <van-button type="info" class="getcode" v-if="timer == 0 && check.checkPhone()" @click="getcode">获取验证码
+        </van-button>
+        <van-button type="info" disabled class="getcode" v-else-if="timer == 0 && !check.checkPhone()" @click="getcode">
+          获取验证码</van-button>
+        <van-button disabled class="getcode" v-else>{{ timer }}秒后重发</van-button>
       </div>
       <div class="password">
-        <van-icon class="icon" name="lock" color="#700BEF" size="30" /><input
-          type="password"
-          :class="{ outline: check.checkPassword() == false }"
-          v-model="password"
-          name=""
-          placeholder="密码"
-        />
+        <van-icon class="icon" name="lock" color="#700BEF" size="30" /><input type="password"
+          :class="{ outline: check.checkPassword() == false }" v-model="password" name="" placeholder="密码" />
       </div>
       <div class="password">
-        <van-icon class="icon" name="lock" color="#700BEF" size="30" /><input
-          type="password"
-          :class="{ outline: check.chekRePassword() == false }"
-          v-model="repassword"
-          name=""
-          placeholder="再次输入"
-        />
+        <van-icon class="icon" name="lock" color="#700BEF" size="30" /><input type="password"
+          :class="{ outline: check.chekRePassword() == false }" v-model="repassword" name="" placeholder="再次输入" />
       </div>
     </div>
     <div class="bottom">
-      <van-button
-        round
-        v-show="registerShow"
-        type="info"
-        class="button1"
-        @click="userRegister"
-        >注册</van-button
-      >
-      <van-button
-        round
-        disabled
-        v-show="!registerShow"
-        color="#6f0bef"
-        class="button1"
-        @click="userRegister"
-        >注册</van-button
-      >
+      <van-button round v-show="registerShow" type="info" class="button1" @click="userRegister">注册</van-button>
+      <van-button round disabled v-show="!registerShow" color="#6f0bef" class="button1" @click="userRegister">注册
+      </van-button>
     </div>
   </div>
 </template>
@@ -131,25 +84,35 @@ export default {
             phone_id,
             password,
           });
-          this.tipsMsg = result;
+          this.$dialog
+            .alert({
+              message: result,
+            })
+            .then(() => {
+              this.$store.commit('user/GETCODE', '')
+              this.$router.push({ name: 'login' })
+            });
+
         } catch (error) {
-          this.tipsMsg = error;
-          this.code=''
+
+          this.$dialog
+            .alert({
+              message: error,
+            })
+            .then(() => {
+              this.tipsMsg = "";
+              this.code = ''
+            });
+
         }
-        this.$dialog
-          .alert({
-            message: this.tipsMsg,
-          })
-          .then(() => {
-            this.tipsMsg = "";
-          });
+
       } else if (!this.check.checkCode(this.phonecode)) {
         this.$dialog
           .alert({
             message: "验证码错误",
           })
           .then(() => {
-            this.code=''
+            this.code = ''
           });
       } else {
         this.$dialog
@@ -157,7 +120,7 @@ export default {
             message: "请先获取验证码",
           })
           .then(() => {
-            this.code='';
+            this.code = '';
           });
       }
     },
@@ -193,11 +156,13 @@ export default {
 .register {
   flex: 1;
   overflow: hidden;
+
   .top {
     display: flex;
     justify-content: space-between;
     width: 100%;
     height: 8%;
+
     a {
       width: 15%;
       height: 100%;
@@ -209,6 +174,7 @@ export default {
       font-weight: 600;
       font-family: Inter-SemiBold;
     }
+
     .topspan1 {
       margin-left: 10px;
       display: flex;
@@ -217,18 +183,17 @@ export default {
       align-items: center;
       position: relative;
       z-index: 2;
+
       &:after {
         content: " ";
         width: 180px;
         height: 180px;
         transform: rotate(107.69deg);
-        background: linear-gradient(
-          155deg,
-          #92e1d3 25%,
-          #92e1d3 25%,
-          rgba(226, 226, 226, 0) 90%,
-          rgba(226, 226, 226, 0) 90%
-        );
+        background: linear-gradient(155deg,
+            #92e1d3 25%,
+            #92e1d3 25%,
+            rgba(226, 226, 226, 0) 90%,
+            rgba(226, 226, 226, 0) 90%);
         position: absolute;
         border-radius: 50%;
         top: -60px;
@@ -236,6 +201,7 @@ export default {
         z-index: -1;
       }
     }
+
     .topspan2 {
       display: flex;
       justify-content: center;
@@ -243,6 +209,7 @@ export default {
       width: 20%;
     }
   }
+
   .center {
     height: 80%;
     // background: pink;
@@ -250,6 +217,7 @@ export default {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+
     h1 {
       width: 183px;
       height: 67px;
@@ -258,6 +226,7 @@ export default {
       font-weight: normal;
       line-height: 67px;
     }
+
     input {
       width: 325px;
       height: 50px;
@@ -273,11 +242,14 @@ export default {
       color: rgba(111, 11, 239, 0.5);
       text-align: center;
     }
+
     .outline {
       border: 2px solid red;
     }
+
     .phone {
       position: relative;
+
       .icon {
         position: absolute;
         left: 25.77px;
@@ -286,11 +258,14 @@ export default {
         height: 30.88px;
       }
     }
+
     .code {
       position: relative;
+
       input {
         text-align: center;
       }
+
       .icon {
         position: absolute;
         left: 25.77px;
@@ -298,14 +273,17 @@ export default {
         width: 26px;
         height: 30.88px;
       }
+
       .getcode {
         position: absolute;
         top: 5%;
         right: 4%;
       }
     }
+
     .password {
       position: relative;
+
       .icon {
         position: absolute;
         left: 25.77px;
@@ -315,11 +293,13 @@ export default {
       }
     }
   }
+
   .bottom {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 10%;
+
     .button1 {
       width: 325px;
       height: 50px;

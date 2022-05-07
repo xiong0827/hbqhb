@@ -1,13 +1,7 @@
 <template>
   <div class="UpLoader">
-    <van-uploader
-      class="uploader"
-      v-model="fileList"
-      multiple
-      max-count="2"
-      upload-text="最多上传2张图片"
-      :after-read="afterRead"
-    >
+    <van-uploader class="uploader" v-model="fileList" multiple max-count="2" upload-text="最多上传2张图片"
+      :after-read="afterRead">
     </van-uploader>
   </div>
 </template>
@@ -26,9 +20,9 @@ export default {
     };
   },
   methods: {
-    afterRead(file) {
+    async afterRead(files) {
       // 此时可以自行将文件上传至服务器
-      console.log(file);
+      this.$emit('getfile', this.fileList)
     },
   },
 };
@@ -42,19 +36,23 @@ export default {
   position: absolute;
   bottom: 50px;
 }
+
 .van-uploader__wrapper {
   position: absolute;
   bottom: 5px;
 }
+
 .van-uploader[data-v-39ebf3c1] {
   top: 0px;
   left: 20px;
   width: 40%;
   height: 160px;
 }
+
 .van-uploader__wrapper {
   width: 100% !important;
   height: 100% !important;
+
   .van-uploader__upload {
     width: 165px !important;
     height: 100% !important;

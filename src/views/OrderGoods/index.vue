@@ -188,6 +188,8 @@ export default {
       width: 100%;
       height: 20%;
       background: #fff;
+      position: fixed;
+      bottom: 1px;
       .puy {
         margin-left: 30px;
         width: 100%;
@@ -213,6 +215,7 @@ export default {
       .button {
         display: flex;
         justify-content: flex-end;
+        background: #eeeeee;
         .btn {
           margin-right: 10px;
           width: 130px;

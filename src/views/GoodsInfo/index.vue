@@ -1,10 +1,10 @@
 <template>
   <div class="goodsinfo">
-    <div class="top">
+    <div class="top" v-show="goodsIsShow">
       <Backtop />
       <div class="top1">
         <div class="ava">
-          <img src="./images/头像.svg" alt="" /><b>沸羊羊</b>
+          <img :src="issueper.avatarurl" alt="" /><b>{{ issueper.nickname }}</b>
         </div>
         <div class="follow">
           <van-button class="btn" round type="info">+关注</van-button>
@@ -12,55 +12,195 @@
       </div>
       <div class="center">
         <div class="price">
-          <b>$150</b>
+          <b>${{ goodsinfo.gprice }}</b>
         </div>
-        <div class="goodsname">Men's Football Shoes BB5592</div>
+        <div class="goodsname">{{ goodsinfo.title }}</div>
         <div class="goodsinfo1">
-          shoes are very light to wear shoes with original grade quality, ORI
-          grade shoes are shoes that are packaged with boxes according to the
-          original shoes with superior quality.
+          {{ goodsinfo.details }}
         </div>
         <div class="goodssvg">
-          <img src="./images/鞋1.svg" alt="" />
-          <img src="./images/鞋1.svg" alt="" />
-          <img src="./images/鞋1.svg" alt="" />
-          <img src="./images/鞋1.svg" alt="" />
+          <img
+            v-for="(img, index) in goodsphoto"
+            :key="index"
+            :src="img"
+            alt=""
+          />
         </div>
       </div>
     </div>
-    <div class="collect">
+    <div class="collect" v-show="goodsIsShow">
       <h4>留言</h4>
       <div class="collectbox1">
-        <img src="./images/logo.png" alt="" />
-        <input type="text" placeholder="请留言，询问更多细节" />
+        <img :src="seeUserInfo.avatarurl" alt="" />
+        <input
+          type="text"
+          v-model="replytitle"
+          placeholder="请留言，询问更多细节"
+        />
       </div>
-      <div class="collectbox2">
-        <img src="./images/logo.png" alt="" />
-        <h5>张三</h5>
-        <b>balabalabala</b>
-      </div>
-      <div class="collectbox3">
-        <img src="./images/logo.png" alt="" />
-        <h5>张三</h5>
-        <b>balabalabala</b>
+      <div
+        class="collectbox2"
+        v-for="reply in replayInfo"
+        :key="reply.reply_id"
+        v-show="goodsinfo.greply"
+      >
+        <img :src="reply.avatarurl" alt="" />
+        <h5>{{ reply.nickname }}</h5>
+        <b>{{ reply.replytitle }}</b>
       </div>
       <div class="collectbox4">
         <a href="#">查看全部留言>></a>
       </div>
     </div>
-    <div class="bottom">
-      <div class="mind"><van-icon name="like-o" size="40px" /><b>400</b></div>
-      <div class="bit"><van-icon name="star-o" size="40px" /><b>400</b></div>
+    <div class="bottom" v-show="goodsIsShow">
+      <div class="mind" @click="addlike">
+        <van-icon name="like" color="red" size="40px" /><b>{{
+          goodsinfo.likes
+        }}</b>
+      </div>
+
+      <div class="bit" @click="addwantlist" v-show="goodsinfo.wantshow">
+        <van-icon name="star-o" size="40px" /><b>{{
+          goodsinfo.wantlist ? goodsinfo.wantlist.length : 0
+        }}</b>
+      </div>
+      <div class="bit" v-show="!goodsinfo.wantshow">
+        <van-icon name="star" color="red" size="40" @click="addwantlist" /><b>{{
+          goodsinfo.wantlist ? goodsinfo.wantlist.length : 0
+        }}</b>
+      </div>
       <div class="buy">
-        <van-button round type="info" class="btn">购买</van-button>
+        <van-button @click="addreply" round type="info" size="50" class="btn"
+          >留言</van-button
+        >
+        <van-button
+          v-show="goodsinfo.isbuy != 0"
+          round
+          type="info"
+          size="50"
+          class="btn"
+          >购买</van-button
+        >
+        <van-button
+          round
+          v-show="goodsinfo.isbuy == 0"
+          type="info"
+          class="btn"
+          size="50"
+          >编辑信息</van-button
+        >
       </div>
     </div>
+    <van-empty image="error" v-show="!goodsIsShow" description="描述文字" />
   </div>
 </template>
 
 <script>
+import _ from "lodash";
+import { mapState } from "vuex";
 export default {
   name: "GoodsInfo",
+  data() {
+    return {
+      goodsIsShow: true,
+      replytitle: "",
+    };
+  },
+  mounted() {
+    try {
+      this.getgoodsinfo();
+      this.goodsIsShow = true;
+    } catch (error) {
+      this.goodsIsShow = false;
+    }
+  },
+  //商品详情
+  computed: {
+    //商品详情
+    ...mapState("goods", ["goodsinfo"]),
+    //发布人信息
+    issueper() {
+      return this.goodsinfo.issueper || {};
+    },
+    //图片信息
+    goodsphoto() {
+      return this.goodsinfo.goodsphoto || [];
+    },
+    // 游客信息
+    seeUserInfo() {
+      return this.goodsinfo.seeuserinfo || {};
+    },
+    //replayInfo
+    replayInfo() {
+      return this.goodsinfo.greply || [];
+    },
+  },
+  methods: {
+    //获取商品信息
+    getgoodsinfo() {
+      this.$store.dispatch("goods/getGoodsInfo", this.$route.query.goods_id);
+    },
+    //商品点赞
+    addlike: _.debounce(async function () {
+      try {
+        await this.$store.dispatch(
+          "goods/getUserLike",
+          this.goodsinfo.goods_id
+        );
+        this.getgoodsinfo();
+      } catch (error) {
+        this.$dialog
+          .alert({
+            message: error,
+          })
+          .then(() => {});
+      }
+    }, 1000),
+    //收藏
+    addwantlist: _.debounce(async function () {
+      try {
+        await this.$store.dispatch(
+          "goods/addWantList",
+          this.goodsinfo.goods_id
+        );
+        this.getgoodsinfo();
+      } catch (error) {
+        this.$dialog
+          .alert({
+            message: error,
+          })
+          .then(() => {});
+      }
+    }, 1000),
+    //留言
+    async addreply() {
+      try {
+        if (this.replytitle.trim().length > 0) {
+          await this.$store.dispatch("goods/addReply", {
+            goods_id: this.goodsinfo.goods_id,
+            replytitle: this.replytitle,
+          });
+          this.getgoodsinfo()
+        } else {
+          this.$dialog
+            .alert({
+              message: "不允许回复空",
+            })
+            .then(() => {
+              this.replytitle = "";
+            });
+        }
+      } catch (error) {
+        this.$dialog
+          .alert({
+            message: error,
+          })
+          .then(() => {
+            this.replytitle = "";
+          });
+      }
+    },
+  },
 };
 </script>
 <style lang="less" scoped>
@@ -77,8 +217,10 @@ export default {
       .ava {
         width: 70%;
         img {
+          width: 20%;
           margin-top: 5px;
-          margin-left: 20px;
+          margin-right: 5%;
+          margin-left: 5%;
           vertical-align: middle;
         }
         b {
@@ -136,7 +278,7 @@ export default {
         margin-left: 35px;
         width: 83%;
         font-family: Roboto-Regular;
-        font-size: 12px;
+        font-size: 16px;
         font-weight: normal;
         line-height: 20px;
         letter-spacing: 0.8px;
@@ -148,9 +290,10 @@ export default {
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
+        margin-bottom: 30px;
         img {
-          margin-top: 71px;
-          width: 50%;
+          margin-top: 10px;
+          width: 90%;
         }
       }
     }
@@ -169,6 +312,7 @@ export default {
       line-height: 20px;
       letter-spacing: 0.7px;
       color: #3d3d3d;
+      margin-bottom: 10px;
     }
   }
   .collectbox1 {
@@ -179,6 +323,8 @@ export default {
     img {
       margin-left: 5px;
       width: 10%;
+      height: 50px;
+      width: 50px;
     }
     input {
       width: 70%;
@@ -194,22 +340,27 @@ export default {
     margin-top: 20px;
     display: flex;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items:stretch;
     flex-wrap: wrap;
     img {
       margin-left: 50px;
-      width: 8%;
+     width: 40px;
+     height: 40px;
     }
     h5 {
       margin-left: 5px;
     }
     b {
+      margin-top: 5%;
       font-family: Inter-Medium;
       font-size: 14px;
       font-weight: 500;
-      line-height: 35.78px;
       letter-spacing: 0px;
+      display: flex;
+      justify-content: flex-start;
+      align-items:stretch;
       color: #3d3d3d;
+      width: 50%;
     }
   }
   .collectbox3 {
@@ -229,9 +380,9 @@ export default {
       font-family: Inter-Medium;
       font-size: 14px;
       font-weight: 500;
-      line-height: 35.78px;
       letter-spacing: 0px;
       color: #3d3d3d;
+      width: 40%;
     }
   }
   .collectbox4 {
@@ -275,10 +426,12 @@ export default {
     .buy {
       margin-right: 5px;
       .btn {
+        padding: 10px 0;
+        margin-right: 10px;
         width: 76px;
         height: 44px;
-        background: #e94b64;
-        color: #c0bd21;
+        background: #686de0;
+        color: #ffffff;
       }
     }
   }

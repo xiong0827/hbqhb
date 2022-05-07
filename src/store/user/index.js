@@ -51,6 +51,7 @@ export default {
         GETCODE(state, phonecode) {
             state.phonecode = phonecode
         },
+
         USERLOGIN(state,token)
         {
         state.token=token

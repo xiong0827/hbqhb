@@ -1,5 +1,8 @@
-import { Button, Tabbar, TabbarItem, Col, Row, Grid, GridItem, Search, Tab, Tabs, Icon, PasswordInput, NumberKeyboard, Cell, Toast, CellGroup, Uploader, NavBar, Calendar, Popup, Cascader, Stepper, Dialog, AddressEdit, ShareSheet } from 'vant';
-
+import { Button, Tabbar, TabbarItem, Col,Picker, Row, Grid, GridItem, Search, Tab, Tabs, Icon, PasswordInput, NumberKeyboard, Cell, Toast, CellGroup, Uploader, NavBar, Calendar, Popup, Cascader, Stepper, Dialog, AddressEdit, ShareSheet } from 'vant';
+import { Empty } from 'vant';
+import { List } from 'vant';
+Vue.use(List);
+Vue.use(Empty);
 import Vue from 'vue'
 Vue.use(Button);
 Vue.use(TabbarItem)
@@ -19,7 +22,7 @@ Vue.use(CellGroup);
 Vue.use(Toast)
 Vue.use(Uploader);
 Vue.use(NavBar);
-
+Vue.use(Picker);
 Vue.use(Calendar);
 Vue.use(Popup);
 Vue.use(Cascader);
