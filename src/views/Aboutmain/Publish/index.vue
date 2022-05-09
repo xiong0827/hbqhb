@@ -1,15 +1,21 @@
 <template>
 <div class="buyout">
     <van-card 
- v-for="count in 2" :key="count"
+ v-for=" goods in mainGoodsList" :key="goods._id"
+  @click="$router.push({
+      name:'goodsinfo',
+      query:{
+        goods_id:goods.goods_id
+      }
+    })"
     num="1"
-    price="30.00"
-    title="发布时间"
-    thumb="https://img01.yzcdn.cn/vant/ipad.jpeg"
+    :price="goods.gprice"
+    :title="goods.gdate"
+    :thumb="goods.goodsphoto[0]"
   >
     <template #tags>
-        <van-cell  value="华为mate40pro" />
-          <van-cell  v-model="status" />
+        <van-cell  :value="goods.title" />
+          <van-cell  :value="goods.gstatus==1?'发布中':'已下架'" />
     </template>
     <template #footer>
       <van-button size="small" hairline type="info">编辑发布</van-button>
@@ -22,15 +28,23 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
    data() {
     return {
       show: false,
-      status:'发布中'
+      
     };
+  },
+  mounted()
+  {
+    this.$store.dispatch('goods/getMainGoodsList')
   },
 methods: {
 },
+computed:{
+  ...mapState('goods',['mainGoodsList'])
+}
 }
 </script>
 

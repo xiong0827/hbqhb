@@ -1,7 +1,8 @@
 <template>
   <div class="goodsinfo">
-    <div class="top" v-show="goodsIsShow">
-      <Backtop />
+    <Backtop />
+    <div class="top" v-if="goodsIsShow">
+      
       <div class="top1">
         <div class="ava">
           <img :src="issueper.avatarurl" @click="$router.push({
@@ -33,7 +34,7 @@
         </div>
       </div>
     </div>
-    <div class="collect" v-show="goodsIsShow">
+    <div class="collect" v-if="goodsIsShow">
       <h4>留言</h4>
       <div class="collectbox1">
         <img :src="seeUserInfo.avatarurl" alt="" />
@@ -57,7 +58,7 @@
         <a href="#">查看全部留言>></a>
       </div>
     </div>
-    <div class="bottom" v-show="goodsIsShow">
+    <div class="bottom" >
       <div class="mind" @click="addlike">
         <van-icon name="like" color="red" size="40px" /><b>{{
           goodsinfo.likes
@@ -96,7 +97,7 @@
         >
       </div>
     </div>
-    <van-empty image="error" v-show="!goodsIsShow" description="描述文字" />
+    <van-empty image="error" v-if="!goodsIsShow" description="商品不见了" />
   </div>
 </template>
 
@@ -142,8 +143,13 @@ export default {
   },
   methods: {
     //获取商品信息
-    getgoodsinfo() {
-      this.$store.dispatch("goods/getGoodsInfo", this.$route.query.goods_id);
+   async getgoodsinfo() {
+     try {
+       
+     await this.$store.dispatch("goods/getGoodsInfo", this.$route.query.goods_id);
+     } catch (error) {
+       this.goodsIsShow=false
+     }
     },
     //商品点赞
     addlike: _.debounce(async function () {

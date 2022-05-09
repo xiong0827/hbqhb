@@ -27,7 +27,7 @@
         <div class="name" v-if="userInfo.nickname" @click="skipLogin">
           {{ userInfo.nickname }}
         </div>
-        <div class="name" v-else @click="skipLogin">请先登录</div>
+        <div class="name" v-else @click="skipLogin">点击去登录</div>
         <div class="rectangle">
           <li @  @click="
               $router.push({

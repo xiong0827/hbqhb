@@ -103,9 +103,12 @@ export default {
     state: {
         phonecode: '',
         token: localStorage.getItem('token'),
-        userInfo:{}
+        userInfo:{},
     },
     getters: {
-
+        uwantlist(state)
+        {
+            return state.userInfo.uwantlist
+        }
     }
 }

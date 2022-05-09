@@ -32,3 +32,5 @@ export const reqGetUserInfo=(phone_id)=>requests({url:'/user/getuserinfo',method
 export const reqUpdateInfo=(data)=>requests({url:'/user/updateinfo',method:'post',data})
 //修改密码 /user/updatepassword
 export const reqUpDatePassword=(data)=>requests({url:'/user/updatepassword',method:'post',data:qs.stringify(data)})
+
+
