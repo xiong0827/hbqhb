@@ -19,7 +19,7 @@
         v-model="details"
         placeholder=" 卖家都关心品牌型号、入手渠道、转手原因...."
       ></textarea>
-      <UpLoader v-on:getfile="getphoto" />
+      <UpLoader v-on:getfile="getphoto" maxnum='5' />
     </div>
     <div class="footer">
       <van-field
@@ -61,7 +61,6 @@
 
 <script>
 import { Dialog } from "vant";
-import goods from '@/store/goods';
 export default {
   name: "ReleaseGoods",
   data() {

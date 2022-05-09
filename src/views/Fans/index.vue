@@ -3,7 +3,7 @@
     <!-- 顶部 -->
     <div class="background">
       <div class="top">
-        <div>他的粉丝</div>
+        <div>{{$route.query.title}}</div>
       </div>
       <!-- 搜索框 -->
       <div class="search">

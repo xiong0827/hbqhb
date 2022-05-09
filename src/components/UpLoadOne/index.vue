@@ -1,12 +1,11 @@
 <template>
-  <div class="UpLoader">
+  <div class="UpLoaderone" :style="{'opacity':isshow}">
     <van-uploader
       class="uploader"
-      v-model="fileList"
-      multiple
-      :max-count="maxnum"
       :max-size="500 * 1024" 
       :after-read="afterRead"
+      v-model="fileList"
+      max-count="1"
     >
     </van-uploader>
   </div>
@@ -15,10 +14,10 @@
 <script>
 import { Toast } from "vant";
 export default {
-  props: ["maxnum"],
-  name: "UpLoader",
+  name: "UpLoaderOne",
   data() {
     return {
+      isshow:0,
       fileList: [
         // { url: "https://img01.yzcdn.cn/vant/leaf.jpg" },
         // // Uploader 根据文件后缀来判断是否为图片文件
@@ -28,44 +27,21 @@ export default {
     };
   },
   methods: {
-    async afterRead(files) {
+    async afterRead(files,e) {
       // 此时可以自行将文件上传至服务器
       this.$emit("getfile", this.fileList);
+      this.isshow=1
     },
   },
 };
 </script>
 
 <style lang="less" scoped>
-.UpLoader {
-  float: left;
-  width: 100%;
-  position: relative;
+.UpLoaderone{
   position: absolute;
-  bottom: 50px;
+  right: 10px;
+  top: 60px;
+ z-index: 2;
+
 }
-
-.van-uploader__wrapper {
-  position: absolute;
-  bottom: 5px;
-}
-
-.van-uploader[data-v-39ebf3c1] {
-  top: 0px;
-  left: 20px;
-  width: 40%;
-  height: 160px;
-}
-
-.van-uploader__wrapper {
-  width: 100% !important;
-  height: 100% !important;
-
-  .van-uploader__upload {
-    width: 165px !important;
-    height: 100% !important;
-  }
-}
-
-// }
 </style>

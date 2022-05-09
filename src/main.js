@@ -26,6 +26,9 @@ Vue.component('Backtop', Backtop)
 import Backleft from '@/components/Backleft'
 Vue.component('Backleft', Backleft)
 Vue.component(UpLoader.name, UpLoader)
+//注册单个文件上传
+import UpLoaderOne from '@/components/UpLoadOne'
+Vue.component(UpLoaderOne.name, UpLoaderOne)
 Vue.component(Selectsite.name, Selectsite)
 Vue.component(AddressEdit.name, AddressEdit)
 Vue.component(Share.name, Share)

@@ -32,11 +32,12 @@
       />
     </div>
     <span class="button" v-if="loginshow" @click="login"><a>登录</a></span>
-    <span class="button" :style="{ opacity: 0.5 }" v-else><a>登录</a></span>
+    <span class="button" :style="{ opacity: 0.5 }" v-else ><a>登录</a></span>
   </div>
 </template>
 
 <script>
+import {Toast} from 'vuex'
 import checkObj from "@/units/check";
 import { mapState } from "vuex";
 export default {

@@ -4,7 +4,7 @@
 
     <div class="mian1" v-show="editShow">
       <div class="top">
-        <a href="#" class="a" @click="editShow = !editShow">
+        <a href="#" class="a" v-show="isshow" @click="tores">
           <li></li>
           <li></li>
           <li></li>
@@ -17,12 +17,38 @@
           size="30"
         />
         <div class="portrait">
-          <img src="./images/我的发布.png" alt="" />
+          <img v-if="userInfo.avatarurl" v-lazy="userInfo.avatarurl" alt="" />
+          <img
+            v-else
+            src="http://101.43.12.130:3000/uploads/avatarurl/avatar_1651829121291-82.png"
+            alt=""
+          />
         </div>
-        <div class="name" @click="skipLogin">请先登录</div>
+        <div class="name" v-if="userInfo.nickname" @click="skipLogin">
+          {{ userInfo.nickname }}
+        </div>
+        <div class="name" v-else @click="skipLogin">请先登录</div>
         <div class="rectangle">
-          <li>关注</li>
-          <li>粉丝</li>
+          <li @  @click="
+              $router.push({
+                name: 'fans',
+                query:{
+                  title:'我的关注'
+                }
+              })
+            ">关注</li>
+          <li
+            @click="
+              $router.push({
+                name: 'fans',
+                query:{
+                  title:'我的粉丝'
+                }
+              })
+            "
+          >
+            粉丝
+          </li>
           <li>历史</li>
         </div>
       </div>
@@ -115,37 +141,48 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+import { Toast } from "vant";
+import { Dialog } from "vant";
 export default {
+  mounted() {
+    try {
+      this.$store.dispatch("user/getUserInfo");
+    } catch (error) {
+      Toast("获取用户信息失败");
+    }
+  },
   name: "Main",
   data() {
     return {
       editShow: true,
     };
   },
-  // mounted() {
-  //   if (this.$route.query.editShow) {
-  //     // console.log(this.$route.query.editShow);
-  //     // this.editShow = this.$route.query.editShow;
-  //     // console.log(this.editShow);
-  //     this.editShow = !this.editShow;
-  //   }
-  // },
-  // beforeRouteEnter(to, from, next) {
-  //   if (from.name == "maindata") {
-  //     from.meta.editShow = true;
-  //     // console.log(to, from);
-  //     this.editShow = false;
-  //   }
-  //   next();
-  // },
   methods: {
     topublish(to) {
-      this.$router.push({
-        name: to,
-      });
+      if (this.isshow == true) {
+        this.$router.push({
+          name: to,
+        });
+      } else {
+        this.$dialog
+          .alert({
+            message: "请先登录",
+          })
+          .then(() => {});
+      }
     },
     skipLogin() {
-      this.$router.push("welcome");
+      this.$router.push("/login");
+    },
+    tores() {
+      this.editShow = !this.editShow;
+    },
+  },
+  computed: {
+    ...mapState("user", ["userInfo"]),
+    isshow() {
+      return localStorage.getItem("token") ? true : false;
     },
   },
 };

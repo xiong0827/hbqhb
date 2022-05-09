@@ -4,7 +4,8 @@ import {
     reqAddWantList,
     reqAddReply,
     reqGetClass,
-    reqGetGoodsList
+    reqGetGoodsList,
+    reqGetMainGoodsList
 } from '@/api'
 export default {
     namespaced: 'true',
@@ -70,7 +71,7 @@ export default {
                 return Promise.reject(new Error(result.messgae))
             }
         },
-        //获取商品列表
+        //分类分页获取商品列表
         async getGoodsList({
             commit
         }, params) {
@@ -82,6 +83,19 @@ export default {
                 })
                 commit('GETGOODSCOUNT',result.goodscount)
             }
+        },
+        //获取个人发布商品列表
+        async getMainGoodsList({commit},phone_id)
+        {
+            let result=await reqGetMainGoodsList(phone_id)
+            console.log(result.maingoodlist);
+           if (result.status==200) {
+               commit('GETMAINGOODSLIST',result.maingoodlist)
+               return 'ok'
+           }
+           else{
+               return Promise.reject(new Error(result.messgae))
+           }
         }
     },
     mutations: {
@@ -97,6 +111,11 @@ export default {
         GETGOODSCOUNT(state,goodsCount)
         {
             state.goodsCount=goodsCount
+        },
+        GETMAINGOODSLIST(state,mainGoodsList)
+        {
+            state.mainGoodsList=mainGoodsList
+           
         }
     },
     state: {
@@ -104,6 +123,7 @@ export default {
         classList: [],
         goodsInfoList: [],
         goodsCount:0,
+        mainGoodsList:[],
     },
     getters: {
 

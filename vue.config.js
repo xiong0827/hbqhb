@@ -22,12 +22,12 @@ module.exports = defineConfig({
         changeOrigin: true,
       },
       '/user': {
-        target: 'http://127.0.0.1:3000',
+        target: 'http://101.43.12.130:3000',
         ws: true,
         changeOrigin: true,
       },
       '/order': {
-        target: 'http://127.0.0.1:3000',
+        target: 'http://101.43.12.130:3000',
         ws: true,
         changeOrigin: true,
       }

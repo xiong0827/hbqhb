@@ -12,9 +12,9 @@
     <!-- 头像 -->
     <div class="center">
       <span class="header">
-        <img src="./images/chicken.png" alt="" />
+        <img v-lazy="userInfo.avatarurl" alt="" />
       </span>
-      <span class="name">昵称 </span>
+      <span class="name">{{userInfo.nickname}}</span>
     </div>
     <div class="num">
       <span class="care">
@@ -41,72 +41,47 @@
     <div class="baby">全部宝贝</div>
     <!-- 底部 -->
     <div class="bottom">
-      <span>
+      <span v-for="goods in mainGoodsList" :key="goods._id" @click="$router.push(
+        {
+          name:'goodsinfo',
+          query:{
+            goods_id:goods.goods_id
+          }
+        }
+      )">
         <div class="img">
-          <img src="./images/chicken.png" alt="" />
+          <img v-if="goods.goodsphoto[0]" v-lazy='goods.goodsphoto[0]' alt="" />
         </div>
         <ul>
-          <li><p>时间</p></li>
-          <li><p>标题</p></li>
-          <li><p>价格</p></li>
+          <li><p>{{goods.gdate}}</p></li>
+          <li><p>{{goods.title}}</p></li>
+          <li><p>{{goods.gprice}}</p></li>
         </ul>
       </span>
-      <span>
-        <div class="img">
-          <img src="./images/chicken.png" alt="" />
-        </div>
-        <ul>
-          <li><p>123456</p></li>
-          <li><p>456486787987</p></li>
-          <li><p>12134535</p></li>
-        </ul></span
-      >
-      <span>
-        <div class="img">
-          <img src="./images/chicken.png" alt="" />
-        </div>
-        <ul>
-          <li><p>123456</p></li>
-          <li><p>456486787987</p></li>
-          <li><p>12134535</p></li>
-        </ul></span
-      >
-      <span>
-        <div class="img">
-          <img src="./images/chicken.png" alt="" />
-        </div>
-        <ul>
-          <li><p>123456</p></li>
-          <li><p>456486787987</p></li>
-          <li><p>12134535</p></li>
-        </ul></span
-      >
-      <span>
-        <div class="img">
-          <img src="./images/chicken.png" alt="" />
-        </div>
-        <ul>
-          <li><p>123456</p></li>
-          <li><p>456486787987</p></li>
-          <li><p>12134535</p></li>
-        </ul></span
-      >
-      <span>
-        <div class="img">
-          <img src="./images/chicken.png" alt="" />
-        </div>
-        <ul>
-          <li><p>123456</p></li>
-          <li><p>456486787987</p></li>
-          <li><p>12134535</p></li>
-        </ul></span
-      >
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import {Toast} from 'vant'
+import {mapState} from 'vuex'
+export default {
+  mounted()
+  { try {
+     this.$store.dispatch('user/getUserInfo',this.$route.query.phone_id)
+     this.$store.dispatch('goods/getMainGoodsList',this.$route.query.phone_id)
+  } catch (error) {
+    Toast(Error)
+  }
+   
+
+  },
+  computed:
+  {
+ ...mapState('user',['userInfo']),
+ ...mapState('goods',['mainGoodsList'])
+  }
+}
 </script>
 
 <style lang="less" scoped>
@@ -153,6 +128,7 @@ export default {};
       }
     }
     .name {
+      transform: translateY(-20px);
       height: 23px;
       width: 123px;
       text-align: center;
@@ -166,6 +142,7 @@ export default {};
   }
   //   数字
   .num {
+    transform: translateY(-30px);
     height: 100px;
     display: flex;
     justify-content: space-between;
@@ -207,6 +184,7 @@ export default {};
   }
   //   矩形框
   .cube {
+    transform: translateY(-20px);
     display: flex;
     justify-content: space-around;
     .follow {
@@ -252,7 +230,7 @@ export default {};
   // 隔行
   .baby {
     text-align: center;
-    margin-top: 50px;
+    margin-top: 30px;
     margin-left: 15px;
     width: 106px;
     height: 44px;
@@ -277,6 +255,7 @@ export default {};
     background: #f7f7f9;
 
     span {
+    
       display: block;
       width: 327px;
       height: 112px;
@@ -316,9 +295,9 @@ export default {};
           width: 100%;
           height: 40px;
           font-family: AirbnbCerealApp-Medium;
-          font-size: 18px;
+          font-size: 14px;
+          overflow: hidden;
           font-weight: normal;
-          line-height: 25px;
           letter-spacing: 0px;
           color: #110c26;
         }

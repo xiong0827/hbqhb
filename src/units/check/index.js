@@ -43,7 +43,7 @@ export default class checkObj {
             return false
         }
     }
-    chekRePassword = function () {
+    checkRePassword = function () {
         if (!this.checkPassword()) {
             return 0
         }
@@ -56,7 +56,7 @@ export default class checkObj {
     checkAll(code) {
         let promiseall = [
             this.checkCode(code),
-            this.chekRePassword(),
+            this.checkRePassword(),
             this.checkPassword(),
             this.checkPhone(),
         ]

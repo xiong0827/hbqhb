@@ -4,7 +4,6 @@ import { List } from 'vant';
 import { PullRefresh } from 'vant';
 
 Vue.use(PullRefresh);
-
 Vue.use(List);
 Vue.use(Empty);
 import Vue from 'vue'

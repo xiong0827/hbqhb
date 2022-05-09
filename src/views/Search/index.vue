@@ -1,43 +1,30 @@
 <template>
   <div class="search">
     <Searchinput placeholdervalue="搜索商品" toppx="30" />
-   
+
     <div class="clear">
       <a href="">
         <li class="one">最近搜索</li>
       </a>
-      <a href="">
+      <a @click="claerSearch">
         <li class="two">清除</li>
       </a>
     </div>
     <div class="recent">
-      <a href="">
-        <li class="a">电子商务设计系统</li>
-        <li class="b"><van-icon name="guide-o" size="35" color="#6b91f3" /></li>
-      </a>
-
-      <a href="">
-        <li class="a">安卓应用模块</li>
-        <li class="b"><van-icon name="guide-o" size="35" color="#6b91f3" /></li>
-      </a>
-
-      <a href="">
-        <li class="a">购物移动和桌面应用</li>
-        <li class="b"><van-icon name="guide-o" size="35" color="#6b91f3" /></li>
-      </a>
-
-      <a href="">
-        <li class="a">请继续关注更新</li>
-        <li class="b"><van-icon name="guide-o" size="35" color="#6b91f3" /></li>
-      </a>
-
-      <a href="">
-        <li class="a">更多文章</li>
-        <li class="b"><van-icon name="guide-o" size="35" color="#6b91f3" /></li>
-      </a>
-
-      <a href="">
-        <li class="a">更多播报</li>
+      <a href="" v-for="item in searchHistory" :key="item.code">
+        <li
+          class="a"
+          @click="
+            $router.push({
+              name: 'searchresult',
+              query: {
+                searchcode: item.code,
+              },
+            })
+          "
+        >
+          {{ item.code }}
+        </li>
         <li class="b"><van-icon name="guide-o" size="35" color="#6b91f3" /></li>
       </a>
     </div>
@@ -45,7 +32,29 @@
 </template>
 
 <script>
-export default {};
+import { Dialog } from "vant";
+export default {
+  computed: {
+    searchHistory() {
+      return JSON.parse(localStorage.getItem("searchHistory"));
+    },
+  },
+  methods: {
+    claerSearch() {
+      Dialog.confirm({
+        title: "提示",
+        message: "您确定要清空记录吗",
+        confirmButtonText: "确认",
+        cancelButtonText: "取消",
+      })
+        .then(() => {
+          localStorage.removeItem("searchHistory");
+          location.reload();
+        })
+        .catch(() => {});
+    },
+  },
+};
 </script>
 
 <style lang="less" scoped>

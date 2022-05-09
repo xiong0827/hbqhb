@@ -1,7 +1,10 @@
 import {
     reqUserlogin,
     reqRegister,
-    reqGetCode
+    reqGetCode,
+    reqGetUserInfo,
+    reqUpdateInfo,
+    reqUpDatePassword,
 } from '@/api'
 
 export default {
@@ -44,6 +47,40 @@ export default {
             } else {
                 return Promise.reject(new Error(result.message));
             }
+        },
+        //获取用户信息
+        async getUserInfo(
+            {commit},phone_id
+        )
+        {
+        let result = await reqGetUserInfo(phone_id)
+        if (result.status==200) {
+            commit('REQGETUSERINFO',result.userinfolist)
+            return 'ok'
+        }
+        else{
+            localStorage.removeItem('token')
+            return Promise.reject(new Error(result.message));
+            
+        }
+        },
+        //修改用户信息
+        async  updateInfo({commit},data)
+        {
+          let result=  await reqUpdateInfo(data)
+          console.log(result);
+        },
+        //修改用户密码
+        async upDatePassword({commit},data)
+        {
+            let result =await reqUpDatePassword(data)
+            console.log(result);
+            if (result.status==200) {
+                return result.message
+            }
+            else{
+                return Promise.reject(new Error(result.message))
+            }
         }
 
     },
@@ -56,11 +93,17 @@ export default {
         {
         state.token=token
         localStorage.setItem('token',token)
+        },
+        //获取用户信息
+        REQGETUSERINFO(state,userInfo)
+        {
+        state.userInfo=userInfo
         }
     },
     state: {
         phonecode: '',
-        token: localStorage.getItem('token')
+        token: localStorage.getItem('token'),
+        userInfo:{}
     },
     getters: {
 

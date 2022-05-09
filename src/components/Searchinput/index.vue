@@ -7,8 +7,11 @@
       class="searchinput"
       v-model="searchcode"
       :placeholder="placeholdervalue"
+      @click="$router.replace('/search')"
     />
-    <div class="searchicon"><van-icon name="search" size="24" /></div>
+    <div class="searchicon" @click="toResult">
+      <van-icon name="search" size="24" />
+    </div>
   </div>
 </template>
 
@@ -16,16 +19,69 @@
 export default {
   name: "Searchinput",
   props: ["placeholdervalue", "toppx"],
+  mounted()
+  {
+ 
+  },
   data() {
     return {
       searchcode: "",
+
     };
   },
   methods: {
     back() {
       this.$router.go(-1);
     },
+    toResult(code) {
+      // let searchhistory=['牛逼','六六六']
+      if (
+        !localStorage.getItem("searchHistory") &&
+        this.searchcode.trim() !=""
+      ) {
+        localStorage.setItem(
+          "searchHistory",
+          JSON.stringify([{ code: this.searchcode }])
+        );
+      }
+      else if(this.searchcode.trim() =="")
+      {
+       
+      } 
+      else {
+        let searchH = JSON.parse(localStorage.getItem("searchHistory"));
+        //判断是否有次记录
+        let searchindex=searchH.findIndex(search =>{return this.searchcode==search.code})
+        console.log(searchindex);
+        if(searchindex == -1) {
+          searchH.push({code:this.searchcode})
+          // localStorage.removeItem('searchHistory')
+          localStorage.setItem(
+          "searchHistory",
+          JSON.stringify(searchH)
+        )
+        
+        }
+      }
+      if (this.searchcode.trim()!='') {
+         this.$router.push({
+        name: "searchresult",
+        query: {
+          searchcode: this.searchcode.trim(),
+        },
+      });
+      }
+      else{
+        this.$router.push({
+          name: "searchresult",
+        })
+      }
+     
+    },
   },
+  computed:{
+  
+  }
 };
 </script>
 

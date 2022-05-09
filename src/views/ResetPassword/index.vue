@@ -9,32 +9,60 @@
         <img src="./images/svg2.svg" alt="" />
       </div>
       <div class="password old">
-        <van-icon class="icon" name="lock" color="#700BEF" size="30" /><input
+        <van-icon
+          class="icon"
+          name="lock"
+          color="#700BEF"
+          @click="showpassword('1')"
+          size="30"
+        /><input
           type="password"
           name=""
-          id=""
+          v-model="oldpassword"
           placeholder="原密码"
+          ref="password1"
         />
       </div>
       <div class="password new">
-        <van-icon class="icon" name="lock" color="#700BEF" size="30" /><input
+        <van-icon
+          class="icon"
+          name="lock"
+          color="#700BEF"
+          size="30"
+          @click="showpassword('2')"
+        /><input
           type="password"
+          ref="password2"
           name=""
-          id=""
+          v-model="newpassword"
           placeholder="新密码"
+          :class="{ outline: check.checkPassword() != true }"
         />
       </div>
       <div class="password repeat">
-        <van-icon class="icon" name="lock" color="#700BEF" size="30" /><input
+        <van-icon
+          class="icon"
+          name="lock"
+          color="#700BEF"
+          size="30"
+          @click="showpassword('3')"
+        /><input
           type="password"
+          ref="password3"
           name=""
-          id=""
-          placeholder="再次密码"
+          v-model="repassword"
+          placeholder="再次输入密码"
+          :class="{ outline: check.checkRePassword() == false }"
         />
       </div>
     </div>
     <div class="bottom">
-      <van-button round type="info" class="button1" @click="Dialog"
+      <van-button
+        round
+        v-show="isshow"
+        type="info"
+        class="button1"
+        @click="updatepassword"
         >确定</van-button
       >
     </div>
@@ -42,11 +70,14 @@
 </template>
 
 <script>
+import checkObj from "@/units/check";
 export default {
   name: "ResetPassword",
   data() {
     return {
-      phone_id: "",
+      oldpassword: "",
+      newpassword: "",
+      repassword: "",
       code: "",
       timer: 0,
       //弹出信息
@@ -54,6 +85,41 @@ export default {
     };
   },
   methods: {
+    showpassword(index) {
+      switch (index) {
+        case "1":
+          console.log(this);
+          if (this.$refs.password1.type == "text") {
+            this.$refs.password1.type = "password";
+          } else {
+            this.$refs.password1.type = "text";
+          }
+          break;
+        case "2":
+          if (this.$refs.password2.type == "text") {
+            this.$refs.password2.type = "password";
+          } else {
+            this.$refs.password2.type = "text";
+          }
+          break;
+        case "3":
+          if (this.$refs.password3.type == "text") {
+            this.$refs.password3.type = "password";
+          } else {
+            this.$refs.password3.type = "text";
+          }
+          break;
+        default:
+          return;
+      }
+      // let index='password1'
+      // console.log(this.$refs.index);
+      // if (this.$refs.password.type == "text") {
+      //   this.$refs.password.type = "password";
+      // } else {
+      //   this.$refs.password.type = "text";
+      // }
+    },
     getcode() {
       if (!this.phonenum) {
       }
@@ -65,15 +131,44 @@ export default {
         }
       }, 1000);
     },
-    Dialog() {
-      this.$dialog
+    async updatepassword() {
+      try {
+        let result = await this.$store.dispatch("user/upDatePassword", {
+          oldpassword: this.oldpassword,
+          password: this.newpassword,
+        });
+        this.$dialog
         .alert({
           // title:'标题呀',
-          message: this.tipsMsg,
+          message:result+'请重新登录',
         })
         .then(() => {
-          this.$router.push("main");
+          localStorage.removeItem('token')
+          this.$router.replace("main");
         });
+      } catch (error) {
+          this.$dialog
+        .alert({
+          // title:'标题呀',
+          message:error,
+        })
+        .then(() => {
+          this.newpassword='',
+          this.oldpassword='',
+          this.repassword=''
+        });
+      }
+    },
+  },
+  computed: {
+    check() {
+      return new checkObj({
+        password: this.newpassword,
+        repassword: this.repassword,
+      });
+    },
+    isshow() {
+      return this.check.checkAll();
     },
   },
 };
@@ -132,6 +227,9 @@ export default {
       margin-right: 10px;
       width: 20%;
     }
+  }
+  .outline {
+    border: 2px solid salmon;
   }
   .center {
     height: 80%;
@@ -193,6 +291,7 @@ export default {
     }
     .password {
       position: relative;
+
       .icon {
         position: absolute;
         left: 25.77px;

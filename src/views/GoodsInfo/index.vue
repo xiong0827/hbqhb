@@ -4,7 +4,12 @@
       <Backtop />
       <div class="top1">
         <div class="ava">
-          <img :src="issueper.avatarurl" alt="" /><b>{{ issueper.nickname }}</b>
+          <img :src="issueper.avatarurl" @click="$router.push({
+            name:'personal',
+            query:{
+              phone_id:issueper.phone_id
+            }
+          })" alt="" /><b>{{ issueper.nickname }}</b>
         </div>
         <div class="follow">
           <van-button class="btn" round type="info">+关注</van-button>

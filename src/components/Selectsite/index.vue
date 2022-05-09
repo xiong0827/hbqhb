@@ -6,6 +6,7 @@
       readonly
       label="地区"
       @click="show1 = true"
+      :placeholder="address"
     />
     <van-popup v-model="show1" round position="bottom">
       <van-cascader
@@ -23,6 +24,7 @@
 import CityData from "@/units/app";
 export default {
   name: "SelectSite",
+props:['address'],
   data() {
     return {
       show1: false,
@@ -36,6 +38,7 @@ export default {
     onFinish({ selectedOptions }) {
       this.show1 = false;
       this.fieldValue = selectedOptions.map((option) => option.text).join("/");
+      this.$emit('updateAddress',this.fieldValue)
     },
   },
 };

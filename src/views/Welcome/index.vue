@@ -1,14 +1,31 @@
 <template>
   <div class="welcome">
     <div class="Ellipse"></div>
-     <div class="Ellipse2"></div>
+    <div class="Ellipse2"></div>
     <span class="tiaoguo">
-     <router-link to="/home">跳过>></router-link>
+      <router-link to="/home">跳过>></router-link>
     </span>
     <span class="welcometitle"><p>welcome</p></span>
     <div class="svg"></div>
-     <span class="button" ><router-link to="/login">登录</router-link></span>
-    <span class="button"><router-link to="/register">注册</router-link></span>
+    <span
+      class="button"
+      @click="
+        $router.push({
+          name: 'login',
+        })
+      "
+      ><a>登录</a></span
+    >
+    <span
+      class="button"
+      @click="
+        $router.push({
+          name: 'register',
+        })
+      "
+    >
+      <a>注册</a></span
+    >
   </div>
 </template>
 
@@ -42,15 +59,15 @@ export default {};
       rgba(226, 226, 226, 0) 90%
     );
   }
-  .Ellipse2{
+  .Ellipse2 {
     position: absolute;
-left: -35%;
-bottom: -13%;
-border-radius: 50%;
-width: 48%;
-height: 20%;
-transform: rotate(107.69deg);
-background: rgba(87, 204, 183, 0.2);
+    left: -35%;
+    bottom: -13%;
+    border-radius: 50%;
+    width: 48%;
+    height: 20%;
+    transform: rotate(107.69deg);
+    background: rgba(87, 204, 183, 0.2);
   }
   .tiaoguo {
     position: absolute;
@@ -68,7 +85,7 @@ background: rgba(87, 204, 183, 0.2);
     width: 49%;
     height: 18%;
     transform: translateY(18%);
-       display: flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     p {
@@ -91,26 +108,24 @@ background: rgba(87, 204, 183, 0.2);
     width: 100%;
     background: #3d3d3d;
   }
-  .button:nth-last-child(1)
-  {
- background: rgba(112, 11, 239, 0.3);
+  .button:nth-last-child(1) {
+    background: rgba(112, 11, 239, 0.3);
   }
-  .button{
-      width: 90%;
-height: 8%;
-border-radius: 30px;
-background: #6F0BEF;
-display: flex;
-justify-content: center;
-align-items: center;
-a{
-font-family: Roboto-Regular;
-font-size: 23px;
-font-weight: normal;
-letter-spacing: 0px;
-color: #FFFFFF;
-}
-
+  .button {
+    width: 90%;
+    height: 8%;
+    border-radius: 30px;
+    background: #6f0bef;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    a {
+      font-family: Roboto-Regular;
+      font-size: 23px;
+      font-weight: normal;
+      letter-spacing: 0px;
+      color: #ffffff;
+    }
   }
 }
 </style>

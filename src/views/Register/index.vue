@@ -16,7 +16,7 @@
       <div class="code">
         <van-icon class="icon" name="comment" color="#700BEF" size="30" /><input v-model.number="code" type="number"
           :class="{ outline: code.length < 6 }" name="" placeholder="验证码" max="6" />
-        <van-button type="info" class="getcode" v-if="timer == 0 && check.checkPhone()" @click="getcode">获取验证码
+        <van-button type="info" size="30" class="getcode" v-if="timer == 0 && check.checkPhone()" @click="getcode">获取验证码
         </van-button>
         <van-button type="info" disabled class="getcode" v-else-if="timer == 0 && !check.checkPhone()" @click="getcode">
           获取验证码</van-button>
@@ -28,7 +28,7 @@
       </div>
       <div class="password">
         <van-icon class="icon" name="lock" color="#700BEF" size="30" /><input type="password"
-          :class="{ outline: check.chekRePassword() == false }" v-model="repassword" name="" placeholder="再次输入" />
+          :class="{ outline: check.checkRePassword() == false }" v-model="repassword" name="" placeholder="再次输入" />
       </div>
     </div>
     <div class="bottom">
@@ -140,7 +140,7 @@ export default {
         this.code != "" &&
         this.check.checkPhone() &&
         this.check.checkPassword() &&
-        this.check.chekRePassword()
+        this.check.checkRePassword()
       ) {
         return true;
       } else {

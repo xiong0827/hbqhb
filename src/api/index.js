@@ -14,6 +14,8 @@ export const reqIssuegoods=(data)=>requests({url:'/commodity/issuegoods',method:
 //获取商品详情
 export const reqGetGoodsInfo=(goods_id)=>requests({url:`/commodity/getgoodsinfo`,method:'get',params:{goods_id}})
 //点赞商品getuserlike
+//获取商品列表
+export const reqGetMainGoodsList=(phone_id)=>requests({url:'/commodity/getmaingoodslist',method:'get',params:{phone_id}})
 
 export const reqGetUserLike=(goods_id)=>requests({url:'/commodity/getuserlike',method:'get',params:{goods_id}})
 //收藏商品或取消
@@ -24,3 +26,9 @@ export const reqAddReply=(goods_id,replytitle)=>requests({url:'/commodity/replyg
 export const reqGetGoodsList=(data)=>requests({url:'/commodity/getgoodslist',method:'post',data:qs.stringify(data)})
 //获取分类
 export const reqGetClass=()=>requests({url:'/commodity/getclass',method:'get'})
+//获取个人详情
+export const reqGetUserInfo=(phone_id)=>requests({url:'/user/getuserinfo',method:'get',params:{phone_id}})
+//修改个人信息
+export const reqUpdateInfo=(data)=>requests({url:'/user/updateinfo',method:'post',data})
+//修改密码 /user/updatepassword
+export const reqUpDatePassword=(data)=>requests({url:'/user/updatepassword',method:'post',data:qs.stringify(data)})
