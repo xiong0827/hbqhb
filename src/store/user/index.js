@@ -55,7 +55,23 @@ export default {
         {
         let result = await reqGetUserInfo(phone_id)
         if (result.status==200) {
-            commit('REQGETUSERINFO',result.userinfolist)
+            commit('GETUSERINFO',result.userinfolist)
+            return 'ok'
+        }
+        else{
+            localStorage.removeItem('token')
+            return Promise.reject(new Error(result.message));
+            
+        }
+        },
+        //获取发布者用户信息
+        async getIsserUserInfo(
+            {commit},phone_id
+        )
+        {
+        let result = await reqGetUserInfo(phone_id)
+        if (result.status==200) {
+            commit('GETISSERUSERINFO',result.userinfolist)
             return 'ok'
         }
         else{
@@ -95,15 +111,22 @@ export default {
         localStorage.setItem('token',token)
         },
         //获取用户信息
-        REQGETUSERINFO(state,userInfo)
+        GETUSERINFO(state,userInfo)
         {
         state.userInfo=userInfo
+        },
+        GETISSERUSERINFO(state,issueper)
+        {
+            console.log(issueper);
+        state.issueper=issueper
         }
+        
     },
     state: {
         phonecode: '',
         token: localStorage.getItem('token'),
         userInfo:{},
+        issueper:{}
     },
     getters: {
         uwantlist(state)

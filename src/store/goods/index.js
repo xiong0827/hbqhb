@@ -8,7 +8,7 @@ import {
     reqGetMainGoodsList
 } from '@/api'
 export default {
-    namespaced: 'true',
+    namespaced: true,
     actions: {
         //获取商品信息
         async getGoodsInfo({
@@ -42,7 +42,7 @@ export default {
         }, goods_id) {
             let result = await reqAddWantList(goods_id)
             if (result.status == 200) {
-                console.log(result);
+            
                 return '收藏成功'
             } else {
                 return Promise.reject(new Error(result.messgae))
@@ -81,21 +81,21 @@ export default {
                 commit('GETGOODSLIST', {
                     ...result.goodsList,
                 })
-                commit('GETGOODSCOUNT',result.goodscount)
+                commit('GETGOODSCOUNT', result.goodscount)
             }
         },
         //获取个人发布商品列表
-        async getMainGoodsList({commit},phone_id)
-        {
-            let result=await reqGetMainGoodsList(phone_id)
+        async getMainGoodsList({
+            commit
+        }, phone_id) {
+            let result = await reqGetMainGoodsList(phone_id)
             console.log(result.maingoodlist);
-           if (result.status==200) {
-               commit('GETMAINGOODSLIST',result.maingoodlist)
-               return 'ok'
-           }
-           else{
-               return Promise.reject(new Error(result.messgae))
-           }
+            if (result.status == 200) {
+                commit('GETMAINGOODSLIST', result.maingoodlist)
+                return 'ok'
+            } else {
+                return Promise.reject(new Error(result.messgae))
+            }
         }
     },
     mutations: {
@@ -108,22 +108,23 @@ export default {
         GETGOODSLIST(state, goodsInfoList) {
             state.goodsInfoList = goodsInfoList
         },
-        GETGOODSCOUNT(state,goodsCount)
-        {
-            state.goodsCount=goodsCount
+        GETGOODSCOUNT(state, goodsCount) {
+            state.goodsCount = goodsCount
         },
-        GETMAINGOODSLIST(state,mainGoodsList)
+        GETMAINGOODSLIST(state, mainGoodsList) {
+            state.mainGoodsList = mainGoodsList
+        },
+        GEtWANTSTATUS(state,)
         {
-            state.mainGoodsList=mainGoodsList
-           
+
         }
     },
     state: {
         goodsinfo: {},
         classList: [],
         goodsInfoList: [],
-        goodsCount:0,
-        mainGoodsList:[],
+        goodsCount: 0,
+        mainGoodsList: [],
     },
     getters: {
 

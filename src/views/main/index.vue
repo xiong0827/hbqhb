@@ -29,24 +29,10 @@
         </div>
         <div class="name" v-else @click="skipLogin">点击去登录</div>
         <div class="rectangle">
-          <li @  @click="
-              $router.push({
-                name: 'fans',
-                query:{
-                  title:'我的关注'
-                }
-              })
-            ">关注</li>
-          <li
-            @click="
-              $router.push({
-                name: 'fans',
-                query:{
-                  title:'我的粉丝'
-                }
-              })
-            "
-          >
+          <li @click=" topublish('fans','我的关注')">
+            关注
+          </li>
+          <li @click=" topublish('fans','我的粉丝')">
             粉丝
           </li>
           <li>历史</li>
@@ -134,7 +120,7 @@
       <div class="bottom">
         <van-cell title="个人资料" is-link to="maindata" />
         <van-cell title="重置密码" is-link to="resetpassword" />
-        <van-cell title="退出登录" is-link to="welcome" />
+        <van-cell title="退出登录" is-link @click="exitLogin" />
       </div>
     </div>
   </div>
@@ -159,10 +145,31 @@ export default {
     };
   },
   methods: {
-    topublish(to) {
+    exitLogin() {
+      Dialog.confirm({
+        title: "提示",
+        message: "确定要退出吗",
+        confirmButtonText: "确认",
+        cancelButtonText: "取消",
+      })
+        .then(() => {
+          //  this.$router.push({
+          //   name: "home",
+          // });
+            localStorage.removeItem("token");
+          location.reload();
+        })
+        .catch(() => {
+
+        });
+    },
+    topublish(to,title) {
       if (this.isshow == true) {
         this.$router.push({
           name: to,
+          query:{
+            title
+          }
         });
       } else {
         this.$dialog

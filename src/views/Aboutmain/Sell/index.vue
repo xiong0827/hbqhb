@@ -19,7 +19,8 @@
           goods_id:goods.goods_id
         }
       })">查看详情</van-button>
-      <van-button size="small" hairline type="danger" @click="alertsell">取消收藏</van-button>
+      <van-button size="small" v-show="dangershow"  hairline type="danger" @click="alertsell(goods.goods_id)">取消收藏</van-button>
+      <van-button size="small" v-show="!dangershow" hairline type="danger" @click="alertsell(goods.goods_id)">收藏</van-button>
     </template>
      
   </van-card>
@@ -27,8 +28,14 @@
 </template>
 
 <script>
+import { Toast } from 'vant'
 import {mapGetters} from 'vuex'
 export default {
+  data() {
+    return {
+      dangershow:true
+    }
+  },
   mounted()
   {
    this.getwantlist()
@@ -42,6 +49,16 @@ export default {
           catch (error) {
         
       }
+   },
+  async alertsell(goods_id)
+   {
+   try {
+     await this.$store.dispatch('goods/addWantList',goods_id)
+    // await this.getwantlist()
+    this.dangershow=!this.dangershow
+   } catch (error) {
+     Toast(error)
+   }
    }
   },
 computed:{

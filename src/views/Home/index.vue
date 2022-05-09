@@ -103,7 +103,7 @@
               <div>
                 <p>{{ goods.title }}</p>
               </div>
-              <b>{{ goods.gprice }}$</b>
+              <b>￥ {{ goods.gprice }}</b>
               <div class="want">
                 <i v-if="goods.wantlist">{{ goods.wantlist.length }}</i>
                 <p>想要</p>
@@ -129,7 +129,7 @@ export default {
     return {
       searchcode: "",
       pagenum: 6,
-      atpage: 2,
+      atpage: 1,
       isLoading: false,
       loading: false, // 是否处在加载状态
       finished: false, // 是否已加载完成
@@ -198,6 +198,11 @@ this.getGoodsList()
     //   console.log(goods);
     //   return goods.goodsphoto[0]
     // }
+    ratpage()
+    {
+      let max = Math.ceil(this.goodsCount / this.pagenum);
+   return Math.floor(Math.random() * (max - 1 + 1)) + 1;
+    }
   },
   watch: {
     // pagenum:{
@@ -294,7 +299,7 @@ this.getGoodsList()
       padding-bottom: 60px;
       li {
         width: 45%;
-        height: 230px;
+        height: 280px;
         border-radius: 3px;
         display: flex;
         flex-direction: row;
@@ -337,7 +342,7 @@ this.getGoodsList()
               font-size: 10px;
               font-weight: 500;
               letter-spacing: 0px;
-              color: gainsboro;
+              color:darkred;
               margin-right: 4%;
             }
             p {
@@ -361,7 +366,7 @@ this.getGoodsList()
           }
           div {
             width: 100%;
-            height: 49px;
+            height: 65px;
             overflow: hidden;
             p {
               font-family: Roboto-Regular;

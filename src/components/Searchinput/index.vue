@@ -7,7 +7,7 @@
       class="searchinput"
       v-model="searchcode"
       :placeholder="placeholdervalue"
-      @click="$router.replace('/search')"
+      @click="$router.push('/search')"
     />
     <div class="searchicon" @click="toResult">
       <van-icon name="search" size="24" />
@@ -34,8 +34,8 @@ export default {
       this.$router.go(-1);
     },
     toResult(code) {
-      // let searchhistory=['牛逼','六六六']
-      if (
+     
+          if (
         !localStorage.getItem("searchHistory") &&
         this.searchcode.trim() !=""
       ) {
@@ -64,7 +64,7 @@ export default {
         }
       }
       if (this.searchcode.trim()!='') {
-         this.$router.push({
+         this.$router.replace({
         name: "searchresult",
         query: {
           searchcode: this.searchcode.trim(),
@@ -72,10 +72,11 @@ export default {
       });
       }
       else{
-        this.$router.push({
+        this.$router.replace({
           name: "searchresult",
         })
       }
+      
      
     },
   },

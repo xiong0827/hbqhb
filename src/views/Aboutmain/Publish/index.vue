@@ -15,7 +15,7 @@
   >
     <template #tags>
         <van-cell  :value="goods.title" />
-          <van-cell  :value="goods.gstatus==1?'发布中':'已下架'" />
+          <van-cell  :value="goods.gstatus==1?'发布中':'已卖出'" />
     </template>
     <template #footer>
       <van-button size="small" hairline type="info">编辑发布</van-button>

@@ -1,16 +1,21 @@
 <template>
   <div class="goodsinfo">
     <Backtop />
-    <div class="top" v-if="goodsIsShow">
-      
+    <div class="top" v-if="goodsinfo && issueper">
       <div class="top1">
         <div class="ava">
-          <img :src="issueper.avatarurl" @click="$router.push({
-            name:'personal',
-            query:{
-              phone_id:issueper.phone_id
-            }
-          })" alt="" /><b>{{ issueper.nickname }}</b>
+          <img
+            :src="issueper.avatarurl"
+            @click="
+              $router.push({
+                name: 'personal',
+                query: {
+                  phone_id: issueper.phone_id,
+                },
+              })
+            "
+            alt=""
+          /><b>{{ issueper.nickname }}</b>
         </div>
         <div class="follow">
           <van-button class="btn" round type="info">+关注</van-button>
@@ -18,7 +23,7 @@
       </div>
       <div class="center">
         <div class="price">
-          <b>${{ goodsinfo.gprice }}</b>
+          <b>￥{{ goodsinfo.gprice }}</b>
         </div>
         <div class="goodsname">{{ goodsinfo.title }}</div>
         <div class="goodsinfo1">
@@ -34,7 +39,7 @@
         </div>
       </div>
     </div>
-    <div class="collect" v-if="goodsIsShow">
+    <div class="collect" v-if="goodsIsShow && seeUserInfo">
       <h4>留言</h4>
       <div class="collectbox1">
         <img :src="seeUserInfo.avatarurl" alt="" />
@@ -58,19 +63,19 @@
         <a href="#">查看全部留言>></a>
       </div>
     </div>
-    <div class="bottom" >
+    <div class="bottom" v-if="seeUserInfo">
       <div class="mind" @click="addlike">
         <van-icon name="like" color="red" size="40px" /><b>{{
           goodsinfo.likes
         }}</b>
       </div>
 
-      <div class="bit" @click="addwantlist" v-show="goodsinfo.wantshow">
+      <div class="bit" @click="addwantlist" v-show="goodsinfo.wantshow == -1">
         <van-icon name="star-o" size="40px" /><b>{{
           goodsinfo.wantlist ? goodsinfo.wantlist.length : 0
         }}</b>
       </div>
-      <div class="bit" v-show="!goodsinfo.wantshow">
+      <div class="bit" v-show="goodsinfo.wantshow != -1">
         <van-icon name="star" color="red" size="40" @click="addwantlist" /><b>{{
           goodsinfo.wantlist ? goodsinfo.wantlist.length : 0
         }}</b>
@@ -85,6 +90,7 @@
           type="info"
           size="50"
           class="btn"
+          @click="gosubmit"
           >购买</van-button
         >
         <van-button
@@ -102,6 +108,7 @@
 </template>
 
 <script>
+import { Dialog } from "vant";
 import _ from "lodash";
 import { mapState } from "vuex";
 export default {
@@ -115,19 +122,20 @@ export default {
   mounted() {
     try {
       this.getgoodsinfo();
-      this.goodsIsShow = true;
-    } catch (error) {
-      this.goodsIsShow = false;
-    }
+      setTimeout(() => {
+        this.getisseinfo(this.goodsinfo.phone_id);
+      }, 200);
+    } catch (error) {}
   },
   //商品详情
   computed: {
     //商品详情
     ...mapState("goods", ["goodsinfo"]),
     //发布人信息
-    issueper() {
-      return this.goodsinfo.issueper || {};
-    },
+    // issueper() {
+    //   return this.goodsinfo.issueper || {};
+    // },
+    ...mapState("user", { issueper: "issueper" }),
     //图片信息
     goodsphoto() {
       return this.goodsinfo.goodsphoto || [];
@@ -143,13 +151,15 @@ export default {
   },
   methods: {
     //获取商品信息
-   async getgoodsinfo() {
-     try {
-       
-     await this.$store.dispatch("goods/getGoodsInfo", this.$route.query.goods_id);
-     } catch (error) {
-       this.goodsIsShow=false
-     }
+    async getgoodsinfo() {
+      try {
+        await this.$store.dispatch(
+          "goods/getGoodsInfo",
+          this.$route.query.goods_id
+        );
+      } catch (error) {
+        this.goodsIsShow = false;
+      }
     },
     //商品点赞
     addlike: _.debounce(async function () {
@@ -174,6 +184,7 @@ export default {
           "goods/addWantList",
           this.goodsinfo.goods_id
         );
+
         this.getgoodsinfo();
       } catch (error) {
         this.$dialog
@@ -191,7 +202,7 @@ export default {
             goods_id: this.goodsinfo.goods_id,
             replytitle: this.replytitle,
           });
-          this.getgoodsinfo()
+          this.getgoodsinfo();
         } else {
           this.$dialog
             .alert({
@@ -210,6 +221,43 @@ export default {
             this.replytitle = "";
           });
       }
+    },
+    //获取发布者信息
+    async getisseinfo() {
+      await this.$store.dispatch(
+        "user/getIsserUserInfo",
+        this.goodsinfo.phone_id
+      );
+    },
+    //过去浏览者信息
+    async getseeuserinfo() {
+      await this.$store.dispatch("user/getUserInfo");
+    },
+    gosubmit() {
+      Dialog.confirm({
+        title: "提示",
+        message: "是否生成订单并前往提交页？",
+        confirmButtonText: "确认",
+        cancelButtonText: "取消",
+      })
+        .then(async () => {
+          try {
+            await this.$store.dispatch("order/createOrder",this.goodsinfo.goods_id);
+            this.$router.push({
+              name: "ordergoods",
+              query: {
+                goods_id: this.goodsinfo.goods_id,
+              },
+            });
+          } catch (error) {
+            return this.$dialog
+              .alert({
+                message: error,
+              })
+              .then(() => {});
+          }
+        })
+        .catch(() => {});
     },
   },
 };
@@ -233,6 +281,7 @@ export default {
           margin-right: 5%;
           margin-left: 5%;
           vertical-align: middle;
+          border-radius: 50%;
         }
         b {
           font-size: 18px;
@@ -336,6 +385,7 @@ export default {
       width: 10%;
       height: 50px;
       width: 50px;
+      border-radius: 50%;
     }
     input {
       width: 70%;
@@ -351,12 +401,13 @@ export default {
     margin-top: 20px;
     display: flex;
     justify-content: flex-start;
-    align-items:stretch;
+    align-items: stretch;
     flex-wrap: wrap;
     img {
       margin-left: 50px;
-     width: 40px;
-     height: 40px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
     }
     h5 {
       margin-left: 5px;
@@ -369,7 +420,7 @@ export default {
       letter-spacing: 0px;
       display: flex;
       justify-content: flex-start;
-      align-items:stretch;
+      align-items: stretch;
       color: #3d3d3d;
       width: 50%;
     }
@@ -410,9 +461,10 @@ export default {
   }
   .bottom {
     background: #fff;
-    width: 100%;
     height: 70px;
     position: fixed;
+    max-width: 412px;
+    width: 100%;
     bottom: 0;
     display: flex;
     justify-content: space-between;

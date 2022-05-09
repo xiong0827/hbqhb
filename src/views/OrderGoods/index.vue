@@ -3,14 +3,15 @@
     <van-nav-bar left-arrow title="购买宝贝" @click-left="onClickLeft" />
     <div class="buyOrder">
       <div class="buyOrderInfo">
-        <h3>物品名称</h3>
-        <b>Rp129.000</b>
+        <h3>{{ goodsinfo.title }}</h3>
+        <b>RMB {{ goodsinfo.gprice }}</b>
         <div class="stepper1">
           <van-stepper
             v-model="value"
             theme="round"
             button-size="22"
             disable-input
+            disable-plus
           />
           <div class="note">Note</div>
           <div class="collect">
@@ -19,19 +20,19 @@
         </div>
       </div>
       <div class="buyOrderImg">
-        <img src="./images/肉丸.png" alt="" />
+        <img v-lazy="goodsphoto[0]" alt="" />
       </div>
     </div>
     <div class="buyBottom">
       <div class="bottomTop">
         <h4>Popular dishes from this resto</h4>
-        <div class="address">
+        <!-- <div class="address">
           <div class="addressTop">
             <h2>距离</h2>
             <a href="">选择地址</a>
           </div>
           <div class="addressBottom"><b>·</b>配送时间</div>
-        </div>
+        </div> -->
       </div>
       <div class="bottom">
         <div class="puy">
@@ -39,10 +40,17 @@
             <img src="./images/付钱.svg" alt="" width="40px" height="40px" />
             <b>·应用付款</b>
           </div>
-          <h3>Rp129.000</h3>
+          <h3>rmb {{ goodsinfo.gprice }}</h3>
         </div>
         <div class="button">
-          <van-button round type="info" class="btn">圆形按钮</van-button>
+          <van-button
+            round
+            type="info"
+            color="ff6e53"
+            class="btn"
+            @click="submitOrder"
+            >提交订单</van-button
+          >
         </div>
       </div>
     </div>
@@ -50,6 +58,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "OrderGoods",
   data() {
@@ -57,9 +66,37 @@ export default {
       value: 1,
     };
   },
+  mounted() {
+    this.getgoodsinfo();
+  },
   methods: {
     onClickLeft() {
       this.$router.go(-1);
+    },
+    //获取商品信息
+    async getgoodsinfo() {
+      try {
+        await this.$store.dispatch(
+          "goods/getGoodsInfo",
+          this.$route.query.goods_id
+        );
+      } catch (error) {
+        this.goodsIsShow = false;
+      }
+    },
+    //提交订单
+    async submitOrder() {
+      try {
+
+      } catch (error) {
+        
+      }
+    },
+  },
+  computed: {
+    ...mapState("goods", ["goodsinfo"]),
+    goodsphoto() {
+      return this.goodsinfo.goodsphoto || [];
     },
   },
 };
@@ -76,9 +113,9 @@ export default {
     height: 200px;
     display: flex;
     justify-content: space-between;
-    padding-top: 60px;
+    padding-top: 40px;
     .buyOrderInfo {
-      margin-left: 5px;
+      margin-left: 20px;
       width: 50%;
       height: 100%;
       display: flex;
@@ -103,7 +140,7 @@ export default {
       .stepper1 {
         width: 100%;
         height: 15%;
-        margin-top: 50%;
+        margin-top: 20%;
         display: flex;
         justify-content: space-around;
         align-items: center;
@@ -135,10 +172,11 @@ export default {
       }
     }
     .buyOrderImg {
-      margin-right: 5px;
+      margin-right: 30px;
       width: 30%;
       height: 30%;
       img {
+        box-shadow: 1px 1px 2px 2px dimgray;
         width: 100%;
       }
     }
@@ -192,18 +230,19 @@ export default {
       bottom: 1px;
       .puy {
         margin-left: 30px;
-        width: 100%;
+        
         height: 32px;
         display: flex;
         justify-content: flex-start;
         align-items: center;
 
         .puyImg {
-          width: 100px;
+          width: 120px;
           border-radius: 16px;
           background: #fdedf0;
           box-sizing: border-box;
           border: 1px solid #ffe1e6;
+          
           img {
             vertical-align: middle;
           }

@@ -34,3 +34,17 @@ export const reqUpdateInfo=(data)=>requests({url:'/user/updateinfo',method:'post
 export const reqUpDatePassword=(data)=>requests({url:'/user/updatepassword',method:'post',data:qs.stringify(data)})
 
 
+//生成订单 /order/createorder
+export const reqCreateOrder=(goods_id)=>requests({url:'/order/createorder',method:'post',params:{goods_id}})
+//获取个人订单 /order/getmainorder
+export const reqGetMainOrder=()=>requests({url:'/order/getmainorder',method:'get'})
+
+//取消订单 /order/cancelOrder
+export const reqCancelOrder=(order_id)=>requests({url:'/order/cancelorder',method:'post',params:{order_id}})
+//删除订单 /order/deleteorder
+export const reqDeleteOrder=order_id=>requests({url:'/order/deleteorder',method:'delete',params:{order_id}})
+//获取订单详情 
+export const reqGetOrderInfo=order_id=>requests({url:'/order/getorderinfo',method:'get',params:{order_id}})
+
+
+

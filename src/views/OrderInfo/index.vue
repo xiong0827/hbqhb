@@ -74,11 +74,49 @@
       <button>联系卖家/买家</button>
       <button>去评价</button>
     </div>
+    <van-empty image="error" v-if="errorshow" description="商品不见了" />
   </div>
 </template>
 
 <script>
-export default {};
+import {mapState} from 'vuex'
+export default {
+  data() {
+    return {
+      errorshow: false,
+    };
+  },
+  mounted() {
+    this.getOrderInfo()
+  },
+  methods: {
+    async getOrderInfo() {
+      try {
+        await this.$store.dispatch(
+          "order/getOrderInfo",
+          this.$route.query.order_id
+        );
+      } catch (error) {
+        this.$dialog
+          .alert({
+            message: error,
+          })
+          .then((this.errorshow = true));
+      }
+    },
+  },
+  computed:{
+    ...mapState('order',['orderInfo']),
+    buserinfo()
+    {
+     return this.orderInfo.buserinfo || {}
+    },
+    goodsinfo()
+    {
+      return this.orderInfo.goodsinfo || {}
+    }
+  }
+};
 </script>
 
 <style lang="less" scoped>
@@ -87,7 +125,7 @@ export default {};
   //   顶部
   .top {
     height: 100px;
-    background: #fee610;
+    background: #ff6e53;
     position: relative;
     flex: 30%;
     padding-top: 20%;
@@ -119,7 +157,7 @@ export default {};
       background: #fff;
       border-radius: 20px;
       position: absolute;
-      top: 130px;
+      top: 100px;
       left: 40px;
       font-size: 25px;
       text-align: center;
@@ -274,7 +312,7 @@ export default {};
       font-weight: 700;
     }
     button:nth-of-type(2) {
-      background: #fae743;
+      background: #ff6e53;
     }
   }
 }

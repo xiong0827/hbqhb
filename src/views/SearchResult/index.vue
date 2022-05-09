@@ -47,8 +47,8 @@
             </div>
           </van-list>
         </van-tab>
-        <van-tab title="标签 2">价格</van-tab>
-        <van-tab title="标签 3">时间</van-tab>
+        <van-tab title="时间">时间</van-tab>
+        <van-tab title="价格">价格</van-tab>
       </van-tabs>
     </div>
   </div>
@@ -116,6 +116,8 @@ export default {
       this.list = []; // 清空数组
       this.onLoad(); // 重新加载数据
     },
+    //取消订单
+    
   },
   computed: {
     ...mapState("goods", ["goodsInfoList", "goodsCount"]),

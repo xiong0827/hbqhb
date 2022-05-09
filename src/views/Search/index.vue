@@ -11,11 +11,11 @@
       </a>
     </div>
     <div class="recent">
-      <a href="" v-for="item in searchHistory" :key="item.code">
+      <a v-for="item in searchHistory" :key="item.code">
         <li
           class="a"
           @click="
-            $router.push({
+            $router.replace({
               name: 'searchresult',
               query: {
                 searchcode: item.code,
@@ -49,7 +49,7 @@ export default {
       })
         .then(() => {
           localStorage.removeItem("searchHistory");
-          location.reload();
+          // location.reload();
         })
         .catch(() => {});
     },
