@@ -22,15 +22,15 @@
       <div class="commodity">
         <div class="a">
           <li>
-            <img src="./images/pic.png" alt="" />
+            <img v-lazy="goodsinfo.gphoto" alt="" />
           </li>
-          <li>牛年纪念币新一卷20枚</li>
-          <li>￥288.00</li>
+          <li>{{ goodsinfo.title }}</li>
+          <li>￥{{ goodsinfo.gprice }}</li>
         </div>
         <div class="b">
           <li>
             <span>商品总价</span>
-            <span>￥288.00</span>
+            <span>￥{{ goodsinfo.gprice }}</span>
           </li>
           <li>
             <span>运费</span>
@@ -38,7 +38,7 @@
           </li>
           <li>
             <span>实收款</span>
-            <span>￥288.00</span>
+            <span>￥{{ goodsinfo.gprice }}</span>
           </li>
         </div>
       </div>
@@ -46,9 +46,16 @@
       <div class="location">
         <li>
           <span>收货地址</span>
-          <span><van-icon name="records" color="blue" size="24" /></span>
+          <span
+            @click="
+              $router.push({
+                name: 'address',
+              })
+            "
+            ><van-icon name="records" color="blue" size="24"
+          /></span>
         </li>
-        <li>张三 150xxxx8848</li>
+        <li>{{ buserinfo.nickname }} {{ buserinfo.phone_id }}</li>
         <li>河南省商丘市梁园区平安街道睢阳大道中段236号商丘工学院</li>
       </div>
       <!-- 订单信息 -->
@@ -58,28 +65,28 @@
           <li><button>联系买家</button></li>
         </div>
         <div class="container">
-          <li>买家昵称:钱币爱好者</li>
+          <li>买家昵称:{{ buserinfo.nickname }}</li>
           <li>
-            <span>订单编号:1560241406962920978</span>
+            <span>订单编号:{{ orderInfo.order_id }}</span>
             <span><button>复制</button></span>
           </li>
           <li>宝贝快照:发生交易争议时，可作为判断依据</li>
-          <li>支付宝交易号:20210205220011294814257</li>
-          <li>交易时间:2021-02-05 11:46:44</li>
+          <!-- <li>支付宝交易号:20210205220011294814257</li> -->
+          <li>交易时间:{{ orderInfo.ordertime }}</li>
         </div>
       </div>
     </div>
     <!-- 尾部 -->
     <div class="last">
-      <button>联系卖家/买家</button>
-      <button>去评价</button>
+      <button>联系卖家</button>
+      <button @click="topay">{{ orderStatus }}</button>
     </div>
     <van-empty image="error" v-if="errorshow" description="商品不见了" />
   </div>
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -87,7 +94,7 @@ export default {
     };
   },
   mounted() {
-    this.getOrderInfo()
+    this.getOrderInfo();
   },
   methods: {
     async getOrderInfo() {
@@ -104,18 +111,44 @@ export default {
           .then((this.errorshow = true));
       }
     },
-  },
-  computed:{
-    ...mapState('order',['orderInfo']),
-    buserinfo()
-    {
-     return this.orderInfo.buserinfo || {}
+
+    //去支付
+    async topay() {
+      if (this.orderInfo.orderstatus == 1) {
+        let reuslt = await this.$store.dispatch("order/updateOrder",this.orderInfo.order_id);
+        this.$dialog
+          .alert({
+            message: reuslt,
+          })
+          .then(()=>{
+            this.getOrderInfo()
+          });
+      } else {
+        return;
+      }
     },
-    goodsinfo()
-    {
-      return this.orderInfo.goodsinfo || {}
-    }
-  }
+  },
+  computed: {
+    ...mapState("order", ["orderInfo"]),
+    buserinfo() {
+      return this.orderInfo.buserinfo || {};
+    },
+    goodsinfo() {
+      return this.orderInfo.goodsinfo || {};
+    },
+    orderStatus() {
+      switch (this.orderInfo.orderstatus) {
+        case 1:
+          return "去支付";
+        case 2:
+          return "已支付";
+        case 3:
+          return "已取消";
+        default:
+          return "已支付";
+      }
+    },
+  },
 };
 </script>
 
@@ -273,6 +306,7 @@ export default {
       .container {
         display: flex;
         flex-direction: column;
+        padding-bottom: 100px;
         li {
           list-style: none;
           font-size: 18px;
@@ -303,6 +337,10 @@ export default {
     width: 390px;
     display: flex;
     justify-content: space-around;
+    align-items: center;
+    background: #fff;
+    height: 60px;
+    border-top: #7e7e7e 1px solid;
     button {
       width: 180px;
       height: 50px;

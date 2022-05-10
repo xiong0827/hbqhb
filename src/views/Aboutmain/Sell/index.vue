@@ -9,7 +9,7 @@
     :thumb="goods.goodsphoto[0]"
   >
     <template #tags>
-        <van-cell  value="华为mate40pro" />
+        <van-cell  :value="goods.title" />
       
     </template>
     <template #footer>

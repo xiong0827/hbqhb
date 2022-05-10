@@ -108,7 +108,7 @@
 </template>
 
 <script>
-import { Dialog } from "vant";
+
 import _ from "lodash";
 import { mapState } from "vuex";
 export default {
@@ -234,30 +234,12 @@ export default {
       await this.$store.dispatch("user/getUserInfo");
     },
     gosubmit() {
-      Dialog.confirm({
-        title: "提示",
-        message: "是否生成订单并前往提交页？",
-        confirmButtonText: "确认",
-        cancelButtonText: "取消",
-      })
-        .then(async () => {
-          try {
-            await this.$store.dispatch("order/createOrder",this.goodsinfo.goods_id);
             this.$router.push({
               name: "ordergoods",
               query: {
                 goods_id: this.goodsinfo.goods_id,
               },
             });
-          } catch (error) {
-            return this.$dialog
-              .alert({
-                message: error,
-              })
-              .then(() => {});
-          }
-        })
-        .catch(() => {});
     },
   },
 };

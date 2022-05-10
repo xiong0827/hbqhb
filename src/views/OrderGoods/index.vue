@@ -48,7 +48,7 @@
             type="info"
             color="ff6e53"
             class="btn"
-            @click="submitOrder"
+            @click="gosubmit"
             >提交订单</van-button
           >
         </div>
@@ -59,6 +59,7 @@
 
 <script>
 import { mapState } from "vuex";
+import { Dialog } from "vant";
 export default {
   name: "OrderGoods",
   data() {
@@ -85,12 +86,31 @@ export default {
       }
     },
     //提交订单
-    async submitOrder() {
-      try {
-
-      } catch (error) {
-        
-      }
+  gosubmit() {
+      Dialog.confirm({
+        title: "提示",
+        message: "是否生成订单并前往提交页？",
+        confirmButtonText: "确认",
+        cancelButtonText: "取消",
+      })
+        .then(async () => {
+          try {
+          let result=  await this.$store.dispatch("order/createOrder",this.goodsinfo.goods_id);
+            this.$router.push({
+              name: "orderinfo",
+            query:{
+        order_id:result.order_id
+        }
+            });
+          } catch (error) {
+            return this.$dialog
+              .alert({
+                message: error,
+              })
+              .then(() => {});
+          }
+        })
+        .catch(() => {});
     },
   },
   computed: {

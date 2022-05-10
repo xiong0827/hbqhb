@@ -46,5 +46,8 @@ export const reqDeleteOrder=order_id=>requests({url:'/order/deleteorder',method:
 //获取订单详情 
 export const reqGetOrderInfo=order_id=>requests({url:'/order/getorderinfo',method:'get',params:{order_id}})
 
+//提交订单并支付 /order/updateorder
+export const reqUpdateOrder=order_id=>requests({url:'/order/updateorder',method:'post',params:{order_id}})
+
 
 

@@ -18,7 +18,7 @@ export default [{
         component: () => import("@/views/Welcome"),
     },
     {
-        // 家具
+        // 分类
         path: "/classify",
         name: 'classify',
         component: () => import("@/views/Classify"),
@@ -104,7 +104,16 @@ export default [{
                     titletext: '我的收藏'
                 }
             },
-        ]
+        ],
+        beforeEnter: (to, from, next) => {
+            console.log(from.name);
+           if (from.name!='main') {
+               next(false)
+           }
+           else{
+               next()
+           }
+        }
     },
 
     {
@@ -119,6 +128,15 @@ export default [{
         path: "/fans",
         name: "fans",
         component: () => import("@/views/Fans"),
+        beforeEnter: (to, from, next) => {
+            console.log(from.name);
+           if (from.name!='main') {
+               next(false)
+           }
+           else{
+               next()
+           }
+        }
     },
     {
         // 发布商品
@@ -133,6 +151,15 @@ export default [{
         component: () => import("@/views/MainData"),
         meta: {
             titletext: '个人资料'
+        },
+        beforeEnter: (to, from, next) => {
+            console.log(from.name);
+           if (from.name!='main') {
+               next(false)
+           }
+           else{
+               next()
+           }
         }
     },
     {
@@ -161,7 +188,17 @@ export default [{
         path: "/resetpassword",
         name: "resetpassword",
         component: () => import("@/views/ResetPassword"),
+        beforeEnter: (to, from, next) => {
+            console.log(from.name);
+           if (from.name!='main') {
+               next(false)
+           }
+           else{
+               next()
+           }
+        }
     },
+    
     {
         // 商品详情
         path: "/goodsinfo",
@@ -169,7 +206,7 @@ export default [{
         component: () => import("@/views/GoodsInfo"),
     },
     {
-        // 提价订单详情
+        // 提交订单详情
         path: "/orderinfo",
         name: "orderinfo",
         component: () => import("@/views/OrderInfo"),

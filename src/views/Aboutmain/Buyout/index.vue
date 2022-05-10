@@ -24,7 +24,7 @@
               order_id:order.order_id
             }
           }
-        )">查看详情</van-button>
+        )">{{order.orderstatus==1?'去支付':'查看详情'}}</van-button>
         <van-button
           size="small"
           hairline
@@ -75,7 +75,9 @@ export default {
               .alert({
                 message,
               })
-              .then(() => {});
+              .then(() => {
+                this.getMainOrderList()
+              });
           } catch (error) {
             this.$dialog
               .alert({

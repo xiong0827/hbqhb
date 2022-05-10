@@ -6,9 +6,11 @@
         title-inactive-color="#2F2F4A"
         title-active-color="#F75858"
         background="#EDF0F5"
+        v-model="activeName"
+        @click="onClick"
       >
         <van-empty v-if="goodsCount == 0" description="没有找到相关商品" />
-        <van-tab class="tab1" title="综合">
+        <van-tab class="tab1" name="zonghe" title="综合">
           <van-list
             class="goodslist"
             v-model="loading"
@@ -47,8 +49,81 @@
             </div>
           </van-list>
         </van-tab>
-        <van-tab title="时间">时间</van-tab>
-        <van-tab title="价格">价格</van-tab>
+        <van-tab class="tab1" name="price" title="价格" >
+          <van-list
+            class="goodslist"
+            v-model="loading"
+            :finished="finished"
+            finished-text="没有更多了"
+            @load="onLoad"
+            offset="300"
+            :error.sync="error"
+            error-text="请求失败，点击重新加载"
+            v-if="goodsCount"
+          >
+            <div
+              class="nav1"
+              v-for="(goods, index) in list"
+              :key="index"
+              v-show="goods"
+              @click="
+                $router.push({
+                  name: 'goodsinfo',
+                  query: {
+                    goods_id: goods.goods_id,
+                  },
+                })
+              "
+            >
+              <img
+                v-if="goods.goodsphoto"
+                v-lazy="goods.goodsphoto[0]"
+                alt=""
+              />
+              <div class="nav1Info">
+                <h3>{{ goods.title }}</h3>
+                <b>{{ goods.gclassone }}</b>
+                <h4>{{ goods.gprice }}</h4>
+              </div>
+            </div>
+          </van-list>
+        </van-tab>
+        <van-tab class="tab1" title="时间" name="time" >
+           <van-list
+          class="goodslist"
+          v-model="loading"
+          :finished="finished"
+          finished-text="没有更多了"
+          @load="onLoad"
+          offset="300"
+          :error.sync="error"
+          error-text="请求失败，点击重新加载"
+          v-if="goodsCount"
+        >
+          <div
+            class="nav1"
+            v-for="(goods, index) in list"
+            :key="index"
+            v-show="goods"
+            @click="
+              $router.push({
+                name: 'goodsinfo',
+                query: {
+                  goods_id: goods.goods_id,
+                },
+              })
+            "
+          >
+            <img v-if="goods.goodsphoto" v-lazy="goods.goodsphoto[0]" alt="" />
+            <div class="nav1Info">
+              <h3>{{ goods.title }}</h3>
+              <b>{{ goods.gclassone }}</b>
+              <h4>{{ goods.gprice }}</h4>
+            </div>
+          </div>
+        </van-list>
+        </van-tab>
+       
       </van-tabs>
     </div>
   </div>
@@ -69,8 +144,11 @@ export default {
       error: false,
       list: [],
       total: 0,
-      gpricesort: 1,
-      gtimesort: 1,
+      gpricesort: 0,
+      pricestatus:true,
+      gtimesort: 0,
+      timestatus:true,
+      activeName: "zonghe",
     };
   },
   mounted() {
@@ -78,11 +156,30 @@ export default {
   },
   methods: {
     async getGoodsList() {
-      await this.$store.dispatch("goods/getGoodsList", {
-        pagenum: this.pagenum,
-        atpage: this.atpage,
-        searchkeyword: this.$route.query.searchcode,
-      });
+      if (this.gpricesort == 0 && this.gtimesort == 0) {
+        await this.$store.dispatch("goods/getGoodsList", {
+          pagenum: this.pagenum,
+          atpage: this.atpage,
+          searchkeyword: this.$route.query.searchcode,
+        });
+      } else {
+        if (this.gpricesort) {
+          await this.$store.dispatch("goods/getGoodsList", {
+            pagenum: this.pagenum,
+            atpage: this.atpage,
+            searchkeyword: this.$route.query.searchcode,
+            gpricesort: this.gpricesort,
+          });
+        }
+        if (this.gtimesort) {
+          await this.$store.dispatch("goods/getGoodsList", {
+            pagenum: this.pagenum,
+            atpage: this.atpage,
+            searchkeyword: this.$route.query.searchcode,
+            gtimesort: this.gtimesort,
+          });
+        }
+      }
     },
     async getList() {
       await this.getGoodsList();
@@ -116,8 +213,42 @@ export default {
       this.list = []; // 清空数组
       this.onLoad(); // 重新加载数据
     },
+    onClick(name, title) {
+      if ((name = "price")) {
+        if (this.gpricesort) {
+          this.gpricesort = -1;
+          this.timestatus=false
+        }
+        else{
+          this.gpricesort=1
+          this.timestatus=true
+        }
+            this.list = [];
+        this.getList();
+        this.gpricesort = 0;
+      }
+      if ((name = "time")) {
+        if (this.timestatus) {
+          this.gtimesort = -1;
+          this.timestatus=false
+        }
+        else{
+          this.gtimesort=1
+          this.timestatus=true
+        }
+            this.list = [];
+        this.getList();
+        this.gtimesort = 0;
+      }
+    },
+    // gprice()
+    // {
+    //  this.gpricesort = -1;
+    //     this.list = [];
+    //     this.getList();
+    //     this.gpricesort = 0;
+    // }
     //取消订单
-    
   },
   computed: {
     ...mapState("goods", ["goodsInfoList", "goodsCount"]),
@@ -140,7 +271,7 @@ export default {
       flex-direction: column;
       justify-content: flex-start;
       .nav1 {
-        margin-top: 35px;
+        margin-top: 10px;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
@@ -168,11 +299,10 @@ export default {
           border-radius: 10px;
 
           h3 {
-            margin-top: 40px;
+            margin-top: 20px;
             font-family: Roboto-Regular;
             font-size: 14px;
             font-weight: normal;
-            line-height: 20px;
             letter-spacing: 0.7px;
             color: #2f2f4a;
           }

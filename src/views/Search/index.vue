@@ -49,7 +49,7 @@ export default {
       })
         .then(() => {
           localStorage.removeItem("searchHistory");
-          // location.reload();
+          location.reload();
         })
         .catch(() => {});
     },

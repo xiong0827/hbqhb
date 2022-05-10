@@ -3,7 +3,8 @@ import {
     reqGetMainOrder,
     reqCancelOrder,
     reqDeleteOrder,
-    reqGetOrderInfo
+    reqGetOrderInfo,
+    reqUpdateOrder
 } from '@/api'
 export default {
     namespaced: true,
@@ -15,7 +16,7 @@ export default {
             let result = await reqCreateOrder(goods_id)
             console.log(result);
             if (result.status == 200) {
-                return 'ok'
+                return result
             } else {
                 return Promise.reject(new Error(result.message))
             }
@@ -63,9 +64,22 @@ export default {
         async getOrderInfo({commit},order_id)
         {
             let result=await reqGetOrderInfo(order_id)
-            console.log(result);
+          
             if (result.status==200) {
                 commit('GetORDERINFO',result.orderinfo)
+                return result.message
+            }
+            else{
+        
+                return Promise.reject(new Error(result.message))
+            }
+        },
+        //提交订单
+        async updateOrder({commit},order_id)
+        {
+            let result =await reqUpdateOrder(order_id)
+            if (result.status==200) {
+              
                 return result.message
             }
             else{

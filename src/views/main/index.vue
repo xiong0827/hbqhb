@@ -47,7 +47,7 @@
             </div>
           </div>
           <div class="char">我的发布</div>
-          <div class="num">(1)</div>
+          <div class="num"></div>
           <div class="ion">
             <van-icon name="arrow" class="tubiao" color="#2F2F4A" size="30" />
           </div>
@@ -60,7 +60,7 @@
             </div>
           </div>
           <div class="char">我的买到</div>
-          <div class="num">(1)</div>
+          <div class="num"></div>
           <div class="ion">
             <van-icon name="arrow" class="tubiao" color="#2F2F4A" size="30" />
           </div>
@@ -73,7 +73,7 @@
             </div>
           </div>
           <div class="char">我的帖子</div>
-          <div class="num">(1)</div>
+          <div class="num"></div>
           <div class="ion">
             <van-icon name="arrow" class="tubiao" color="#2F2F4A" size="30" />
           </div>
@@ -86,7 +86,7 @@
             </div>
           </div>
           <div class="char">我收藏的商品</div>
-          <div class="num">(1)</div>
+          <div class="num"></div>
           <div class="ion">
             <van-icon name="arrow" class="tubiao" color="#2F2F4A" size="30" />
           </div>
@@ -99,7 +99,7 @@
             </div>
           </div>
           <div class="char">我收藏的帖子</div>
-          <div class="num">(1)</div>
+          <div class="num"></div>
           <div class="ion">
             <van-icon name="arrow" class="tubiao" color="#2F2F4A" size="30" />
           </div>
