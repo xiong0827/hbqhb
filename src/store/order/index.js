@@ -14,7 +14,7 @@ export default {
             commit
         }, goods_id) {
             let result = await reqCreateOrder(goods_id)
-            console.log(result);
+     
             if (result.status == 200) {
                 return result
             } else {
@@ -51,7 +51,7 @@ export default {
         async deleteOrder({commit},order_id)
         {
             let result=await reqDeleteOrder(order_id)
-            console.log(result);
+            
             if (result.status==200) {
                 return result.message
             }

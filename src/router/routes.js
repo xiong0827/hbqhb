@@ -28,6 +28,13 @@ export default [{
         path: "/personal",
         name: 'personal',
         component: () => import("@/views/Personal"),
+        beforeEnter: (to, from, next) => {
+            if (!localStorage.getItem('token')) {
+                next(false)
+            } else {
+                next()
+            }
+        }
     },
     {
         // 注册
@@ -107,12 +114,13 @@ export default [{
         ],
         beforeEnter: (to, from, next) => {
             console.log(from.name);
-           if (from.name!='main') {
-               next(false)
-           }
-           else{
-               next()
-           }
+            if (from.name != 'main') {
+                next({
+                    name: from.name
+                })
+            } else {
+                next()
+            }
         }
     },
 
@@ -130,12 +138,13 @@ export default [{
         component: () => import("@/views/Fans"),
         beforeEnter: (to, from, next) => {
             console.log(from.name);
-           if (from.name!='main') {
-               next(false)
-           }
-           else{
-               next()
-           }
+            if (from.name != 'main') {
+                next({
+                    name: from.name
+                })
+            } else {
+                next()
+            }
         }
     },
     {
@@ -143,6 +152,16 @@ export default [{
         path: "/releasegoods",
         name: "releasegoods",
         component: () => import("@/views/ReleaseGoods"),
+        beforeEnter: (to, from, next) => {
+            console.log(from.name);
+            if (from.name != 'add') {
+                next({
+                    name: from.name
+                })
+            } else {
+                next()
+            }
+        }
     },
     {
         // 个人资料
@@ -154,12 +173,11 @@ export default [{
         },
         beforeEnter: (to, from, next) => {
             console.log(from.name);
-           if (from.name!='main') {
-               next(false)
-           }
-           else{
-               next()
-           }
+            if (from.name != 'main') {
+                next(false)
+            } else {
+                next()
+            }
         }
     },
     {
@@ -190,15 +208,14 @@ export default [{
         component: () => import("@/views/ResetPassword"),
         beforeEnter: (to, from, next) => {
             console.log(from.name);
-           if (from.name!='main') {
-               next(false)
-           }
-           else{
-               next()
-           }
+            if (from.name != 'main') {
+                next(false)
+            } else {
+                next()
+            }
         }
     },
-    
+
     {
         // 商品详情
         path: "/goodsinfo",

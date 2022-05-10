@@ -51,7 +51,7 @@ export default {
         async addReply({
             commit
         }, data) {
-            console.log(data.replytitle);
+       
             let result = await reqAddReply(data.goods_id, data.replytitle)
             if (result.status == 200) {
                 return '留言成功'
@@ -63,7 +63,7 @@ export default {
             commit
         }) {
             let result = await reqGetClass()
-            console.log(result);
+        
             if (result.status == 200) {
                 commit('GETCLASS', result.data)
                 return '获取成功'
@@ -75,7 +75,7 @@ export default {
         async getGoodsList({
             commit
         }, params) {
-            console.log(params);
+          
             let result = await reqGetGoodsList(params)
             if (result.status == 200) {
                 commit('GETGOODSLIST', {
@@ -89,7 +89,7 @@ export default {
             commit
         }, phone_id) {
             let result = await reqGetMainGoodsList(phone_id)
-            console.log(result.maingoodlist);
+         
             if (result.status == 200) {
                 commit('GETMAINGOODSLIST', result.maingoodlist)
                 return 'ok'

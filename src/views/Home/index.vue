@@ -328,6 +328,7 @@ this.getGoodsList()
             padding: 4px;
             border-radius: 20px;
             background: #070707;
+            color: #ffffff;
             box-sizing: border-box;
             border: 1px solid #151414;
           }

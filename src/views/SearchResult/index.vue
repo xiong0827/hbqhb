@@ -171,7 +171,7 @@ export default {
             gpricesort: this.gpricesort,
           });
         }
-        if (this.gtimesort) {
+       else if (this.gtimesort) {
           await this.$store.dispatch("goods/getGoodsList", {
             pagenum: this.pagenum,
             atpage: this.atpage,
@@ -214,23 +214,35 @@ export default {
       this.onLoad(); // 重新加载数据
     },
     onClick(name, title) {
-      if ((name = "price")) {
-        if (this.gpricesort) {
+     
+      if ((name == "price")) {
+        this.gtimesort=0
+        this.atpage=1
+        if (this.pricestatus) {
+          
           this.gpricesort = -1;
-          this.timestatus=false
+          this.pricestatus=false
+          this.list = [];
+        this.getList();
+      
         }
         else{
           this.gpricesort=1
-          this.timestatus=true
-        }
-            this.list = [];
+          this.pricestatus=true
+          this.list = [];
         this.getList();
-        this.gpricesort = 0;
+      
+        }
+            
       }
-      if ((name = "time")) {
+     else if (name == "time") {
+       this.gpricesort=0
+       
+       this.atpage=1
         if (this.timestatus) {
           this.gtimesort = -1;
           this.timestatus=false
+          
         }
         else{
           this.gtimesort=1
@@ -238,8 +250,15 @@ export default {
         }
             this.list = [];
         this.getList();
-        this.gtimesort = 0;
+    
+        
       }
+      else if(name=='zonghe'){
+        this.gtimesort=0
+        this.gpricesort=0
+        this.list=[]
+        this.getList()
+             }
     },
     // gprice()
     // {
@@ -271,7 +290,7 @@ export default {
       flex-direction: column;
       justify-content: flex-start;
       .nav1 {
-        margin-top: 10px;
+        margin-top: 30px;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
@@ -299,12 +318,15 @@ export default {
           border-radius: 10px;
 
           h3 {
+            transform: translateY(10px);
             margin-top: 20px;
             font-family: Roboto-Regular;
             font-size: 14px;
             font-weight: normal;
             letter-spacing: 0.7px;
             color: #2f2f4a;
+            overflow: hidden;
+            height: 20px;
           }
           b {
             font-family: Roboto-Regular;
@@ -313,6 +335,7 @@ export default {
             line-height: 20px;
             letter-spacing: 0.7px;
             color: #2f2f4a;
+            
           }
           h4 {
             font-family: Roboto-Bold;

@@ -39,7 +39,7 @@ export default {
             commit
         }, data) {
             let result = await reqUserlogin(data)
-            console.log(result);
+            
             if (result.status == 200) {
                 
             commit('USERLOGIN',result.token)
@@ -90,7 +90,7 @@ export default {
         async upDatePassword({commit},data)
         {
             let result =await reqUpDatePassword(data)
-            console.log(result);
+           
             if (result.status==200) {
                 return result.message
             }
@@ -117,7 +117,7 @@ export default {
         },
         GETISSERUSERINFO(state,issueper)
         {
-            console.log(issueper);
+
         state.issueper=issueper
         }
         
