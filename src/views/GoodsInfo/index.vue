@@ -109,7 +109,6 @@
 
 <script>
 
-import _ from "lodash";
 import { mapState } from "vuex";
 export default {
   name: "GoodsInfo",
@@ -162,7 +161,7 @@ export default {
       }
     },
     //商品点赞
-    addlike: _.debounce(async function () {
+   async addlike () {
       try {
         await this.$store.dispatch(
           "goods/getUserLike",
@@ -176,9 +175,9 @@ export default {
           })
           .then(() => {});
       }
-    }, 1000),
+    },
     //收藏
-    addwantlist: _.debounce(async function () {
+   async addwantlist() {
       try {
         await this.$store.dispatch(
           "goods/addWantList",
@@ -193,7 +192,7 @@ export default {
           })
           .then(() => {});
       }
-    }, 1000),
+    },
     //留言
     async addreply() {
       try {
