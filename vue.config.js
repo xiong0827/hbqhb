@@ -3,6 +3,7 @@ const {
 } = require('@vue/cli-service')
 module.exports = defineConfig({
   transpileDependencies: true,
+  productionSourceMap:false,
   //关闭es效验
   lintOnSave: false,
   devServer: {
@@ -35,6 +36,7 @@ module.exports = defineConfig({
       //   target: '<other_url>'
       // }
     }
-  }
+  },
+  publicPath: './',
 
 })
