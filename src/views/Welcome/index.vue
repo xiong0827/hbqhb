@@ -101,7 +101,7 @@ export default {};
     transform: translateY(-5%);
     width: 100%;
     height: 50%;
-    background-image: url(./images/svg1.svg);
+    background: url(./images/svg1.svg) ;
   }
   .buttonclass {
     //  flex: 1;

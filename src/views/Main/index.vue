@@ -365,6 +365,8 @@ export default {
       position: relative;
       flex: 30%;
       padding-top: 20%;
+      display: flex;
+      align-items: center;
       .back {
         position: absolute;
         left: 5%;
@@ -372,7 +374,7 @@ export default {
       }
       h3 {
         position: absolute;
-        top: 32%;
+        top: 10%;
         left: 42%;
         font-family: Inter-SemiBold;
         font-size: 18px;

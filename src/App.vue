@@ -12,7 +12,7 @@ body {
   height: 100vh;
   #app {
    flex: 1;
-    max-width: 412px;
+    max-width: 800px;
     display: flex;
   }
 }

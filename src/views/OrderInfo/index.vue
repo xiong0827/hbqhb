@@ -22,7 +22,14 @@
       <div class="commodity">
         <div class="a">
           <li>
-            <img v-lazy="goodsinfo.gphoto" alt="" />
+            <img @click="$router.push(
+              {
+                name:'goodsinfo',
+                query:{
+                  goods_id:goodsinfo.goods_id
+                }
+              }
+            )" v-lazy="goodsinfo.gphoto" alt="" />
           </li>
           <li>{{ goodsinfo.title }}</li>
           <li>￥{{ goodsinfo.gprice }}</li>
@@ -155,6 +162,7 @@ export default {
 <style lang="less" scoped>
 .order {
   flex: 1;
+  overflow-x: hidden;
   //   顶部
   .top {
     height: 100px;

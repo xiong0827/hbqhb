@@ -34,7 +34,9 @@ module.exports = defineConfig({
       // '/foo': {
       //   target: '<other_url>'
       // }
-    }
+    },
+    historyApiFallback: true,
+    allowedHosts: "all",
   }
 
 })
