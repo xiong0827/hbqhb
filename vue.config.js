@@ -12,10 +12,7 @@ module.exports = defineConfig({
         target: 'http://101.43.12.130:3000',
         ws: true,
         changeOrigin: true,
-        
-        // pathRewrite: {
-        //   '^/api': '',
-        // }
+        // pathRewrite:{'^views':'/'},
       },
       '/commodity': {
         target: 'http://101.43.12.130:3000',

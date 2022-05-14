@@ -4,7 +4,7 @@ import mockAjax from '@/api/mockAjax'
 import qs from 'qs'
 import goods from '@/store/goods'
 //login
-export const reqUserlogin = (data) => requests({ url: 'api/loginuser', method: 'post',data: qs.stringify(data) })
+export const reqUserlogin = (data) => requests({ url: '/api/loginuser', method: 'post',data: qs.stringify(data) })
 //register
 export const reqRegister = (data) => requests({ url: '/api/register', method: 'post', data: qs.stringify(data) })
 //reqGetCode

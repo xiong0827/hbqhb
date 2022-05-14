@@ -15,7 +15,7 @@ VueRouter.prototype.push = function (location, resolve, reject) {
 }
 
 const router = new VueRouter({
-  mode: 'history',
+  // mode: 'history',
   base: process.env.BASE_URL,
   routes,
   scrollBehavior(to, from, savedPosition) {

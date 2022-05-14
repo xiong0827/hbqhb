@@ -88,7 +88,6 @@ export default {
     showpassword(index) {
       switch (index) {
         case "1":
-          console.log(this);
           if (this.$refs.password1.type == "text") {
             this.$refs.password1.type = "password";
           } else {
@@ -145,6 +144,7 @@ export default {
         .then(() => {
           localStorage.removeItem('token')
           this.$router.replace("main");
+          location.reload()
         });
       } catch (error) {
           this.$dialog
