@@ -45,7 +45,13 @@ import { Checkbox, CheckboxGroup } from 'vant';
 Vue.use(Checkbox);
 Vue.use(CheckboxGroup);
 Vue.use(VanImage);
+import { ImagePreview } from 'vant';
+import { DatetimePicker } from 'vant';
 
+Vue.use(DatetimePicker);
+
+// 全局注册
+Vue.use(ImagePreview);
 // 注册时可以配置额外的选项
 // Vue.use(Lazyload, {
 //   lazyComponent: true,

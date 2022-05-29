@@ -7,7 +7,7 @@
       </div>
       <div class="headRight">
         <van-image round width="60px" height="60px" :src="userInfo.avatarurl" />
-        <UpLoaderOne />
+        <UpLoaderOne v-on:getfile="getphoto" />
       </div>
     </div>
     <div class="input">
@@ -22,8 +22,8 @@
         <van-field
           readonly
           clickable
-          name="picker"
-           :value="gender"
+          name="datetimePicker"
+          :value="gender"
           label="性别"
           :placeholder="userInfo.gender"
           @click="showPicker = true"
@@ -38,7 +38,7 @@
         </van-popup>
       </van-cell-group>
       <van-cell-group>
-        <van-cell
+        <!-- <van-cell
           title="生日"
           v-model="birthday"
           @click="show = true"
@@ -49,13 +49,34 @@
           :min-date="minDate"
           :max-date="maxDate"
           @confirm="onConfirmDate"
+        /> -->
+        <van-field
+          readonly
+          clickable
+          name="datetimePicker"
+          :value="birthday"
+          label="时间选择"
+          :placeholder="userInfo.birthday"
+          @click="showDate = true"
         />
+        <van-popup v-model="showDate" position="bottom">
+          <van-datetime-picker
+            type="date"
+            :min-date="minDate"
+            :max-date="maxDate"
+            v-model="currentDate"
+            @confirm="onConfirmDate"
+            @cancel="showDate = false"
+          />
+        </van-popup>
       </van-cell-group>
-      <SelectSite  :address=userInfo.address  />
+      <SelectSite :address="userInfo.address" @updateAddress='getaddress' />
     </div>
     <div class="footer">
-      <van-button round type="info" class="btn" @click="clearinfo">取消</van-button>
-      <van-button round type="info" class="btn" @click="setInfo"
+      <van-button round type="info" class="btn" @click="clearinfo"
+        >取消</van-button
+      >
+      <van-button round type="info" class="btn" @click="saveData"
         >保存</van-button
       >
     </div>
@@ -63,38 +84,60 @@
 </template>
 
 <script>
+import { Toast } from "vant";
 import { mapState } from "vuex";
 export default {
   name: "MainData",
   mounted() {
-    try {
-      this.$store.dispatch("user/getUserInfo");
-    } catch (error) {
-      Toast("获取用户信息失败");
-    }
-    this.$on('updateAddress',function(newaddress){
-      this.address=newaddress
-    })
+    this.getUserInfo();
   },
   data() {
     return {
-      show: false,
+      showDate: false,
       minDate: new Date(1900, 0, 1),
-      maxDate: new Date(2006, 0, 31),
+      maxDate: new Date(),
+      currentDate: new Date(2001, 0, 1),
       tipsMsg: "保存成功",
       //选择性别
-
+      avatar: [],
       columns: ["男", "女"],
       showPicker: false,
-         birthday:null,
-        nickname:null,
-        address:null,
-        avatarurl: [],
-        gender: null,
+      birthday: null,
+      nickname: null,
+      address: null,
+      gender: null,
     };
   },
 
   methods: {
+    //获取个人信息
+    async getUserInfo() {
+      try {
+        await this.$store.dispatch("user/getUserInfo");
+      } catch (error) {
+        Toast("获取用户信息失败");
+      }
+    },
+    //保存信息
+    async saveData() {
+      let data = {
+        nickname: this.nickname,
+        address: this.address,
+        gender: this.gender,
+        birthday: this.birthday,
+      };
+      try {
+        let result = await this.$store.dispatch("user/updateInfo", data);
+        await Toast(result);
+        location.reload();
+      } catch (error) {
+        Toast(error);
+      }
+    },
+    getaddress(newAddress)
+    {
+this.address=newAddress
+    },
     onClickLeft() {
       Toast("返回");
     },
@@ -102,42 +145,29 @@ export default {
       return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
     },
     onConfirmDate(date) {
-      this.show = false;
-      this.date = this.formatDate(date);
+      this.showDate = false;
+      this.birthday =this.formatDate(date);
+      console.log(this.birthday);
     },
-    // Dialog() {
-    //   this.$dialog
-    //     .alert({
-
-    //       message: this.tipsMsg,
-    //     })
-    //     .then(() => {
-    //       this.$router.push("main");
-    //     });
-    // },
     async getphoto(files) {
-      this.avatarurl = [];
-      files.forEach((element) => {
-        this.avatarurl.push(element);
-      });
+      let data = new FormData();
+      console.log(files);
+      data.append("avatarurl", files[0].file);
+      console.log(data);
+      try {
+        let result = await this.$store.dispatch("user/updateUserAvatar", data);
+        await Toast(result);
+        this.getUserInfo();
+      } catch (error) {
+        Toast(error);
+      }
     },
     //清空信息
-    clearinfo()
-    {
-    
-     
-    },
+    clearinfo() {},
     //保存信息
-    async setInfo() {
-        try {
-    await  this.$store.dispatch('user/updateInfo')
-    } catch (error) {
-      
-    }
-    },
     //选择性别
     onConfirmSex(value) {
-      this.usex = value;
+      this.gender = value;
       this.showPicker = false;
     },
   },
@@ -189,17 +219,11 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 18%;
+      width: 20%;
       height: 60px;
       margin-right: 10px;
       border-radius: 10px;
-      background: linear-gradient(
-        139deg,
-        #ff6a88 0%,
-        #ff6a88 0%,
-        #ff6a88 124%,
-        #ff6a88 124%
-      );
+      background-color: #353b48;
     }
   }
 }

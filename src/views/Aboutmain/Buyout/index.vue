@@ -26,6 +26,7 @@
           }
         )">{{order.orderstatus==1?'去支付':'查看详情'}}</van-button>
         <van-button
+        v-if="order.orderstatus==1"
           size="small"
           hairline
           type="info"

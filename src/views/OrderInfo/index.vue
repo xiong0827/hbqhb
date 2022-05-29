@@ -174,7 +174,7 @@ export default {
     .a {
       width: 30px;
       position: absolute;
-      display: inline-block;
+  
       right: 5%;
       top: 1%;
       li {

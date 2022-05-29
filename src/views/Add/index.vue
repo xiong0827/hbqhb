@@ -22,7 +22,9 @@
       </div>
 
       <div class="up">
-        <a @click="$router.go(-1)"
+        <a @click="$router.push({
+          name:'home'
+        })"
           ><van-icon name="cross" class="flase" size="60"
         /></a>
       </div>

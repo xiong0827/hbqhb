@@ -11,16 +11,7 @@ export default {
   mounted() {},
   methods: {
     onClickLeft() {
-      // if (this.backrouter == "main") {
-      //   this.$router.push({
-      //     name: this.backrouter,
-      //     query: {
-      //       editShow: false,
-      //     },
-      //   });
-      // } else if (this.backrouter != "main") {
-      //   this.$router.push({ name: this.backrouter });
-      // } else {
+    
       this.$router.go(-1);
       // }
     },

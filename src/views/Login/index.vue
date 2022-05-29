@@ -5,7 +5,10 @@
     <span class="back">
       <router-link to="welcome"><<返回</router-link>
     </span>
-    <span class="logintitle"><p>Login</p></span>
+     <span class="tiaoguo">
+      <router-link to="/register">注册>></router-link>
+    </span>
+    <span class="logintitle"><p>登录账号</p></span>
     <div class="phone">
       <van-icon class="icon" name="manager" color="#700BEF" size="30" /><input
         type="text"
@@ -110,6 +113,18 @@ export default {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+   .tiaoguo {
+    position: absolute;
+    right: 3%;
+    top: 2%;
+    width: 15%;
+    height: 5%;
+    font-family: Inter-SemiBold;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.8px;
+    color: #3d3d3d;
+  }
   input {
     width: 325px;
     height: 50px;
@@ -169,7 +184,7 @@ export default {
     /* Ellipse 1 */
     position: absolute;
     right: -18%;
-    top: -6%;
+    top: -10%;
     width: 48%;
     height: 20%;
     border-radius: 50%;
@@ -205,7 +220,7 @@ export default {
     background: rgba(87, 204, 183, 0.2);
   }
   .logintitle {
-    width: 49%;
+    width: 80%;
     height: 18%;
     transform: translateY(30%);
     display: flex;

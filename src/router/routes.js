@@ -172,8 +172,7 @@ export default [{
             titletext: '个人资料'
         },
         beforeEnter: (to, from, next) => {
-            console.log(from.name);
-            if (from.name != 'main') {
+            if (!localStorage.getItem('token')) {
                 next(false)
             } else {
                 next()

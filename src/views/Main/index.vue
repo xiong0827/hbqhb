@@ -17,11 +17,21 @@
           size="30"
         />
         <div class="portrait">
-          <img v-if="userInfo.avatarurl" v-lazy="userInfo.avatarurl" alt="" />
-          <img
+          <van-image
+            v-if="userInfo.avatarurl"
+            :src="userInfo.avatarurl"
+            round
+            width="100"
+            height="100"
+            @click="showAvatar(userInfo.avatarurl)"
+          />
+          <van-image
             v-else
+            round
+            width="100"
+            height="100"
             src="http://101.43.12.130:3000/uploads/avatarurl/avatar_1651829121291-82.png"
-            alt=""
+            @click="showAvatar('http://101.43.12.130:3000/uploads/avatarurl/avatar_1651829121291-82.png')"
           />
         </div>
         <div class="name" v-if="userInfo.nickname" @click="skipLogin">
@@ -124,7 +134,8 @@
 
 <script>
 import { mapState } from "vuex";
-import { Dialog } from "vant";
+import { Dialog,ImagePreview} from "vant";
+
 export default {
   mounted() {
     this.getUserInfo();
@@ -136,12 +147,16 @@ export default {
     };
   },
   methods: {
+    //图片预览
+    showAvatar(url) {
+      ImagePreview([url]);
+    },
     //获取用户信息
     async getUserInfo() {
       try {
         await this.$store.dispatch("user/getUserInfo");
       } catch (err) {
-        this.tologin()
+        this.tologin();
       }
     },
     //去登录
@@ -184,7 +199,7 @@ export default {
           },
         });
       } else {
-     this.tologin()
+        this.tologin();
       }
     },
     skipLogin() {

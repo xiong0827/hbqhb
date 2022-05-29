@@ -5,7 +5,7 @@
       >广场</van-tabbar-item
     >
     <van-tabbar-item
-      @click="toRouters"
+      @click="toRouters('add')"
       class="add"
       name="add"
       to="add"
@@ -21,7 +21,6 @@ import { toRouter } from "@/units/tologin";
 
 export default {
   name: "Tabbar",
-
   data() {
     return {};
   },

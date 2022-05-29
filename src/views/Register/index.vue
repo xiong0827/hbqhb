@@ -5,7 +5,7 @@
       <router-link class="topspan2" to="/login">登录>></router-link>
     </div>
     <div class="center">
-      <h1>Register</h1>
+      <h1>注册账号</h1>
       <div class="registersvg">
         <img src="./images/svg2.svg" alt="" />
       </div>
@@ -16,19 +16,19 @@
       <div class="code">
         <van-icon class="icon" name="comment" color="#700BEF" size="30" /><input v-model.number="code" type="number"
           :class="{ outline: code.length < 6 }" name="" placeholder="验证码" max="6" />
-        <van-button type="info" size="30" class="getcode" v-if="timer == 0 && check.checkPhone()" @click="getcode">获取验证码
+        <van-button type="info" size="30" round class="getcode" v-if="timer == 0 && check.checkPhone()" @click="getcode">获取验证码
         </van-button>
-        <van-button type="info" disabled class="getcode" v-else-if="timer == 0 && !check.checkPhone()" @click="getcode">
+        <van-button type="info" disabled  round class="getcode" v-else-if="timer == 0 && !check.checkPhone()" @click="getcode">
           获取验证码</van-button>
-        <van-button disabled class="getcode" v-else>{{ timer }}秒后重发</van-button>
+        <van-button disabled class="getcode" round v-else>{{ timer }}秒后重发</van-button>
       </div>
       <div class="password">
         <van-icon class="icon" name="lock" color="#700BEF" size="30" /><input type="password"
-          :class="{ outline: check.checkPassword() == false }" v-model="password" name="" placeholder="密码" />
+          :class="{ outline: check.checkPassword() == false }" v-model="password" name="" placeholder="密码 八位以上的字母数字" />
       </div>
       <div class="password">
         <van-icon class="icon" name="lock" color="#700BEF" size="30" /><input type="password"
-          :class="{ outline: check.checkRePassword() == false }" v-model="repassword" name="" placeholder="再次输入" />
+          :class="{ outline: check.checkRePassword() == false }" v-model="repassword" name="" placeholder="再次输入密码" />
       </div>
          <div class="bottom">
       <van-button round v-show="registerShow" type="info" class="button1" @click="userRegister">注册</van-button>
@@ -158,7 +158,7 @@ export default {
   flex: 1;
   overflow: hidden;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-direction: column;
 
   .top {
@@ -221,6 +221,9 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+   >div{
+      margin-top: 20px;
+    }
   .bottom {
     display: flex;
     justify-content: center;
@@ -236,32 +239,34 @@ export default {
     }
   }
     h1 {
-      width: 183px;
+    width: 100%;
       height: 67px;
       font-family: RobotoRoman-Medium;
       font-size: 48px;
       font-weight: normal;
-      line-height: 67px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
     }
 
     input {
       width: 325px;
-      height: 50px;
+      height: 40px;
       border-radius: 30px;
       background: rgba(111, 11, 239, 0.3);
       outline: none;
       border: 0px;
       font-family: Roboto-Regular;
-      font-size: 24px;
+      font-size: 20px;
       font-weight: normal;
-      line-height: 34px;
       letter-spacing: 0px;
       color: rgba(111, 11, 239, 0.5);
       text-align: center;
     }
 
     .outline {
-      border: 2px solid red;
+      border: 2px solid #e84118 ;
     }
 
     .phone {
@@ -294,7 +299,8 @@ export default {
       .getcode {
         position: absolute;
         top: 5%;
-        right: 4%;
+        right: 0;
+        height:97%;
       }
     }
 

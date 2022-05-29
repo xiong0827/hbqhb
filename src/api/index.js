@@ -1,8 +1,6 @@
 //所有的api接口统一管理
 import requests from '@/api/request'
-import mockAjax from '@/api/mockAjax'
 import qs from 'qs'
-import goods from '@/store/goods'
 //login
 export const reqUserlogin = (data) => requests({ url: '/api/loginuser', method: 'post',data: qs.stringify(data) })
 //register
@@ -29,7 +27,9 @@ export const reqGetClass=()=>requests({url:'/commodity/getclass',method:'get'})
 //获取个人详情
 export const reqGetUserInfo=(phone_id)=>requests({url:'/user/getuserinfo',method:'get',params:{phone_id}})
 //修改个人信息
-export const reqUpdateInfo=(data)=>requests({url:'/user/updateinfo',method:'post',data})
+export const reqUpdateInfo=(data)=>requests({url:'/user/updateinfo',method:'post',data:qs.stringify(data)})
+//修改用户头像
+export const reqUpdateUserAvatar=(data)=>requests({url:'/user/updateuseravatar',method:'post',data})
 //修改密码 /user/updatepassword
 export const reqUpDatePassword=(data)=>requests({url:'/user/updatepassword',method:'post',data:qs.stringify(data)})
 

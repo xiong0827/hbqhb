@@ -1,10 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from './routes'
-import store from '@/store'
-
 let originPush = VueRouter.prototype.push
-
 Vue.use(VueRouter)
 VueRouter.prototype.push = function (location, resolve, reject) {
   if (resolve || reject) {

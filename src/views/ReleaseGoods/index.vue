@@ -1,7 +1,11 @@
 <template>
   <div class="releaseGoods">
     <div class="top">
-      <div class="topLeft" @click="$router.go(-1)">
+      <div class="topLeft" @click="$router.push(
+        {
+          name:'add'
+        }
+      )">
         <router-link to="">取消</router-link>
       </div>
       <div class="topRight">
@@ -114,10 +118,10 @@ export default {
         data.append("gclassone", this.gclassone);
         data.append("gprice", this.gprice);
         this.gphoto.forEach((element) => {
+         
           data.append("photo", element.file);
         });
         let result = await this.$api.reqIssuegoods(data);
-        console.log(result.status);
         if (result.status == 200) {
           Dialog.confirm({
             title: "成功提示",

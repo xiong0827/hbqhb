@@ -3,12 +3,14 @@
     <van-uploader
       class="uploader"
       v-model="fileList"
-      accept="image/png,image/jpeg,image/jpg,application/pdf"
+      accept="'image/*'"
       multiple
       :max-count="maxnum"
-      :max-size="500 * 1024" 
-      capture=“camera”
+      capture="“camera”"
       :after-read="afterRead"
+      :before-read="beforeRead"
+      upload-text='上传商品图片'
+     
     >
     </van-uploader>
   </div>
@@ -21,6 +23,7 @@ export default {
   name: "UpLoader",
   data() {
     return {
+      
       fileList: [
         // { url: "https://img01.yzcdn.cn/vant/leaf.jpg" },
         // // Uploader 根据文件后缀来判断是否为图片文件
@@ -34,6 +37,15 @@ export default {
       // 此时可以自行将文件上传至服务器
       this.$emit("getfile", this.fileList);
     },
+    beforeRead(files) {
+     files.forEach((element) => {
+        if (element.size / 1024 > 2000) {
+          Toast("上传图片过大");
+          return false
+        }
+      });
+      return true
+    },
   },
 };
 </script>
@@ -45,29 +57,30 @@ export default {
   position: relative;
   position: absolute;
   bottom: 50px;
+  left: 15px;
 }
 
-.van-uploader__wrapper {
-  position: absolute;
-  bottom: 5px;
-}
+// .van-uploader__wrapper {
+//   position: absolute;
+//   bottom: 5px;
+// }
 
-.van-uploader[data-v-39ebf3c1] {
-  top: 0px;
-  left: 20px;
-  width: 40%;
-  height: 160px;
-}
+// .van-uploader[data-v-39ebf3c1] {
+//   top: 0px;
+//   left: 20px;
+//   width: 40%;
+//   height: 160px;
+// }
 
-.van-uploader__wrapper {
-  width: 100% !important;
-  height: 100% !important;
+// .van-uploader__wrapper {
+//   width: 100% !important;
+//   height: 100% !important;
 
-  .van-uploader__upload {
-    width: 165px !important;
-    height: 100% !important;
-  }
-}
+//   .van-uploader__upload {
+//     width: 165px !important;
+//     height: 100% !important;
+// //   }
+// }
 
 // }
 </style>

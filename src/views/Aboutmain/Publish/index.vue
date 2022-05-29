@@ -2,18 +2,18 @@
 <div class="buyout">
     <van-card 
  v-for=" goods in mainGoodsList" :key="goods._id"
-  @click="$router.push({
-      name:'goodsinfo',
-      query:{
-        goods_id:goods.goods_id
-      }
-    })"
+
     num="1"
     :price="goods.gprice"
     :title="goods.gdate"
     :thumb="goods.goodsphoto[0]"
   >
-    <template #tags>
+    <template #tags   @click="$router.push({
+      name:'goodsinfo',
+      query:{
+        goods_id:goods.goods_id
+      }
+    })">
         <van-cell  :value="goods.title" />
           <van-cell  :value="goods.gstatus==1?'发布中':'已卖出'" />
     </template>
