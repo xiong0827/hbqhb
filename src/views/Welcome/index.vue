@@ -35,7 +35,7 @@ export default {};
 
 <style lang="less" scoped>
 .welcome {
-  overflow: hidden;
+  overflow-x: hidden;
   position: relative;
   flex: 1;
   display: flex;

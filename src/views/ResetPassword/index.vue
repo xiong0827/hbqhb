@@ -177,7 +177,7 @@ export default {
 <style lang="less" scoped>
 .resetPassword {
   flex: 1;
-  overflow: hidden;
+  overflow-x: hidden;
   .top {
     display: flex;
     justify-content: space-between;

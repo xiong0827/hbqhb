@@ -24,7 +24,7 @@
       </div>
       <div class="password">
         <van-icon class="icon" name="lock" color="#700BEF" size="30" /><input type="password"
-          :class="{ outline: check.checkPassword() == false }" v-model="password" name="" placeholder="密码 八位以上的字母数字" />
+          :class="{ outline: check.checkPassword() == false }" v-model="password" name="" placeholder="密码 六位以上的字母数字" />
       </div>
       <div class="password">
         <van-icon class="icon" name="lock" color="#700BEF" size="30" /><input type="password"
@@ -156,7 +156,7 @@ export default {
 <style lang="less" scoped>
 .register {
   flex: 1;
-  overflow: hidden;
+  overflow-x: hidden;
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
@@ -215,7 +215,7 @@ export default {
   }
 
   .center {
-    height: 90%;
+    height: 85%;
     // background: pink;
     display: flex;
     flex-direction: column;
