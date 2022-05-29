@@ -147,17 +147,17 @@ this.address=newAddress
     onConfirmDate(date) {
       this.showDate = false;
       this.birthday =this.formatDate(date);
-      console.log(this.birthday);
+      
     },
     async getphoto(files) {
       let data = new FormData();
       console.log(files);
       data.append("avatarurl", files[0].file);
-      console.log(data);
+     
       try {
         let result = await this.$store.dispatch("user/updateUserAvatar", data);
         await Toast(result);
-        this.getUserInfo();
+       location.reload()
       } catch (error) {
         Toast(error);
       }

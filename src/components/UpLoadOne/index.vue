@@ -46,7 +46,7 @@ export default {
     async afterRead(files) {
       // 此时可以自行将文件上传至服务器
       this.$emit("getfile", this.fileList);
-      this.isshow = 1;
+      
     },
     beforeDelete()
     {

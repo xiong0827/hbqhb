@@ -6,11 +6,9 @@
       accept="'image/*'"
       multiple
       :max-count="maxnum"
-      capture="“camera”"
       :after-read="afterRead"
       :before-read="beforeRead"
-      upload-text='上传商品图片'
-     
+      upload-text="上传商品图片"
     >
     </van-uploader>
   </div>
@@ -23,7 +21,6 @@ export default {
   name: "UpLoader",
   data() {
     return {
-      
       fileList: [
         // { url: "https://img01.yzcdn.cn/vant/leaf.jpg" },
         // // Uploader 根据文件后缀来判断是否为图片文件
@@ -38,13 +35,20 @@ export default {
       this.$emit("getfile", this.fileList);
     },
     beforeRead(files) {
-     files.forEach((element) => {
-        if (element.size / 1024 > 2000) {
+      //  files.forEach((element) => {
+      //   if (element.size / 1024 > 2000) {
+      //     Toast("上传图片过大");
+      //     reject(false)
+      //   }
+      // });
+      for (const key in files) {
+        console.log(files[key]);
+        if (files[key].size / 1024 > 2000) {
           Toast("上传图片过大");
-          return false
+          return false;
         }
-      });
-      return true
+      }
+      return true;
     },
   },
 };
