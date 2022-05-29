@@ -3,9 +3,11 @@
     <van-uploader
       class="uploader"
       v-model="fileList"
+      accept="image/png,image/jpeg,image/jpg,application/pdf"
       multiple
       :max-count="maxnum"
       :max-size="500 * 1024" 
+      capture=“camera”
       :after-read="afterRead"
     >
     </van-uploader>

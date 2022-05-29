@@ -87,7 +87,6 @@ export default {
           classname
         }
       })
-   
     },
     async getGoodsList() {
       await this.$store.dispatch("goods/getGoodsList", {
@@ -100,7 +99,6 @@ export default {
      await this.getGoodsList();
       this.total = this.goodsCount;
       if (this.goodsCount == 0) {
-        // 判断获取数据条数若等于0
         this.list = []; // 清空数组
         this.finished = true; // 停止加载
       }

@@ -5,6 +5,7 @@
       >广场</van-tabbar-item
     >
     <van-tabbar-item
+      @click="toRouters"
       class="add"
       name="add"
       to="add"
@@ -16,6 +17,8 @@
 </template>
 
 <script>
+import { toRouter } from "@/units/tologin";
+
 export default {
   name: "Tabbar",
 
@@ -28,19 +31,22 @@ export default {
         return this.$route.name;
       },
       set(newValue) {
-       return newValue
+        return newValue;
       },
     },
+  },
+  methods: {
+    toRouters: toRouter,
   },
 };
 </script>
 
 <style lang="less" scoped>
 .tabbar {
-  height: 56px;
-  max-width: 412px;
+  height: 64px;
+  max-width: 400px;
   .add {
-    background: #147bdf;
+    background: blueviolet;
     border-radius: 40%;
     i {
       font-size: 20px;

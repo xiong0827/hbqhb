@@ -5,129 +5,146 @@
       success-text="刷新成功"
       @refresh="onRefresh"
     > -->
-      <div class="container">
-        <div class="top">
-          <img src="./images/logo.png" alt="" />
-          <span><p>还不起花呗</p></span>
+    <div class="container">
+      <div class="top">
+        <img src="./images/logo.png" alt="" />
+        <span><p>还不起花呗</p></span>
+      </div>
+      <div class="search">
+        <Searchinput placeholdervalue="搜索更多关键词" toppx="5" />
+        <div class="more">
+          <a @click="toRouters('classify')">更多>></a>
         </div>
-        <div class="search">
-          <Searchinput placeholdervalue="搜索更多关键词" toppx="5"  />
-          <div class="more">
-            <router-link to="/classify">更多>></router-link>
-          </div>
-        </div>
-        <div class="classify">
-          <li>
-            <router-link :to="{name:'classify',query:{
-              classname:'运动户外'
-            }}">
-              <img src="./images/户外运动2.jpg" alt="" />
-              <p>户外运动</p>
-            </router-link>
-          </li>
-          <li>
-            <router-link :to="{name:'classify',query:{
-              classname:'生活百货'
-            }}">
-              <img src="./images/生活用品2.webp" alt="" />
-              <p>生活百货</p>
-            </router-link>
-          </li>
-          <li>
-            <router-link :to="{name:'classify',query:{
-              classname:'女装'
-            }}">
-              <img src="./images/女装.webp" alt="" />
-              <p>女装</p>
-            </router-link>
-          </li>
-          <li>
-            <router-link :to="{name:'classify',query:{
-              classname:'手机数码'
-            }}">
-              <img src="./images/digital.webp" alt="" />
-              <p>手机数码</p>
-            </router-link>
-          </li>
-          <li>
-            <router-link :to="{name:'classify',query:{
-              classname:'卡卷交易'
-            }}">
-              <img src="./images/coupon.jpg" alt="" />
-              <p>卡卷交易</p>
-            </router-link>
-          </li>
-          <li>
-            <router-link :to="{name:'classify',query:{
-              classname:'游戏装备'
-            }}"> 
-              <img src="./images/game.webp" alt="" />
-              <p>游戏装备</p>
-            </router-link>
-          </li>
-        </div>
+      </div>
+      <div class="classify">
+        <li>
+          <a
+            @click="
+              toRouters('classify', {
+                classname: '户外运动',
+              })
+            "
+          >
+            <img src="./images/户外运动2.jpg" alt="" />
+            <p>户外运动</p>
+          </a>
+        </li>
+        <li>
+          <a
+            @click="
+              toRouters('classify', {
+                classname: '生活百货',
+              })
+            "
+          >
+            <img src="./images/生活用品2.webp" alt="" />
+            <p>生活百货</p>
+          </a>
+        </li>
+        <li>
+          <a
+            @click="
+              toRouters('classify', {
+                classname: '女装',
+              })
+            "
+          >
+            <img src="./images/女装.webp" alt="" />
+            <p>女装</p>
+          </a>
+        </li>
+        <li>
+          <a
+            @click="
+              toRouters('classify', {
+                classname: '手机数码',
+              })
+            "
+          >
+            <img src="./images/digital.webp" alt="" />
+            <p>手机数码</p>
+          </a>
+        </li>
+        <li>
+          <a
+            @click="
+              toRouters('classify', {
+                classname: '卡卷交易',
+              })
+            "
+          >
+            <img src="./images/coupon.jpg" alt="" />
+            <p>卡卷交易</p>
+          </a>
+        </li>
+        <li>
+          <a
+            @click="
+              toRouters('classify', {
+                classname: '游戏装备',
+              })
+            "
+          >
+            <img src="./images/game.webp" alt="" />
+            <p>游戏装备</p>
+          </a>
+        </li>
+      </div>
 
-      
-        <van-list
-          class="goodslist"
-          v-model="loading"
-          :finished="finished"
-          finished-text="没有更多了"
-          @load="onLoad"
-          offset="300"
-          :error.sync="error"
-          error-text="请求失败，点击重新加载"
-          v-if="goodsCount"
-        >
-           
-          <!-- <van-pull-refresh
+      <van-list
+        class="goodslist"
+        v-model="loading"
+        :finished="finished"
+        finished-text="没有更多了"
+        @load="onLoad"
+        offset="300"
+        :error.sync="error"
+        error-text="请求失败，点击重新加载"
+        v-if="goodsCount"
+      >
+        <!-- <van-pull-refresh
         v-model="isLoading"
         success-text="刷新成功"
         @refresh="onRefresh"
       > -->
-          <!-- <div   class="goodslist"> -->
-          <li  v-for="goods,index in list" :key="index" v-show="goods">
-            <router-link
-              :to="{
-                name: 'goodsinfo',
-                query: {
-                  goods_id: goods.goods_id,
-                },
-              }"
-            >
-              <img
-                v-if="goods.goodsphoto"
-                v-lazy="goods.goodsphoto[0]"
-                alt=""
-              />
-              <div>
-                <p>{{ goods.title }}</p>
-              </div>
-              <b>￥ {{ goods.gprice }}</b>
-              <div class="want">
-                <i v-if="goods.wantlist">{{ goods.wantlist.length }}</i>
-                <p>想要</p>
-              </div>
-              <div class="wantbuy">我想要</div>
-            </router-link>
-          </li>
-          <!-- </div> -->
-        </van-list>
-     
-        <!-- </van-pull-refresh> -->
-      </div>
+        <!-- <div   class="goodslist"> -->
+        <li v-for="(goods, index) in list" :key="index" v-show="goods">
+          <a
+            @click="
+              toRouters('goodsinfo', {
+                goods_id: goods.goods_id,
+              })
+            "
+          >
+            <img v-if="goods.goodsphoto" v-lazy="goods.goodsphoto[0]" alt="" />
+            <div>
+              <p>{{ goods.title }}</p>
+            </div>
+            <b>￥ {{ goods.gprice }}</b>
+            <div class="want">
+              <i v-if="goods.wantlist">{{ goods.wantlist.length }}</i>
+              <p>想要</p>
+            </div>
+            <div class="wantbuy">我想要</div>
+          </a>
+        </li>
+        <!-- </div> -->
+      </van-list>
+
+      <!-- </van-pull-refresh> -->
+    </div>
     <!-- </van-pull-refresh> -->
     <Tabbar name="home" />
   </div>
 </template>
 
 <script>
-import { Toast } from "vant";
+import { Dialog } from "vant";
 import { mapState } from "vuex";
+import {toRouter} from '@/units/tologin'
 export default {
   data() {
     return {
-      searchcode: "",
       pagenum: 6,
       atpage: 1,
       isLoading: false,
@@ -136,13 +153,32 @@ export default {
       error: false,
       list: [],
       total: 0,
-
     };
   },
   mounted() {
-this.getGoodsList()
+    this.getGoodsList();
   },
   methods: {
+    toRouters:toRouter,
+    tologin() {
+      setTimeout(() => {
+        Dialog.confirm({
+          title: "登录提示",
+          message: "立刻去登录",
+          confirmButtonText: "立刻登录",
+          cancelButtonText: "稍后登录",
+        })
+          .then(() => {
+            this.$router.push({ name: "login" });
+          })
+          .catch(() => {
+            console.log(1);
+          });
+      }, 200);
+    },
+
+
+    //获取商品列表
     async getGoodsList() {
       await this.$store.dispatch("goods/getGoodsList", {
         pagenum: this.pagenum,
@@ -156,26 +192,25 @@ this.getGoodsList()
       await this.getList();
       this.isLoading = false;
     },
-   async  getList() {
-     await this.getGoodsList();
-      this.total= this.goodsCount
+    async getList() {
+      await this.getGoodsList();
+      this.total = this.goodsCount;
       if (this.goodsCount == 0) {
         // 判断获取数据条数若等于0
         this.list = []; // 清空数组
         this.finished = true; // 停止加载
-      } 
-        // 若数据条数不等于0
-        this.total = this.goodsInfoList.length; // 给数据条数赋值
-        for (const key in this.goodsInfoList) {
-          this.list.push(this.goodsInfoList[key]);
-        }
-        // 将数据放入list中
-        this.loading = false; // 加载状态结束
-        // 如果list长度大于等于总数据条数,数据全部加载完成
-        if (this.list.length >= this.goodsCount) {
-          this.finished = true; // 结束加载状态
-        }
-      
+      }
+      // 若数据条数不等于0
+      this.total = this.goodsInfoList.length; // 给数据条数赋值
+      for (const key in this.goodsInfoList) {
+        this.list.push(this.goodsInfoList[key]);
+      }
+      // 将数据放入list中
+      this.loading = false; // 加载状态结束
+      // 如果list长度大于等于总数据条数,数据全部加载完成
+      if (this.list.length >= this.goodsCount) {
+        this.finished = true; // 结束加载状态
+      }
     },
     onLoad() {
       // 若加载条到了底部
@@ -189,6 +224,7 @@ this.getGoodsList()
       this.list = []; // 清空数组
       this.onLoad(); // 重新加载数据
     },
+    //
   },
   computed: {
     ...mapState("goods", ["goodsInfoList", "goodsCount"]),
@@ -198,11 +234,10 @@ this.getGoodsList()
     //   console.log(goods);
     //   return goods.goodsphoto[0]
     // }
-    ratpage()
-    {
+    ratpage() {
       let max = Math.ceil(this.goodsCount / this.pagenum);
-   return Math.floor(Math.random() * (max - 1 + 1)) + 1;
-    }
+      return Math.floor(Math.random() * (max - 1 + 1)) + 1;
+    },
   },
   watch: {
     // pagenum:{
@@ -230,7 +265,6 @@ this.getGoodsList()
       margin-top: 4%;
       img {
         padding-left: 3%;
-       
       }
       span {
         margin-left: 7%;
@@ -267,7 +301,6 @@ this.getGoodsList()
       flex: 3;
       flex-wrap: wrap;
       li {
-
         width: 33%;
         display: flex;
         flex-direction: column;
@@ -275,11 +308,11 @@ this.getGoodsList()
         align-items: center;
         text-align: center;
         margin-bottom: 5px;
-     
+
         img {
-            box-shadow: 0px 2px 0px 2px darkgray;
-      width:110px;
-           height: 80px;
+          box-shadow: 0px 2px 0px 2px darkgray;
+          width: 110px;
+          height: 80px;
         }
         p {
           font-family: Roboto-Regular;
@@ -343,7 +376,7 @@ this.getGoodsList()
               font-size: 10px;
               font-weight: 500;
               letter-spacing: 0px;
-              color:darkred;
+              color: darkred;
               margin-right: 4%;
             }
             p {

@@ -201,6 +201,7 @@ export default {
             goods_id: this.goodsinfo.goods_id,
             replytitle: this.replytitle,
           });
+           this.replytitle = "";
           this.getgoodsinfo();
         } else {
           this.$dialog
@@ -392,9 +393,11 @@ export default {
     }
     h5 {
       margin-left: 5px;
+     transform:translateY(-20px)
     }
     b {
-      margin-top: 5%;
+      transform:translateX(-25px);
+      margin-top: 6%;
       font-family: Inter-Medium;
       font-size: 14px;
       font-weight: 500;

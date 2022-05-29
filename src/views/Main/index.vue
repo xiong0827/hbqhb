@@ -29,12 +29,8 @@
         </div>
         <div class="name" v-else @click="skipLogin">点击去登录</div>
         <div class="rectangle">
-          <li @click=" topublish('fans','我的关注')">
-            关注
-          </li>
-          <li @click=" topublish('fans','我的粉丝')">
-            粉丝
-          </li>
+          <li @click="topublish('fans', '我的关注')">关注</li>
+          <li @click="topublish('fans', '我的粉丝')">粉丝</li>
           <li>历史</li>
         </div>
       </div>
@@ -128,15 +124,10 @@
 
 <script>
 import { mapState } from "vuex";
-import { Toast } from "vant";
 import { Dialog } from "vant";
 export default {
   mounted() {
-    try {
-      this.$store.dispatch("user/getUserInfo");
-    } catch (error) {
-      Toast("获取用户信息失败");
-    }
+    this.getUserInfo();
   },
   name: "Main",
   data() {
@@ -145,6 +136,31 @@ export default {
     };
   },
   methods: {
+    //获取用户信息
+    async getUserInfo() {
+      try {
+        await this.$store.dispatch("user/getUserInfo");
+      } catch (err) {
+        this.tologin()
+      }
+    },
+    //去登录
+    tologin() {
+      setTimeout(() => {
+        Dialog.confirm({
+          title: "登录提示",
+          message: "立刻去登录",
+          confirmButtonText: "立刻登录",
+          cancelButtonText: "稍后登录",
+        })
+          .then(() => {
+            this.$router.push({ name: "login" });
+          })
+          .catch(() => {
+            console.log(1);
+          });
+      }, 200);
+    },
     exitLogin() {
       Dialog.confirm({
         title: "提示",
@@ -153,30 +169,22 @@ export default {
         cancelButtonText: "取消",
       })
         .then(() => {
-          //  this.$router.push({
-          //   name: "home",
-          // });
-            localStorage.removeItem("token");
+          localStorage.removeItem("token");
+          this.$router.push({ name: "main" });
           location.reload();
         })
-        .catch(() => {
-
-        });
+        .catch(() => {});
     },
-    topublish(to,title) {
+    topublish(to, title) {
       if (this.isshow == true) {
         this.$router.push({
           name: to,
-          query:{
-            title
-          }
+          query: {
+            title,
+          },
         });
       } else {
-        this.$dialog
-          .alert({
-            message: "请先登录",
-          })
-          .then(() => {});
+     this.tologin()
       }
     },
     skipLogin() {
@@ -365,6 +373,8 @@ export default {
       position: relative;
       flex: 30%;
       padding-top: 20%;
+      display: flex;
+      align-items: center;
       .back {
         position: absolute;
         left: 5%;
@@ -372,7 +382,7 @@ export default {
       }
       h3 {
         position: absolute;
-        top: 32%;
+        top: 10%;
         left: 42%;
         font-family: Inter-SemiBold;
         font-size: 18px;

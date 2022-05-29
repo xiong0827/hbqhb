@@ -30,12 +30,13 @@
         <van-icon class="icon" name="lock" color="#700BEF" size="30" /><input type="password"
           :class="{ outline: check.checkRePassword() == false }" v-model="repassword" name="" placeholder="再次输入" />
       </div>
-    </div>
-    <div class="bottom">
+         <div class="bottom">
       <van-button round v-show="registerShow" type="info" class="button1" @click="userRegister">注册</van-button>
       <van-button round disabled v-show="!registerShow" color="#6f0bef" class="button1" @click="userRegister">注册
       </van-button>
     </div>
+    </div>
+ 
   </div>
 </template>
 
@@ -156,6 +157,9 @@ export default {
 .register {
   flex: 1;
   overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 
   .top {
     display: flex;
@@ -211,13 +215,26 @@ export default {
   }
 
   .center {
-    height: 80%;
+    height: 90%;
     // background: pink;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-
+  .bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    .button1 {
+      width: 325px;
+      height: 50px;
+      border-radius: 30px;
+      font-size: 23px;
+      font-weight: normal;
+      line-height: 32px;
+    }
+  }
     h1 {
       width: 183px;
       height: 67px;
@@ -294,20 +311,6 @@ export default {
     }
   }
 
-  .bottom {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 10%;
 
-    .button1 {
-      width: 325px;
-      height: 50px;
-      border-radius: 30px;
-      font-size: 23px;
-      font-weight: normal;
-      line-height: 32px;
-    }
-  }
 }
 </style>

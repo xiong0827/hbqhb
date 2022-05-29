@@ -54,6 +54,7 @@ export default {
         )
         {
         let result = await reqGetUserInfo(phone_id)
+       
         if (result.status==200) {
             commit('GETUSERINFO',result.userinfolist)
             return 'ok'

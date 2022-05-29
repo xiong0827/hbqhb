@@ -10,7 +10,7 @@
       <Searchinput placeholdervalue="搜索联系人" toppx="30" />
     </div>
     <!-- 底部 -->
-    <div class="bottom">
+    <div class="bottom" @click="$router.push({name:'chat'})">
       <li>
         <span class="pic">
           <img src="./images/1.png" alt="" />

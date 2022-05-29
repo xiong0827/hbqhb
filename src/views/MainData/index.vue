@@ -78,9 +78,6 @@ export default {
   },
   data() {
     return {
-     
-     
-     
       show: false,
       minDate: new Date(1900, 0, 1),
       maxDate: new Date(2006, 0, 31),
@@ -128,7 +125,6 @@ export default {
     clearinfo()
     {
     
-      location.reload();
      
     },
     //保存信息
