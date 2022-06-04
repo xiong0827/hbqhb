@@ -60,7 +60,7 @@ export default class checkObj {
             this.checkPassword(),
             this.checkPhone(),
         ]
-        promiseall = promiseall.filter(Element => Element != 0)
-        return promiseall.every(Element => Element == 1)
+       let bool= promiseall.every(Element => Element === true)
+       return bool
     }
 }

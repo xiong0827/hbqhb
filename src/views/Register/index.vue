@@ -11,32 +11,68 @@
       </div>
       <div class="phone">
         <van-icon class="icon" name="manager" color="#700BEF" size="30" /><input
-          :class="{ outline: check.checkPhone() == false }" v-model.number="phone_id" type="tel" placeholder="手机号" />
+          :class="{ outline: check.checkPhone() == false }"
+          v-model.number="phone_id"
+          type="tel"
+          placeholder="手机号"
+        />
       </div>
       <div class="code">
-        <van-icon class="icon" name="comment" color="#700BEF" size="30" /><input v-model.number="code" type="number"
-          :class="{ outline: code.length < 6 }" name="" placeholder="验证码" max="6" />
-        <van-button type="info" size="30" round class="getcode" v-if="timer == 0 && check.checkPhone()" @click="getcode">获取验证码
+        <van-icon class="icon" name="comment" color="#700BEF" size="30" /><input
+          v-model.number="code"
+          type="number"
+          :class="{ outline: code.length < 6 }"
+          name=""
+          placeholder="验证码"
+          max="6"
+        />
+        <van-button
+          type="info"
+          size="30"
+          round
+          class="getcode"
+          v-if="timer == 0 && check.checkPhone()"
+          @click="getcode"
+          >获取验证码
         </van-button>
-        <van-button type="info" disabled  round class="getcode" v-else-if="timer == 0 && !check.checkPhone()" @click="getcode">
-          获取验证码</van-button>
-        <van-button disabled class="getcode" round v-else>{{ timer }}秒后重发</van-button>
+        <van-button
+          type="info"
+          disabled
+          round
+          class="getcode"
+          v-else-if="timer == 0 && !check.checkPhone()"
+          @click="getcode"
+        >
+          获取验证码</van-button
+        >
+        <van-button disabled class="getcode" round v-else
+          >{{ timer }}秒后重发</van-button
+        >
       </div>
       <div class="password">
-        <van-icon class="icon" name="lock" color="#700BEF" size="30" /><input type="password"
-          :class="{ outline: check.checkPassword() == false }" v-model="password" name="" placeholder="密码 六位以上的字母数字" />
+        <van-icon class="icon" name="lock" color="#700BEF" size="30" /><input
+          type="password"
+          :class="{ outline: check.checkPassword() == false }"
+          v-model="password"
+          name=""
+          placeholder="密码 六位以上的字母数字"
+        />
       </div>
       <div class="password">
-        <van-icon class="icon" name="lock" color="#700BEF" size="30" /><input type="password"
-          :class="{ outline: check.checkRePassword() == false }" v-model="repassword" name="" placeholder="再次输入密码" />
+        <van-icon class="icon" name="lock" color="#700BEF" size="30" /><input
+          type="password"
+          :class="{ outline: check.checkRePassword() == false }"
+          v-model="repassword"
+          name=""
+          placeholder="再次输入密码"
+        />
       </div>
-         <div class="bottom">
-      <van-button round v-show="registerShow" type="info" class="button1" @click="userRegister">注册</van-button>
-      <van-button round disabled v-show="!registerShow" color="#6f0bef" class="button1" @click="userRegister">注册
-      </van-button>
+      <div class="bottom">
+        <van-button round type="info" class="button1" @click="userRegister"
+          >注册</van-button
+        >
+      </div>
     </div>
-    </div>
- 
   </div>
 </template>
 
@@ -90,38 +126,42 @@ export default {
               message: result,
             })
             .then(() => {
-              this.$store.commit('user/GETCODE', '')
-              this.$router.push({ name: 'login' })
+              this.$store.commit("user/GETCODE", "");
+              this.$router.push({ name: "login" });
             });
-
         } catch (error) {
-
           this.$dialog
             .alert({
               message: error,
             })
             .then(() => {
               this.tipsMsg = "";
-              this.code = ''
+              this.code = "";
             });
-
         }
-
       } else if (!this.check.checkCode(this.phonecode)) {
-        this.$dialog
-          .alert({
-            message: "验证码错误",
-          })
-          .then(() => {
-            this.code = ''
-          });
+        if (!this.checkPhoneAndPwd.checkAll()) {
+          this.$dialog
+            .alert({
+              message: "手机号或密码格式错误",
+            })
+            .then(() => {});
+        } else {
+          this.$dialog
+            .alert({
+              message: "验证码错误",
+            })
+            .then(() => {
+              this.code = "";
+            });
+        }
       } else {
         this.$dialog
           .alert({
             message: "请先获取验证码",
           })
           .then(() => {
-            this.code = '';
+            this.code = "";
           });
       }
     },
@@ -131,6 +171,13 @@ export default {
       return new checkObj({
         phone: this.phone_id,
         code: this.code,
+        password: this.password,
+        repassword: this.repassword,
+      });
+    },
+    checkPhoneAndPwd() {
+      return new checkObj({
+        phone: this.phone_id,
         password: this.password,
         repassword: this.repassword,
       });
@@ -193,11 +240,13 @@ export default {
         width: 180px;
         height: 180px;
         transform: rotate(107.69deg);
-        background: linear-gradient(155deg,
-            #92e1d3 25%,
-            #92e1d3 25%,
-            rgba(226, 226, 226, 0) 90%,
-            rgba(226, 226, 226, 0) 90%);
+        background: linear-gradient(
+          155deg,
+          #92e1d3 25%,
+          #92e1d3 25%,
+          rgba(226, 226, 226, 0) 90%,
+          rgba(226, 226, 226, 0) 90%
+        );
         position: absolute;
         border-radius: 50%;
         top: -60px;
@@ -221,25 +270,25 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-   >div{
+    > div {
       margin-top: 20px;
     }
-  .bottom {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    .button1 {
-      width: 325px;
-      height: 50px;
-      border-radius: 30px;
-      font-size: 23px;
-      font-weight: normal;
-      line-height: 32px;
+    .bottom {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .button1 {
+        width: 325px;
+        height: 50px;
+        border-radius: 30px;
+        font-size: 23px;
+        font-weight: normal;
+        line-height: 32px;
+      }
     }
-  }
     h1 {
-    width: 100%;
+      width: 100%;
       height: 67px;
       font-family: RobotoRoman-Medium;
       font-size: 48px;
@@ -266,7 +315,7 @@ export default {
     }
 
     .outline {
-      border: 2px solid #e84118 ;
+      border: 2px solid #e84118;
     }
 
     .phone {
@@ -300,7 +349,7 @@ export default {
         position: absolute;
         top: 5%;
         right: 0;
-        height:97%;
+        height: 97%;
       }
     }
 
@@ -316,7 +365,5 @@ export default {
       }
     }
   }
-
-
 }
 </style>

@@ -129,6 +129,7 @@
         <van-cell title="退出登录" is-link @click="exitLogin" />
       </div>
     </div>
+     <Tabbar name="main" />
   </div>
 </template>
 
