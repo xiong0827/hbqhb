@@ -8,8 +8,8 @@
 body {
   display: flex;
   justify-content: flex-start;
-  width: 100%;
-  height: 95vh;
+  width: 100vw;
+  height: 100vh;
   #app {
    flex: 1;
     max-width: 412px;
