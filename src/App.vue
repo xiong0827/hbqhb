@@ -7,13 +7,16 @@
 <style lang="less">
 body {
   display: flex;
-  justify-content: flex-start;
-  width: 100vw;
+  justify-content: center;
+  flex-direction: row;
   height: 100vh;
-  max-width: 412px;
   #app {
+    position: relative;
+    background-color: #fff;
+    max-width: 412px;
     flex: 1;
     display: flex;
+    border:1px solid silver;
   }
 }
 </style>

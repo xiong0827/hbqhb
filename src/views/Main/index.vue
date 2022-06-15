@@ -129,7 +129,7 @@
         <van-cell title="退出登录" is-link @click="exitLogin" />
       </div>
     </div>
-     <Tabbar name="main" />
+     <Tabbar name="main" v-if="editShow"/>
   </div>
 </template>
 
@@ -322,8 +322,6 @@ export default {
       display: flex;
       flex-direction: column;
       border-radius: 25px 25px 0px 0px;
-      overflow-y: scroll;
-      overflow-x: hidden;
       margin-bottom: 50px;
       li {
         display: flex;

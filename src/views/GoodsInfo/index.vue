@@ -448,6 +448,7 @@ export default {
     height: 70px;
     position: fixed;
     width: 100%;
+    max-width: 412px;
     bottom: 0;
     display: flex;
     justify-content: space-between;

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@vant/area-data": "^1.2.4",
+    "animate": "^1.0.0",
     "axios": "^0.26.1",
     "core-js": "^3.8.3",
     "mockjs": "^1.1.0",
@@ -53,9 +54,7 @@
     "parserOptions": {
       "parser": "@babel/eslint-parser"
     },
-    "rules": {
-  
-    },
+    "rules": {},
     "overrides": [
       {
         "files": [

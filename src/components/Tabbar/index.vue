@@ -44,6 +44,9 @@ export default {
 .tabbar {
   height: 64px;
   max-width: 412px;
+  position: absolute;
+  position: sticky;
+  bottom: 0;
   .add {
     background: #ff6e53;
     border-radius: 40%;

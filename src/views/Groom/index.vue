@@ -1,7 +1,7 @@
 <template>
   <div class="groom">
     <Backleft backsize="30" margin="20" />
-    <Tabbar />
+
     <!-- 上部分 -->
     <div class="title">
       <p>宝藏圈子</p>
@@ -171,6 +171,7 @@
         </span>
       </div>
     </div>
+        <Tabbar />
   </div>
 </template>
 
@@ -184,6 +185,7 @@ export default {
 .groom {
   flex: 1;
   background: #ff6d55;
+  position: relative;
   .back {
     margin: 10px;
   }

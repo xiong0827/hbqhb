@@ -1,12 +1,19 @@
 <template>
   <div class="welcome">
+    
     <div class="Ellipse"></div>
+   
     <div class="Ellipse2"></div>
+     
     <span class="tiaoguo">
       <router-link to="/home">跳过>></router-link>
     </span>
+    <transition name="animate__animated animate__bounce" enter-active-class="animate__backInLeft" appear-active-class="animate__backInLeft">
     <span class="welcometitle"><p>welcome</p></span>
+        </transition>
+   
     <div class="svg"></div>
+    
     <span
       class="button"
       @click="
@@ -26,10 +33,12 @@
     >
       <a>注册</a></span
     >
+
   </div>
 </template>
 
 <script>
+import 'animate'
 export default {};
 </script>
 

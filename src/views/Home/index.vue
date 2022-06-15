@@ -91,54 +91,60 @@
         </li>
       </div>
 
-        <!-- <van-pull-refresh
+      <!-- <van-pull-refresh
         v-model="isLoading"
         success-text="刷新成功"
         @refresh="onRefresh"
       > -->
-          <GoodsList>
-            <template slot-scope={list} >
-              <li v-for="(goods, index) in list" :key="index" v-show="goods">
-          <a
-            @click="
-              toRouters('goodsinfo', {
-                goods_id: goods.goods_id,
-              })
-            "
-          >
-            <img v-if="goods.goodsphoto" v-lazy="goods.goodsphoto[0]" alt="" />
-            <div>
-              <p>{{ goods.title }}</p>
-            </div>
-            <b>￥ {{ goods.gprice }}</b>
-            <div class="want">
-              <i v-if="goods.wantlist">{{ goods.wantlist.length }}</i>
-              <p>想要</p>
-            </div>
-            <div class="wantbuy">我想要</div>
-          </a>
-        </li>
-            </template>
-          </GoodsList>
-        <!-- </div> -->
+   
+        <GoodsList>
+          <template slot-scope="{ list }">
+    
+            <li v-for="(goods, index) in list" :key="index" v-show="goods">
+              <a
+                @click="
+                  toRouters('goodsinfo', {
+                    goods_id: goods.goods_id,
+                  })
+                "
+              >
+                <img
+                  v-if="goods.goodsphoto"
+                  v-lazy="goods.goodsphoto[0]"
+                  alt=""
+                />
+                <div>
+                  <p>{{ goods.title }}</p>
+                </div>
+                <b>￥ {{ goods.gprice }}</b>
+                <div class="want">
+                  <i v-if="goods.wantlist">{{ goods.wantlist.length }}</i>
+                  <p>想要</p>
+                </div>
+                <div class="wantbuy">我想要</div>
+              </a>
+            </li>
+          </template>
+        </GoodsList>
+    
+      <!-- </div> -->
     </div>
     <Tabbar name="home" />
   </div>
 </template>
 
 <script>
-import {toRouter} from '@/units/tologin'
-import GoodsList from '@/components/Lazy'
+import { toRouter } from "@/units/tologin";
+import GoodsList from "@/components/Lazy";
 export default {
-  components:{
-   GoodsList
+  components: {
+    GoodsList,
   },
   data() {
-    return {
-    };
+    return {};
   },
   methods: {
-    toRouters:toRouter,
+    toRouters: toRouter,
   },
 };
 </script>
@@ -147,7 +153,7 @@ export default {
 .home {
   flex: 1;
   display: flex;
-  overflow-x: hidden;
+  flex-direction: column;
   .container {
     flex: 1;
     display: flex;
@@ -207,9 +213,11 @@ export default {
         margin-bottom: 5px;
 
         img {
-          box-shadow: 0px 2px 0px 2px darkgray;
+          border: 2px solid silver;
           width: 110px;
+          border-radius: 8px;
           height: 80px;
+          box-shadow: 1px 2px 1px #5f5f5f;
         }
         p {
           font-family: Roboto-Regular;

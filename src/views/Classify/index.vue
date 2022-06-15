@@ -171,6 +171,7 @@ export default {
           height: 44px;
           border-radius: 12px;
           background: #f5f5f5;
+          box-shadow:1px 2px 1px  #5f5f5f;
         }
         p {
           display: block;
