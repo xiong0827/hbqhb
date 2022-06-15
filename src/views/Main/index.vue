@@ -136,7 +136,6 @@
 <script>
 import { mapState } from "vuex";
 import { Dialog,ImagePreview} from "vant";
-
 export default {
   mounted() {
     this.getUserInfo();
@@ -325,6 +324,7 @@ export default {
       border-radius: 25px 25px 0px 0px;
       overflow-y: scroll;
       overflow-x: hidden;
+      margin-bottom: 50px;
       li {
         display: flex;
         list-style: none;

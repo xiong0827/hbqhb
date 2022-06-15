@@ -447,7 +447,6 @@ export default {
     background: #fff;
     height: 70px;
     position: fixed;
-    max-width: 412px;
     width: 100%;
     bottom: 0;
     display: flex;

@@ -98,10 +98,10 @@ export default {};
     }
   }
   .svg {
-    transform: translateY(-5%);
+    
     width: 100%;
     height: 50%;
-    background: url(./images/svg1.svg) ;
+    background: url(./images/svg1.svg) no-repeat;
   }
   .buttonclass {
     //  flex: 1;

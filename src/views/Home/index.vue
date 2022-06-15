@@ -91,24 +91,14 @@
         </li>
       </div>
 
-      <van-list
-        class="goodslist"
-        v-model="loading"
-        :finished="finished"
-        finished-text="没有更多了"
-        @load="onLoad"
-        offset="300"
-        :error.sync="error"
-        error-text="请求失败，点击重新加载"
-        v-if="goodsCount"
-      >
         <!-- <van-pull-refresh
         v-model="isLoading"
         success-text="刷新成功"
         @refresh="onRefresh"
       > -->
-        <!-- <div   class="goodslist"> -->
-        <li v-for="(goods, index) in list" :key="index" v-show="goods">
+          <GoodsList>
+            <template slot-scope={list} >
+              <li v-for="(goods, index) in list" :key="index" v-show="goods">
           <a
             @click="
               toRouters('goodsinfo', {
@@ -128,120 +118,27 @@
             <div class="wantbuy">我想要</div>
           </a>
         </li>
+            </template>
+          </GoodsList>
         <!-- </div> -->
-      </van-list>
-
-      <!-- </van-pull-refresh> -->
     </div>
-    <!-- </van-pull-refresh> -->
     <Tabbar name="home" />
   </div>
 </template>
 
 <script>
-import { Dialog } from "vant";
-import { mapState } from "vuex";
 import {toRouter} from '@/units/tologin'
+import GoodsList from '@/components/Lazy'
 export default {
+  components:{
+   GoodsList
+  },
   data() {
     return {
-      pagenum: 6,
-      atpage: 1,
-      isLoading: false,
-      loading: false, // 是否处在加载状态
-      finished: false, // 是否已加载完成
-      error: false,
-      list: [],
-      total: 0,
     };
-  },
-  mounted() {
-    this.getGoodsList();
   },
   methods: {
     toRouters:toRouter,
-    tologin() {
-      setTimeout(() => {
-        Dialog.confirm({
-          title: "登录提示",
-          message: "立刻去登录",
-          confirmButtonText: "立刻登录",
-          cancelButtonText: "稍后登录",
-        })
-          .then(() => {
-            this.$router.push({ name: "login" });
-          })
-          .catch(() => {
-            console.log(1);
-          });
-      }, 200);
-    },
-
-
-    //获取商品列表
-    async getGoodsList() {
-      await this.$store.dispatch("goods/getGoodsList", {
-        pagenum: this.pagenum,
-        atpage: this.atpage,
-      });
-    },
-    async onRefresh() {
-      let max = Math.ceil(this.goodsCount / this.pagenum);
-      let ratpage = Math.floor(Math.random() * (max - 1 + 1)) + 1;
-      this.atpage = ratpage;
-      await this.getList();
-      this.isLoading = false;
-    },
-    async getList() {
-      await this.getGoodsList();
-      this.total = this.goodsCount;
-      if (this.goodsCount == 0) {
-        // 判断获取数据条数若等于0
-        this.list = []; // 清空数组
-        this.finished = true; // 停止加载
-      }
-      // 若数据条数不等于0
-      this.total = this.goodsInfoList.length; // 给数据条数赋值
-      for (const key in this.goodsInfoList) {
-        this.list.push(this.goodsInfoList[key]);
-      }
-      // 将数据放入list中
-      this.loading = false; // 加载状态结束
-      // 如果list长度大于等于总数据条数,数据全部加载完成
-      if (this.list.length >= this.goodsCount) {
-        this.finished = true; // 结束加载状态
-      }
-    },
-    onLoad() {
-      // 若加载条到了底部
-      this.getList(); // 调用上面方法,请求数据
-      this.atpage++;
-    },
-    onRefresh() {
-      this.finished = false; // 清空列表数据
-      this.loading = true; // 将 loading 设置为 true，表示处于加载状态
-      this.atpage = 1; // 分页数赋值为1
-      this.list = []; // 清空数组
-      this.onLoad(); // 重新加载数据
-    },
-    //
-  },
-  computed: {
-    ...mapState("goods", ["goodsInfoList", "goodsCount"]),
-    //商品图片
-    // goodsphoto(goods)
-    // {
-    //   console.log(goods);
-    //   return goods.goodsphoto[0]
-    // }
-    ratpage() {
-      let max = Math.ceil(this.goodsCount / this.pagenum);
-      return Math.floor(Math.random() * (max - 1 + 1)) + 1;
-    },
-  },
-  watch: {
-    // pagenum:{
-    // }
   },
 };
 </script>

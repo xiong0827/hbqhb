@@ -10,9 +10,9 @@ body {
   justify-content: flex-start;
   width: 100vw;
   height: 100vh;
+  max-width: 412px;
   #app {
-   flex: 1;
-    max-width: 412px;
+    flex: 1;
     display: flex;
   }
 }

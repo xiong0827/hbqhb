@@ -43,9 +43,9 @@ export default {
 <style lang="less" scoped>
 .tabbar {
   height: 64px;
-  max-width: 400px;
+  max-width: 412px;
   .add {
-    background: blueviolet;
+    background: #ff6e53;
     border-radius: 40%;
     i {
       font-size: 20px;
