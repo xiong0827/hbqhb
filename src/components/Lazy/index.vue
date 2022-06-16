@@ -10,18 +10,17 @@
     error-text="请求失败，点击重新加载"
     v-if="goodsCount"
   >
-    <slot :list='list'></slot>
+    <slot :list="list"></slot>
   </van-list>
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import { mapState } from "vuex";
 export default {
-    name:'GoodsList',
-mounted()
-{
-this.getGoodsList()
-},
+  name: "GoodsList",
+  mounted() {
+    this.getGoodsList();
+  },
   data() {
     return {
       searchcode: "",
@@ -36,7 +35,7 @@ this.getGoodsList()
       pricestatus: true,
       gtimesort: 0,
       timestatus: true,
-      error:false
+      error: false,
     };
   },
   methods: {

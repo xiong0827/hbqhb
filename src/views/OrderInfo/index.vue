@@ -162,7 +162,6 @@ export default {
 <style lang="less" scoped>
 .order {
   flex: 1;
-  overflow-x: hidden;
   //   顶部
   .top {
     height: 100px;
@@ -338,11 +337,11 @@ export default {
     }
   }
   .last {
-    position: fixed;
+    position: sticky;
     bottom: 0;
     left: 0;
     background: transparent;
-    width: 390px;
+    width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
