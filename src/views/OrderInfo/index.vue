@@ -75,7 +75,7 @@
           <li>买家昵称:{{ buserinfo.nickname }}</li>
           <li>
             <span>订单编号:{{ orderInfo.order_id }}</span>
-            <span><button>复制</button></span>
+            <span @click="copy(orderInfo.order_id)"><button>复制</button></span>
           </li>
           <li>宝贝快照:发生交易争议时，可作为判断依据</li>
           <!-- <li>支付宝交易号:20210205220011294814257</li> -->
@@ -104,6 +104,7 @@ export default {
     this.getOrderInfo();
   },
   methods: {
+    //获取订单详情
     async getOrderInfo() {
       try {
         await this.$store.dispatch(
@@ -118,7 +119,11 @@ export default {
           .then((this.errorshow = true));
       }
     },
-
+    //复制订单信息
+    copy(context)
+    {
+     document.execCommand('copy',false,context)
+    },
     //去支付
     async topay() {
       if (this.orderInfo.orderstatus == 1) {

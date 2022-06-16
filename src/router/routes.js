@@ -113,11 +113,8 @@ export default [{
             },
         ],
         beforeEnter: (to, from, next) => {
-            console.log(from.name);
             if (from.name != 'main') {
-                next({
-                    name: from.name
-                })
+                next(false)
             } else {
                 next()
             }
