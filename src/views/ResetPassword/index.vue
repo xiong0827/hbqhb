@@ -57,13 +57,8 @@
       </div>
     </div>
     <div class="bottom">
-      <van-button
-        round
-        v-show="isshow"
-        type="info"
-        class="button1"
-        @click="updatepassword"
-        >确定</van-button
+      <van-button round type="info" class="button1" @click="updatepassword"
+        >重置密码</van-button
       >
     </div>
   </div>
@@ -131,32 +126,36 @@ export default {
       }, 1000);
     },
     async updatepassword() {
+      this.newpassword !== this.repassword &&
+        this.$dialog.alert({
+          message: "请输入一样的密码",
+        });
       try {
         let result = await this.$store.dispatch("user/upDatePassword", {
           oldpassword: this.oldpassword,
           password: this.newpassword,
         });
         this.$dialog
-        .alert({
-          // title:'标题呀',
-          message:result+'请重新登录',
-        })
-        .then(() => {
-          localStorage.removeItem('token')
-          this.$router.replace("main");
-          location.reload()
-        });
+          .alert({
+            // title:'标题呀',
+            message: result + "请重新登录",
+          })
+          .then(() => {
+            localStorage.removeItem("token");
+            this.$router.replace("main");
+            location.reload();
+          });
       } catch (error) {
-          this.$dialog
-        .alert({
-          // title:'标题呀',
-          message:error,
-        })
-        .then(() => {
-          this.newpassword='',
-          this.oldpassword='',
-          this.repassword=''
-        });
+        this.$dialog
+          .alert({
+            // title:'标题呀',
+            message: error,
+          })
+          .then(() => {
+            (this.newpassword = ""),
+              (this.oldpassword = ""),
+              (this.repassword = "");
+          });
       }
     },
   },

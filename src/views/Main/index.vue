@@ -322,7 +322,6 @@ export default {
       display: flex;
       flex-direction: column;
       border-radius: 25px 25px 0px 0px;
-      margin-bottom: 50px;
       li {
         display: flex;
         list-style: none;
