@@ -49,5 +49,8 @@ export const reqGetOrderInfo=order_id=>requests({url:'/order/getorderinfo',metho
 //提交订单并支付 /order/updateorder
 export const reqUpdateOrder=order_id=>requests({url:'/order/updateorder',method:'post',params:{order_id}})
 
+//获取新闻列表 
+export const reqGetNewsList=()=>requests({url:'/news/wxarticle/demo',method:'get'})
+
 
 

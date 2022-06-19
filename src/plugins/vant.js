@@ -47,7 +47,6 @@ Vue.use(CheckboxGroup);
 Vue.use(VanImage);
 import { ImagePreview } from 'vant';
 import { DatetimePicker } from 'vant';
-
 Vue.use(DatetimePicker);
 
 // 全局注册

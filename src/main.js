@@ -32,6 +32,9 @@ Vue.component(UpLoaderOne.name, UpLoaderOne)
 Vue.component(Selectsite.name, Selectsite)
 Vue.component(AddressEdit.name, AddressEdit)
 Vue.component(Share.name, Share)
+//引入分页器全局组件
+import Pagination from '@/components/Pagination'
+Vue.component(Pagination.name,Pagination)
 //懒加载
 // Vue.use(Lazyload, {
 //   lazyComponent: true,

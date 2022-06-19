@@ -14,6 +14,12 @@ module.exports = defineConfig({
         changeOrigin: true,
         // pathRewrite:{'^views':'/'},
       },
+      '/news': {
+        target: 'https://api.gugudata.com',
+        ws: true,
+        changeOrigin: true,
+        // pathRewrite:{'^views':'/'},
+      },
       '/commodity': {
         target: 'http://101.43.12.130:3000',
         ws: true,

@@ -4,22 +4,23 @@
 
     <!-- 上部分 -->
     <div class="title">
-      <p>宝藏圈子</p>
+      <p>时事新闻</p>
     </div>
     <div class="production">
-      <p>有趣的灵魂万里挑一</p>
+      <p>更宽广的视角</p>
     </div>
     <!-- 下部分 -->
-    <div class="container">
-      <div class="card">
+    <div class="container" v-if="!isLoading">
+      <div class="card" v-for="Article,index in NewsList" :key="index" :alt="Article.ArticleSummary" @click="showModel(index)">
         <!-- 头像 -->
-        <span class="top">
+        <span class="top" >
           <li class="a">
-            <img src="./images/3.png" alt="" />
+            <img :src="Article.AuthorHeadImageUrl" alt="" />
+            
           </li>
           <li class="b">
-            <p class="name">王二</p>
-            <p class="time">3分钟前</p>
+            <p class="name">{{Article.AuthorName}}</p>
+            
           </li>
           <li class="c">
             <Share />
@@ -27,12 +28,12 @@
         </span>
         <!-- 留言 -->
         <span class="say">
-          <p>
-            <a href="">
-              这里是最新的产品,休闲或正式的工作穿着舒适
-              <img src="./images/Bitmap.png" alt=""
-            /></a>
-          </p>
+          <p >
+              {{Article.ArticleTitle}}
+          </p> 
+          <img :src="Article.ArticleCoverImageUrl"/>
+                       
+            <i class="time">{{Article.ArticlePublishDateTime}}</i>
         </span>
         <!-- 操作 -->
         <span class="control">
@@ -50,133 +51,77 @@
           </li>
         </span>
       </div>
-
-      <div class="card">
-        <!-- 头像 -->
-        <span class="top">
-          <li class="a">
-            <img src="./images/2.png" alt="" />
-          </li>
-          <li class="b">
-            <p class="name">张三</p>
-            <p class="time">5小时前</p>
-          </li>
-          <li class="c">
-            <Share />
-          </li>
-        </span>
-        <!-- 留言 -->
-        <span class="say">
-          <p>
-            <a href="">
-              非常舒适的鞋子
-              <img src="./images/Bitmap.png" alt=""
-            /></a>
-          </p>
-        </span>
-        <!-- 操作 -->
-        <span class="control">
-          <li>
-            <p><van-icon name="like-o" size="30" /></p>
-            <p>喜欢</p>
-          </li>
-          <li>
-            <p><van-icon name="chat-o" size="30" /></p>
-            <p>评论</p>
-          </li>
-          <li>
-            <p><van-icon name="share-o" size="30" /></p>
-            <p>分享</p>
-          </li>
-        </span>
-      </div>
-
-      <div class="card">
-        <!-- 头像 -->
-        <span class="top">
-          <li class="a">
-            <img src="./images/5.png" alt="" />
-          </li>
-          <li class="b">
-            <p class="name">李四</p>
-            <p class="time">3分钟前()广告</p>
-          </li>
-          <li class="c">
-            <Share />
-          </li>
-        </span>
-        <!-- 留言 -->
-        <span class="say">
-          <p>
-            <a href="">
-              这里是最新的产品,适合休闲或正式的工作
-              <img src="./images/Bitmap.png" alt=""
-            /></a>
-          </p>
-        </span>
-        <!-- 操作 -->
-        <span class="control">
-          <li>
-            <p><van-icon name="like-o" size="30" /></p>
-            <p>喜欢</p>
-          </li>
-          <li>
-            <p><van-icon name="chat-o" size="30" /></p>
-            <p>评论</p>
-          </li>
-          <li>
-            <p><van-icon name="share-o" size="30" /></p>
-            <p>分享</p>
-          </li>
-        </span>
-      </div>
-
-      <div class="card">
-        <!-- 头像 -->
-        <span class="top">
-          <li class="a">
-            <img src="./images/6.png" alt="" />
-          </li>
-          <li class="b">
-            <p class="name">李四</p>
-            <p class="time">3分钟前()广告</p>
-          </li>
-          <li class="c">
-            <van-icon name="ellipsis" size="30" color="black" />
-          </li>
-        </span>
-        <!-- 留言 -->
-        <span class="say">
-          <p>
-            <a href="">
-              这里是最新的产品,适合休闲或正式的工作
-              <img src="./images/Bitmap.png" alt=""
-            /></a>
-          </p>
-        </span>
-        <!-- 操作 -->
-        <span class="control">
-          <li>
-            <p><van-icon name="like-o" size="30" /></p>
-            <p>喜欢</p>
-          </li>
-          <li>
-            <p><van-icon name="chat-o" size="30" /></p>
-            <p>评论</p>
-          </li>
-          <li>
-            <p><van-icon name="share-o" size="30" /></p>
-            <p>分享</p>
-          </li>
-        </span>
+          <div class="choose-order">
+        <PaginAction
+        :pageNo="page"
+        :pageSize="limit"
+        :total="DataStatus.DataTotalCount"
+        :continues="5"
+        @getPageNo="getPageNo"
+        />
       </div>
     </div>
+  
+     <van-loading size="24px" vertical v-if="isLoading">加载中...</van-loading>
         <Tabbar />
   </div>
 </template>
 
 <script>
-export default {
+import {
+    Dialog
+} from "vant";
+ export default {
+  data() {
+    return {
+      page: 1,
+      limit: 2,
+      NewsList: {},
+      isLoading: false,
+      DataStatus: {},
+    };
+  },
+  mounted() {
+    try {
+        this.getDate();
+    } catch (error) {
+                this.$dialog.alert({
+            message:'<li>获取新闻列表失败</li>'+error
+        })
+    }
+  },
+  methods: {
+    async getDate() {
+      this.isLoading = true;
+      let result = await this.$api.reqGetNewsList();
+      this.DataStatus = result.DataStatus;
+      if (this.DataStatus.StatusCode == 100) {
+        this.NewsList = result.Data;
+        this.isLoading = false;
+      }
+    },
+    getPageNo(page) {
+      this.page = page;
+      this.getDate();
+    },
+    //获取模态框信息
+    showModel(index)
+    {
+           Dialog.confirm({
+                title: "主要内容",
+                 message:this.NewsList[index].ArticleContent,
+                confirmButtonText: "查看原文",
+                cancelButtonText: "返回首页",
+                width:'360px'
+            })
+            .then(() => {
+              window.location.href=this.NewsList[index].ArticleContentWithTags
+            })
+            .catch(() => {
+                
+            });
+    }
+  },
   computed: {},
 };
 </script>
@@ -185,7 +130,6 @@ export default {
 .groom {
   flex: 1;
   background: #ff6d55;
-  position: relative;
   .back {
     margin: 10px;
   }
@@ -233,7 +177,7 @@ export default {
       list-style: none;
     }
     .card {
-      margin-top: 30px;
+      margin: 15px 0;
       display: flex;
       width: 90%;
       flex-direction: column;
@@ -277,13 +221,7 @@ export default {
           letter-spacing: 0.17px;
           color: #2f2f4a;
         }
-        .time {
-          font-family: Roboto-Regular;
-          font-size: 16px;
-          font-weight: normal;
-          letter-spacing: 0.17px;
-          color: #b1b1bb;
-        }
+
       }
       .c {
         width: 32px;
@@ -293,13 +231,19 @@ export default {
     // 留言
     .say {
       width: 80%;
+      img{
+        height: 160px;
+        width: 100%;
+      }
       p {
         font-family: Roboto-Regular;
-        font-size: 12px;
+        font-size: 15px;
         font-weight: normal;
-        line-height: 36px;
         letter-spacing: 0.17px;
-        color: #adadb7;
+      }
+      .time{
+        margin-top: 10px;
+        float: right;
       }
     }
     // .操作

@@ -4,7 +4,12 @@ export default [{
         name: "login",
         component: () => import("@/views/Login"),
     },
-
+    //新闻
+    {
+     path:'/news',
+     name:'news',
+     component:()=>import('@/views/News')
+    },
     {
         // 首页
         path: "/home",
