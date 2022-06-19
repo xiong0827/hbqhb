@@ -3,24 +3,25 @@
     <Backleft backsize="30" margin="20" />
 
     <!-- 上部分 -->
-    <div class="title">
-      <p>时事新闻</p>
-    </div>
-    <div class="production">
-      <p>更宽广的视角</p>
+    <div class="title" v-show="!isLoading">
+      <p>热点新闻</p>
     </div>
     <!-- 下部分 -->
     <div class="container" v-if="!isLoading">
-      <div class="card" v-for="Article,index in NewsList" :key="index" :alt="Article.ArticleSummary" @click="showModel(index)">
+      <div
+        class="card"
+        v-for="(Article, index) in NewsList"
+        :key="index"
+        :alt="Article.ArticleSummary"
+        @click="showModel(index)"
+      >
         <!-- 头像 -->
-        <span class="top" >
+        <span class="top">
           <li class="a">
             <img :src="Article.AuthorHeadImageUrl" alt="" />
-            
           </li>
           <li class="b">
-            <p class="name">{{Article.AuthorName}}</p>
-            
+            <p class="name">{{ Article.AuthorName }}</p>
           </li>
           <li class="c">
             <Share />
@@ -28,12 +29,11 @@
         </span>
         <!-- 留言 -->
         <span class="say">
-          <p >
-              {{Article.ArticleTitle}}
-          </p> 
-          <img :src="Article.ArticleCoverImageUrl"/>
-                       
-            <i class="time">{{Article.ArticlePublishDateTime}}</i>
+          <p>
+            {{ Article.ArticleTitle }}
+          </p>
+          <img :src="Article.ArticleCoverImageUrl" />
+          <i class="time">{{ Article.ArticlePublishDateTime }}</i>
         </span>
         <!-- 操作 -->
         <span class="control">
@@ -51,27 +51,25 @@
           </li>
         </span>
       </div>
-          <div class="choose-order">
+      <div class="choose-order">
         <PaginAction
-        :pageNo="page"
-        :pageSize="limit"
-        :total="DataStatus.DataTotalCount"
-        :continues="5"
-        @getPageNo="getPageNo"
+          :pageNo="page"
+          :pageSize="limit"
+          :total="DataStatus.DataTotalCount"
+          :continues="5"
+          @getPageNo="getPageNo"
         />
       </div>
     </div>
-  
-     <van-loading size="24px" vertical v-if="isLoading">加载中...</van-loading>
-        <Tabbar />
+
+    <van-loading size="24px" vertical v-if="isLoading">加载中...</van-loading>
+    <!-- <Tabbar /> -->
   </div>
 </template>
 
 <script>
-import {
-    Dialog
-} from "vant";
- export default {
+import { Dialog } from "vant";
+export default {
   data() {
     return {
       page: 1,
@@ -83,11 +81,11 @@ import {
   },
   mounted() {
     try {
-        this.getDate();
+      this.getDate();
     } catch (error) {
-                this.$dialog.alert({
-            message:'<li>获取新闻列表失败</li>'+error
-        })
+      this.$dialog.alert({
+        message: "获取新闻列表失败" + error,
+      });
     }
   },
   methods: {
@@ -95,9 +93,13 @@ import {
       this.isLoading = true;
       let result = await this.$api.reqGetNewsList();
       this.DataStatus = result.DataStatus;
-      if (this.DataStatus.StatusCode == 100) {
+      if (result.DataStatus.StatusCode == 100) {
         this.NewsList = result.Data;
         this.isLoading = false;
+      } else {
+        this.$dialog.alert({
+          message: "获取新闻列表失败" + error,
+        });
       }
     },
     getPageNo(page) {
@@ -105,24 +107,23 @@ import {
       this.getDate();
     },
     //获取模态框信息
-    showModel(index)
-    {
-           Dialog.confirm({
-                title: "主要内容",
-                 message:this.NewsList[index].ArticleContent,
-                confirmButtonText: "查看原文",
-                cancelButtonText: "返回首页",
-                width:'360px'
-            })
-            .then(() => {
-              window.location.href=this.NewsList[index].ArticleContentWithTags
-            })
-            .catch(() => {
-                
-            });
-    }
+    showModel(index) {
+      Dialog.confirm({
+        title: "主要内容",
+        message: this.NewsList[index].ArticleContentWithTags,
+        confirmButtonText: "查看原文",
+        cancelButtonText: "返回首页",
+        width: "360px",
+      })
+        .then(() => {
+          window.location.href = this.NewsList[index].ArticleUrl;
+        })
+        .catch(() => {});
+    },
   },
-  computed: {},
+  computed: {
+
+  },
 };
 </script>
 
@@ -130,6 +131,9 @@ import {
 .groom {
   flex: 1;
   background: #ff6d55;
+  display: flex;
+   justify-content:flex-start;
+   flex-direction: column;
   .back {
     margin: 10px;
   }
@@ -221,7 +225,6 @@ import {
           letter-spacing: 0.17px;
           color: #2f2f4a;
         }
-
       }
       .c {
         width: 32px;
@@ -231,7 +234,7 @@ import {
     // 留言
     .say {
       width: 80%;
-      img{
+      img {
         height: 160px;
         width: 100%;
       }
@@ -241,7 +244,7 @@ import {
         font-weight: normal;
         letter-spacing: 0.17px;
       }
-      .time{
+      .time {
         margin-top: 10px;
         float: right;
       }
