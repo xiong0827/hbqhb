@@ -10,10 +10,8 @@
   },
   "dependencies": {
     "@vant/area-data": "^1.2.4",
-    "animate": "^1.0.0",
     "axios": "^0.26.1",
     "core-js": "^3.8.3",
-    "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
     "qs": "^6.10.3",
     "vant": "^2.12.47",

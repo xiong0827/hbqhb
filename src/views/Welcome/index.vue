@@ -8,9 +8,7 @@
     <span class="tiaoguo">
       <router-link to="/home">跳过>></router-link>
     </span>
-    <transition name="animate__animated animate__bounce" enter-active-class="animate__backInLeft" appear-active-class="animate__backInLeft">
     <span class="welcometitle"><p>welcome</p></span>
-        </transition>
    
     <div class="svg"></div>
     
@@ -38,7 +36,6 @@
 </template>
 
 <script>
-import 'animate'
 export default {};
 </script>
 
