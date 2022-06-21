@@ -86,7 +86,7 @@ import {
         this.getDate();
     } catch (error) {
                 this.$dialog.alert({
-            message:'<li>获取新闻列表失败</li>'+error
+            message:'获取新闻列表失败'+error
         })
     }
   },
@@ -109,13 +109,13 @@ import {
     {
            Dialog.confirm({
                 title: "主要内容",
-                 message:this.NewsList[index].ArticleContent,
+                 message:this.NewsList[index].ArticleContentWithTags,
                 confirmButtonText: "查看原文",
                 cancelButtonText: "返回首页",
                 width:'360px'
             })
             .then(() => {
-              window.location.href=this.NewsList[index].ArticleContentWithTags
+              window.location.href=this.NewsList[index].ArticleUrl
             })
             .catch(() => {
                 
